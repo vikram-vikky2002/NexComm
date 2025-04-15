@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hp\\OneDrive\\NexTurn Training\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {}
+    "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hp\\OneDrive\\NexTurn Training\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
+    "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hp\\OneDrive\\NexTurn Training\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
+        "projectUniqueName": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
         "projectName": "NexCommDAL",
-        "projectPath": "C:\\Users\\Hp\\OneDrive\\NexTurn Training\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hp\\OneDrive\\NexTurn Training\\NexComm\\NexComm\\NexCommDAL\\obj\\",
+        "projectPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
+        "packagesPath": "C:\\Users\\mamun\\.nuget\\packages\\",
+        "outputPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mamun\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -90,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
