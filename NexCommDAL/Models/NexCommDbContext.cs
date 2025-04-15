@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace NexCommDAL.Models;
 
@@ -29,23 +28,14 @@ public partial class NexCommDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var builder = new ConfigurationBuilder()
-                       .SetBasePath(Directory.GetCurrentDirectory())
-                       .AddJsonFile("appsettings.json");
-        var config = builder.Build();
-        var connectionString = config.GetConnectionString("NexCommConnection");
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NexCommDB;Integrated Security=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ChatRoom>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__chatRoom__6C3BF5BEB3AB322B");
+            entity.HasKey(e => e.RoomId).HasName("PK__chatRoom__6C3BF5BE443316F7");
 
             entity.ToTable("chatRoom");
 
@@ -55,7 +45,9 @@ public partial class NexCommDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("createdOn");
-            entity.Property(e => e.IsGroup).HasColumnName("isGroup");
+            entity.Property(e => e.IsGroup)
+                .HasDefaultValue(false)
+                .HasColumnName("isGroup");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.CreatedBy)
@@ -85,7 +77,7 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK__file__C2C6FFDCEAB7F12F");
+            entity.HasKey(e => e.FileId).HasName("PK__file__C2C6FFDC5F63BB60");
 
             entity.ToTable("file");
 
@@ -112,7 +104,7 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__message__4808B993B5617009");
+            entity.HasKey(e => e.MessageId).HasName("PK__message__4808B99363125083");
 
             entity.ToTable("message");
 
@@ -135,7 +127,7 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__role__CD98462A9802BBF4");
+            entity.HasKey(e => e.RoleId).HasName("PK__role__CD98462A0D276FF8");
 
             entity.ToTable("role");
 
@@ -151,17 +143,21 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF0DC2E311");
+            entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF5B91A57D");
 
             entity.ToTable("user");
 
             entity.Property(e => e.UserId).HasColumnName("userId");
-            entity.Property(e => e.IdAdmin).HasColumnName("idAdmin");
+            entity.Property(e => e.IsAdmin)
+                .HasDefaultValue(false)
+                .HasColumnName("isAdmin");
             entity.Property(e => e.LastLogin)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("lastLogin");
-            entity.Property(e => e.Live).HasColumnName("live");
+            entity.Property(e => e.Live)
+                .HasDefaultValue(false)
+                .HasColumnName("live");
             entity.Property(e => e.NewUser)
                 .HasDefaultValue(true)
                 .HasColumnName("newUser");

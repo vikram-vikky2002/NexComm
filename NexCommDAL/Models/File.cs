@@ -13,7 +13,7 @@ public partial class File
 
     public string FileType { get; set; } = null!;
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public virtual User User { get; set; } = null!;
 }

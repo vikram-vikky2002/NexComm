@@ -7,11 +7,11 @@ public partial class ChatRoom
 {
     public int RoomId { get; set; }
 
-    public bool IsGroup { get; set; }
+    public bool? IsGroup { get; set; }
 
     public int CreatedBy { get; set; }
 
-    public DateTime CreatedOn { get; set; }
+    public DateTime? CreatedOn { get; set; }
 
     public virtual User CreatedByNavigation { get; set; } = null!;
 }

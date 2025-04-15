@@ -9,7 +9,7 @@ INSERT INTO [role] (roleId, roleName) VALUES
 ('user', 'Regular User');
 
 -- Insert Users
-INSERT INTO [user] (userName, role, phone, password, newUser, live, idAdmin) VALUES
+INSERT INTO [user] (userName, role, phone, password, newUser, live, isAdmin) VALUES
 ('Alice', 'admin', '9876543210', 'alicepass', 0, 1, 1),
 ('Bob', 'mod', '8765432109', 'bobpass', 0, 1, 0),
 ('Charlie', 'user', '7654321098', 'charliepass', 1, 0, 0),

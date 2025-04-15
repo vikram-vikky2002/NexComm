@@ -13,15 +13,15 @@ public partial class User
 
     public string? Phone { get; set; }
 
-    public bool NewUser { get; set; }
+    public bool? NewUser { get; set; }
 
     public string? Password { get; set; }
 
     public DateTime? LastLogin { get; set; }
 
-    public bool Live { get; set; }
+    public bool? Live { get; set; }
 
-    public bool IdAdmin { get; set; }
+    public bool? IsAdmin { get; set; }
 
     public virtual ICollection<ChatRoom> ChatRooms { get; set; } = new List<ChatRoom>();
 

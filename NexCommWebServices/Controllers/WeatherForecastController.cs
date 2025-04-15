@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using NexCommDAL;
 
 namespace NexCommWebServices.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : Controller
     {
         private static readonly string[] Summaries = new[]
         {
@@ -13,21 +14,20 @@ namespace NexCommWebServices.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
+        public NexCommRepository Repository { get; set; }
+
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            Repository = new NexCommRepository();
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public JsonResult GetLiveUsers()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var users = Repository.GetAllOnlineUsers();
+
+            return Json(users);
         }
     }
 }
