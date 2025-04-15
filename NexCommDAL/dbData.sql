@@ -1,4 +1,8 @@
-﻿-- Insert Roles
+﻿USE NexCommDB;
+GO
+
+
+-- Insert Roles
 INSERT INTO [role] (roleId, roleName) VALUES
 ('admin', 'Administrator'),
 ('mod', 'Moderator'),
