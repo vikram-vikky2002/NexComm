@@ -26,7 +26,7 @@ CREATE TABLE [user] (
     password VARCHAR(255),
     lastLogin DATETIME DEFAULT GETDATE(),
     live BIT DEFAULT 0,
-    idAdmin BIT DEFAULT 0
+    isAdmin BIT DEFAULT 0
 );
 GO
 
