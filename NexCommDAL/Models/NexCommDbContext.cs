@@ -1,72 +1,195 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace NexCommDAL.Models
+namespace NexCommDAL.Models;
+
+public partial class NexCommDbContext : DbContext
 {
-    public class NexCommDbContext : DbContext
+    public NexCommDbContext()
     {
-        public DbSet<ChatRoom> ChatRooms { get; set; }
-        public DbSet<File> Files { get; set; }
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
+    }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if(!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB;Initial Catalog=NexCommDB;Integrated Security=true");
-        //    }
-        //}
+    public NexCommDbContext(DbContextOptions<NexCommDbContext> options)
+        : base(options)
+    {
+    }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public virtual DbSet<ChatRoom> ChatRooms { get; set; }
+
+    public virtual DbSet<ChatRoomMember> ChatRoomMembers { get; set; }
+
+    public virtual DbSet<File> Files { get; set; }
+
+    public virtual DbSet<Message> Messages { get; set; }
+
+    public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var builder = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())
+                       .AddJsonFile("appsettings.json");
+        var config = builder.Build();
+        var connectionString = config.GetConnectionString("NexCommConnection");
+        if (!optionsBuilder.IsConfigured)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-
-                var connectionString = config.GetConnectionString("NexCommConnection");
-                optionsBuilder.UseSqlServer(connectionString);
-            }
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Primary Keys
-            modelBuilder.Entity<User>().HasKey(u => u.UserId);
-            modelBuilder.Entity<Role>().HasKey(r => r.RoleId);
-            modelBuilder.Entity<ChatRoom>().HasKey(c => c.RoomId);
-            modelBuilder.Entity<File>().HasKey(f => f.FileId);
-            modelBuilder.Entity<Message>().HasKey(m => m.MessageId);
-
-            // User and Role relationship
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role);
-
-            // User and ChatRoom many-to-many
-            modelBuilder.Entity<ChatRoom>()
-                .HasMany(c => c.Users)
-                .WithMany(u => u.Rooms);
-
-            // ChatRoom and Messages one-to-many
-            modelBuilder.Entity<ChatRoom>()
-                .HasMany(c => c.Messages)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // ChatRoom and Files one-to-many
-            modelBuilder.Entity<ChatRoom>()
-                .HasMany(c => c.Files)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ChatRoom>(entity =>
+        {
+            entity.HasKey(e => e.RoomId).HasName("PK__chatRoom__6C3BF5BEB3AB322B");
+
+            entity.ToTable("chatRoom");
+
+            entity.Property(e => e.RoomId).HasColumnName("roomId");
+            entity.Property(e => e.CreatedBy).HasColumnName("createdBy");
+            entity.Property(e => e.CreatedOn)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdOn");
+            entity.Property(e => e.IsGroup).HasColumnName("isGroup");
+
+            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.ChatRooms)
+                .HasForeignKey(d => d.CreatedBy)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__chatRoom__create__2E1BDC42");
+        });
+
+        modelBuilder.Entity<ChatRoomMember>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("chatRoomMembers");
+
+            entity.Property(e => e.RoomId).HasColumnName("roomId");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.Room).WithMany()
+                .HasForeignKey(d => d.RoomId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__chatRoomM__roomI__31EC6D26");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__chatRoomM__userI__30F848ED");
+        });
+
+        modelBuilder.Entity<File>(entity =>
+        {
+            entity.HasKey(e => e.FileId).HasName("PK__file__C2C6FFDCEAB7F12F");
+
+            entity.ToTable("file");
+
+            entity.Property(e => e.FileId).HasColumnName("fileId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.FileType)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("fileType");
+            entity.Property(e => e.Path)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("path");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Files)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__file__userId__34C8D9D1");
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.MessageId).HasName("PK__message__4808B993B5617009");
+
+            entity.ToTable("message");
+
+            entity.Property(e => e.MessageId).HasColumnName("messageId");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("createdAt");
+            entity.Property(e => e.Text)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("text");
+            entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Messages)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__message__userId__38996AB5");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.RoleId).HasName("PK__role__CD98462A9802BBF4");
+
+            entity.ToTable("role");
+
+            entity.Property(e => e.RoleId)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("roleId");
+            entity.Property(e => e.RoleName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("roleName");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF0DC2E311");
+
+            entity.ToTable("user");
+
+            entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.Property(e => e.IdAdmin).HasColumnName("idAdmin");
+            entity.Property(e => e.LastLogin)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("lastLogin");
+            entity.Property(e => e.Live).HasColumnName("live");
+            entity.Property(e => e.NewUser)
+                .HasDefaultValue(true)
+                .HasColumnName("newUser");
+            entity.Property(e => e.Password)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("password");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("phone");
+            entity.Property(e => e.Role)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("role");
+            entity.Property(e => e.UserName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("userName");
+
+            entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
+                .HasForeignKey(d => d.Role)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__user__role__267ABA7A");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

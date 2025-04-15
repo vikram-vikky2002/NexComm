@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NexCommDAL.Models
+namespace NexCommDAL.Models;
+
+public partial class File
 {
-    public class File
-    {
-        public string FileId { get; set; }
-        public string UserId { get; set; }
-        public string Path { get; set; }
-        public string FileType { get; set; }
-        public DateTime CreatedAt { get; set; }
-    }
+    public int FileId { get; set; }
+
+    public int UserId { get; set; }
+
+    public string Path { get; set; } = null!;
+
+    public string FileType { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }

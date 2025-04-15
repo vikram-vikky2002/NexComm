@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NexCommDAL.Models
+namespace NexCommDAL.Models;
+
+public partial class ChatRoom
 {
-    public class ChatRoom
-    {
-        public string RoomId { get; set; }
-        public bool isGroup { get; set; }
-        public List<User> Users { get; set; }
-        public List<File> Files { get; set; }
-        public List<Message> Messages { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+    public int RoomId { get; set; }
 
-    }
+    public bool IsGroup { get; set; }
+
+    public int CreatedBy { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public virtual User CreatedByNavigation { get; set; } = null!;
 }

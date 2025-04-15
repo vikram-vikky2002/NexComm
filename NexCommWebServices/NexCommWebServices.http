@@ -1,0 +1,6 @@
+@NexCommWebServices_HostAddress = http://localhost:5181
+
+GET {{NexCommWebServices_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

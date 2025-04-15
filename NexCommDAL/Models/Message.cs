@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NexCommDAL.Models
+namespace NexCommDAL.Models;
+
+public partial class Message
 {
-    public class Message
-    {
-        public string MessageId { get; set; }
-        public string UserId { get; set; }
-        public string text { get; set; }
-        public DateTime CreatedAt { get; set; }
+    public int MessageId { get; set; }
 
-    }
+    public int UserId { get; set; }
+
+    public string Text { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }
