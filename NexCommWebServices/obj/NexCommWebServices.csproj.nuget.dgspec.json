@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj": {}
+    "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj": {}
   },
   "projects": {
-    "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
+    "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
+        "projectUniqueName": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
         "projectName": "NexCommDAL",
-        "projectPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
-        "packagesPath": "C:\\Users\\mamun\\.nuget\\packages\\",
-        "outputPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\obj\\",
+        "projectPath": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj",
+        "packagesPath": "C:\\Users\\chokkapu Rajesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\mamun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\chokkapu Rajesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -42,7 +42,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -89,24 +89,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj": {
+    "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj",
+        "projectUniqueName": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj",
         "projectName": "NexCommWebServices",
-        "projectPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj",
-        "packagesPath": "C:\\Users\\mamun\\.nuget\\packages\\",
-        "outputPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommWebServices\\obj\\",
+        "projectPath": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommWebServices\\NexCommWebServices.csproj",
+        "packagesPath": "C:\\Users\\chokkapu Rajesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommWebServices\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\mamun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\chokkapu Rajesh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -121,8 +121,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
-                "projectPath": "E:\\Works\\NexTurn\\FinalProject\\NexComm\\NexCommDAL\\NexCommDAL.csproj"
+              "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj": {
+                "projectPath": "C:\\Users\\chokkapu Rajesh\\OneDrive\\Documents\\NexTurn Project\\NexComm\\NexComm\\NexCommDAL\\NexCommDAL.csproj"
               }
             }
           }
@@ -135,7 +135,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -167,7 +167,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
