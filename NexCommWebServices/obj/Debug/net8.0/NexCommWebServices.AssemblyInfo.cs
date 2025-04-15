@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NexCommWebServices")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43b771310a50164c86b9975759ff65c64a5d81f6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a9d351fc7b2fdd5c3215201e0da7b3d88e0a65a")]
 [assembly: System.Reflection.AssemblyProductAttribute("NexCommWebServices")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NexCommWebServices")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
