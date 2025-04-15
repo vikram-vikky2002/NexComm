@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NexCommDAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e94f84bfbf489195e513f1af7e7769d9596e658f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9895a1fc881a453790d056aa014fff0fa4f27ab1")]
 [assembly: System.Reflection.AssemblyProductAttribute("NexCommDAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NexCommDAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
