@@ -21,6 +21,7 @@ CREATE TABLE [user] (
     userId INT NOT NULL PRIMARY KEY IDENTITY(100,1),
     userName VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL FOREIGN KEY REFERENCES [role](roleId),
+    emailId VARCHAR(255) UNIQUE,
     phone VARCHAR(255),
     newUser BIT DEFAULT 1,
     password VARCHAR(255),
@@ -47,6 +48,7 @@ GO
 CREATE TABLE [file] (
     fileId INT NOT NULL PRIMARY KEY IDENTITY(100,1),
     userId INT NOT NULL FOREIGN KEY REFERENCES [user](userId),
+    roomId INT NOT NULL FOREIGN KEY REFERENCES [chatRoom](roomId),
     path VARCHAR(255) NOT NULL,
     fileType VARCHAR(255) NOT NULL,
     createdAt DATETIME DEFAULT GETDATE()
@@ -56,6 +58,7 @@ GO
 CREATE TABLE [message] (
     messageId INT NOT NULL PRIMARY KEY IDENTITY(100,1),
     userId INT NOT NULL FOREIGN KEY REFERENCES [user](userId),
+    roomId INT NOT NULL FOREIGN KEY REFERENCES [chatRoom](roomId),
     text VARCHAR(255) NOT NULL,
     createdAt DATETIME DEFAULT GETDATE()
 );
