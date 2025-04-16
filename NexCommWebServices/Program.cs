@@ -1,4 +1,6 @@
 
+using NexCommDAL;
+
 namespace NexCommWebServices
 {
     public class Program
@@ -14,6 +16,8 @@ namespace NexCommWebServices
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddTransient<NexCommRepository>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,7 +27,7 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

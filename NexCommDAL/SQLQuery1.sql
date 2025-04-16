@@ -63,3 +63,6 @@ CREATE TABLE [message] (
     createdAt DATETIME DEFAULT GETDATE()
 );
 GO
+
+
+SELECT * FROM chatRoomMembers WHERE userId = 101
