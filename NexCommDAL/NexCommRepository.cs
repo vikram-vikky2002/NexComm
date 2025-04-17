@@ -32,8 +32,8 @@ public class NexCommRepository
         try
         {
             var list = (from b in Context.ChatRoomMembers
-                     where b.UserId == userId
-                     select b.RoomId)
+                        where b.UserId == userId
+                        select b.RoomId)
                      .ToList();
 
             rooms = (from cr in Context.ChatRooms
@@ -48,4 +48,42 @@ public class NexCommRepository
 
         return rooms;
     }
+
+    public bool AddUser(User user)
+    {
+        bool result = false;
+        try
+        {
+            Context.Users.Add(user);
+            Context.SaveChanges();
+            return true;
+        }
+        catch (Exception ex)
+        {
+
+            result = false;
+        }
+        return result;
+    }
+
 }
+    //public bool UpdateUser(User user)
+    //{
+    //    bool result = false;
+    //    try
+    //    {
+    //        User user1 = new User();
+    //       user1 = Context.Users.Find(user.UserId);
+    //        if(user1 != null)
+    //        {
+
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+
+    //        result = false;
+    //    }
+    //    return result;
+    
+

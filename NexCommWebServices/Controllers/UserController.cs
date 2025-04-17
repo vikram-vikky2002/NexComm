@@ -1,50 +1,19 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NexCommDAL;
-using NexCommDAL.Models;
 
 namespace NexCommWebServices.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class NexCommController : Controller
+    public class UserController : Controller
     {
         private readonly NexCommRepository _repository;
-        public NexCommController(NexCommRepository repository)
+        public UserController(NexCommRepository repository)
         {
             _repository = repository;
         }
 
-        // GET: api/chat/online-users
-        [HttpGet("online-users")]
-        public ActionResult<List<User>> GetOnlineUsers()
-        {
-            try
-            {
-                var users = _repository.GetAllOnlineUsers();
-                return Ok(users);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while fetching online users.");
-            }
-        }
-
-        // GET: api/chat/rooms/{userId}
-        [HttpGet("rooms/{userId}")]
-        public ActionResult<List<ChatRoom>> GetChatRoomsByUser(int userId)
-        {
-            try
-            {
-                var rooms = _repository.GetAllChatRoomsByUser(userId);
-                return Ok(rooms);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while fetching chat rooms.");
-            }
-        }
         [HttpPut("room")]
         public JsonResult AddNewUser(Models.User user)
         {
@@ -80,10 +49,5 @@ namespace NexCommWebServices.Controllers
             }
             return Json(status);
         }
-
-
     }
 }
-
-
-
