@@ -25,4 +25,27 @@ public class NexCommRepository
 
         return users;
     }
+
+    public List<ChatRoom> GetAllChatRoomsByUser(int userId)
+    {
+        List<ChatRoom> rooms = new List<ChatRoom>();
+        try
+        {
+            var list = (from b in Context.ChatRoomMembers
+                     where b.UserId == userId
+                     select b.RoomId)
+                     .ToList();
+
+            rooms = (from cr in Context.ChatRooms
+                     where list.Contains(cr.RoomId)
+                     select cr).ToList();
+
+        }
+        catch (Exception)
+        {
+            rooms = [];
+        }
+
+        return rooms;
+    }
 }

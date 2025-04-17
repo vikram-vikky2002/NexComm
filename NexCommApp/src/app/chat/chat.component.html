@@ -1,0 +1,6 @@
+<div *ngFor="let message of messages">
+  <p>{{ message.text }}</p>
+</div>
+<div>
+    <input #messageInput type="text" (keyup.enter)="sendMessage(messageInput.value); messageInput.value=''"/>
+</div>

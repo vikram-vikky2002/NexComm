@@ -1,4 +1,6 @@
 
+using NexCommDAL;
+
 namespace NexCommWebServices
 {
     public class Program
@@ -14,6 +16,19 @@ namespace NexCommWebServices
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
+            builder.Services.AddTransient<NexCommRepository>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,7 +38,9 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseAuthorization();
 
