@@ -16,6 +16,17 @@ namespace NexCommWebServices
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
             builder.Services.AddTransient<NexCommRepository>();
 
             var app = builder.Build();
@@ -28,6 +39,8 @@ namespace NexCommWebServices
             }
 
             //app.UseHttpsRedirection();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseAuthorization();
 
