@@ -13,6 +13,13 @@ namespace NexCommWebServices
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(
+    c =>
+    {
+        c.CustomSchemaIds(type => type.FullName);
+    }
+);
+
 
             var app = builder.Build();
 
@@ -22,6 +29,7 @@ namespace NexCommWebServices
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
 
             app.UseHttpsRedirection();
 

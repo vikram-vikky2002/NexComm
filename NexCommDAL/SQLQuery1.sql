@@ -62,4 +62,10 @@ CREATE TABLE [message] (
     text VARCHAR(255) NOT NULL,
     createdAt DATETIME DEFAULT GETDATE()
 );
+<<<<<<< Updated upstream
 GO
+=======
+GO
+
+
+>>>>>>> Stashed changes
