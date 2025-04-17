@@ -34,6 +34,7 @@ GO
 CREATE TABLE [chatRoom] (
     roomId INT NOT NULL PRIMARY KEY IDENTITY(100,1),
     isGroup BIT DEFAULT 0,
+    groupName VARCHAR(100),
     createdBy INT NOT NULL FOREIGN KEY REFERENCES [user](userId),
     createdOn DATETIME DEFAULT GETDATE()
 );
@@ -62,10 +63,7 @@ CREATE TABLE [message] (
     text VARCHAR(255) NOT NULL,
     createdAt DATETIME DEFAULT GETDATE()
 );
-<<<<<<< Updated upstream
-GO
-=======
 GO
 
 
->>>>>>> Stashed changes
+SELECT * FROM chatRoomMembers WHERE userId = 101

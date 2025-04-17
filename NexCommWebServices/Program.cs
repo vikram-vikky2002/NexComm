@@ -1,4 +1,6 @@
 
+using NexCommDAL;
+
 namespace NexCommWebServices
 {
     public class Program
@@ -20,6 +22,19 @@ namespace NexCommWebServices
     }
 );
 
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
+            builder.Services.AddTransient<NexCommRepository>();
 
             var app = builder.Build();
 
