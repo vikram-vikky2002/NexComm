@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommDAL", "NexCommDAL\NexCommDAL.csproj", "{409C9E76-39DF-4AF9-AA8D-A2CC19421D25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexCommDAL", "NexCommDAL\NexCommDAL.csproj", "{409C9E76-39DF-4AF9-AA8D-A2CC19421D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommWebServices", "NexCommWebServices\NexCommWebServices.csproj", "{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug", "Debug\Debug.csproj", "{6705B357-94F2-48C0-B9D0-E58E45B65C4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexCommWebServices", "NexCommWebServices\NexCommWebServices.csproj", "{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NexCommApp", "NexCommApp\", "{D58C8CA3-80A4-42CD-B640-AD422E5E4610}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_53221"
 		Debug.AspNetCompiler.PhysicalPath = "NexCommApp\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53221\"
@@ -44,10 +42,6 @@ Global
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6705B357-94F2-48C0-B9D0-E58E45B65C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6705B357-94F2-48C0-B9D0-E58E45B65C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6705B357-94F2-48C0-B9D0-E58E45B65C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6705B357-94F2-48C0-B9D0-E58E45B65C4C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -55,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F246917-B344-4641-9A4F-5076907FC840}
 	EndGlobalSection
 EndGlobal
