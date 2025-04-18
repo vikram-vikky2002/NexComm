@@ -67,3 +67,7 @@ GO
 
 
 SELECT * FROM chatRoomMembers WHERE userId = 101
+
+Select * from [user]
+select * from [message]
+select * from [file]
