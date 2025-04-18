@@ -1,33 +1,41 @@
-<div class="login-container">
-  <div class="login-header">
-    <h1>NextComm</h1>
-    <h2>Login Page</h2>
+<div class="glass-container" @fadeIn>
+  <div class="blur-background"></div>
+
+  <div class="glass-card" @floatIn>
+    <div class="login-header">
+      <h1 class="logo">NexComm</h1>
+      <h2 class="subtitle">Login Page</h2>
+    </div>
+
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text"
+               id="username"
+               [(ngModel)]="username"
+               name="username"
+               required
+               placeholder="UserName"
+               class="glass-input">
+      </div>
+
+      <div class="form-group">
+        <input type="password"
+               id="password"
+               [(ngModel)]="password"
+               name="password"
+               required
+               placeholder="Password"
+               class="glass-input">
+      </div>
+
+      <div class="form-actions">
+        <a href="#" class="forgot-password">Forgot Password?</a>
+        <button type="submit" class="glass-button" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Login</span>
+          <div *ngIf="isLoading" class="spinner"></div>
+          <div class="liquid"></div>
+        </button>
+      </div>
+    </form>
   </div>
-
-  <form class="login-form" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">UserName</label>
-      <input type="text"
-             id="username"
-             [(ngModel)]="username"
-             name="username"
-             required
-             placeholder="Enter your username">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password :</label>
-      <input type="password"
-             id="password"
-             [(ngModel)]="password"
-             name="password"
-             required
-             placeholder="Enter your password">
-    </div>
-
-    <div class="form-actions">
-      <a href="#" class="forgot-password">Forgot Password?</a>
-      <button type="submit" class="login-button">Login</button>
-    </div>
-  </form>
 </div>

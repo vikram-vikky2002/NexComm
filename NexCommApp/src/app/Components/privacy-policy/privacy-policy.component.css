@@ -1,0 +1,176 @@
+/* Privacy Policy Glassmorphism CSS */
+.privacy-policy-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+
+.privacy-policy-card {
+  width: 100%;
+  max-width: 900px;
+  padding: 2.5rem;
+  border-radius: 16px;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.privacy-policy-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+  .privacy-policy-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #ffffff, #e0e0e0);
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: transparent;
+  }
+
+.last-updated {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.policy-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+  .policy-section:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .policy-section h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+.section-number {
+  display: inline-block;
+  width: 1.2rem;
+  height:1.2rem;
+  background:White;
+  color: Black;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.8rem;
+  margin-right: 0.8rem;
+  font-weight: 700;
+}
+
+.policy-section p {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.policy-section ul {
+  padding-left: 1.5rem;
+}
+
+.policy-section li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+  .policy-section li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: rgba(106, 90, 205, 0.8);
+    font-weight: bold;
+  }
+
+.contact-section {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+  .contact-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-section address {
+    font-style: normal;
+    margin-top: 0.5rem;
+  }
+
+  .contact-section a {
+    color: rgba(106, 90, 205, 0.8);
+    text-decoration: none;
+  }
+
+    .contact-section a:hover {
+      text-decoration: underline;
+    }
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .privacy-policy-container {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+
+  .privacy-policy-card {
+    padding: 1.5rem;
+  }
+
+  .privacy-policy-header h1 {
+    font-size: 2rem;
+  }
+
+  .policy-section {
+    padding: 1rem;
+  }
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(16px)) {
+  .privacy-policy-card {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}

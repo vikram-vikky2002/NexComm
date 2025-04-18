@@ -9,12 +9,14 @@ import { ChatListComponent } from './chat-list/chat-list.component'; // Import C
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './Components/login/login.component'; // Import ChatComponent
 import { FormsModule } from '@angular/forms';
+import { TermsComponent } from './Components/terms/terms.component';
+import { PrivacyPolicyComponent } from './Components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, PrivacyPolicyComponent // Declare ChatComponent
     
   ],
   imports: [
