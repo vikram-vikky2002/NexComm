@@ -1,19 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ]),
+    trigger('floatIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px) scale(0.9)' }),
+        animate('400ms 200ms ease-out', style({ opacity: 1, transform: 'translateY(0) scale(1)' }))
+      ])
+    ])
+  ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  isLoading: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) { }
+
+  ngOnInit(): void {
+    // Add any initialization logic
+  }
 
   onSubmit(): void {
     if (!this.username || !this.password) {
@@ -21,25 +40,19 @@ export class LoginComponent {
       return;
     }
 
-    // Replace with your actual API endpoint
-    const loginData = {
-      username: this.username,
-      password: this.password
-    };
+    this.isLoading = true;
+    this.errorMessage = '';
 
-    this.http.post('https://your-api-endpoint.com/login', loginData)
-      .subscribe({
-        next: (response: any) => {
-          // Store user token or other auth data
-          localStorage.setItem('authToken', response.token);
-
-          // Redirect to dashboard or home page
-          this.router.navigate(['/dashboard']);
-        },
-        error: (error) => {
-          this.errorMessage = 'Invalid username or password';
-          console.error('Login error:', error);
-        }
-      });
+    // Simulate API call (replace with your actual API call)
+    setTimeout(() => {
+      // Mock authentication
+      if (this.username === 'admin' && this.password === 'admin123') {
+        localStorage.setItem('authToken', 'mock-token');
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.errorMessage = 'Invalid username or password';
+        this.isLoading = false;
+      }
+    }, 1500);
   }
 }

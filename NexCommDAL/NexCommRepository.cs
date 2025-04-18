@@ -1,4 +1,5 @@
-﻿using NexCommDAL.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NexCommDAL.Models;
 
 namespace NexCommDAL;
 
@@ -48,6 +49,10 @@ public class NexCommRepository
 
         return rooms;
     }
-
-
+     
+    public void AddUser(User user)
+    {
+        Context.Users.Add(user);
+        Context.SaveChanges();
+    }
 }

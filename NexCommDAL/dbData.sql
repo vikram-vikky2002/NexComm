@@ -58,3 +58,5 @@ INSERT INTO [message] (userId, roomId, text) VALUES
 (105, 103, 'Shared the demo video.'),
 (106, 103, 'Nice work, looks smooth!');
 GO
+
+select * from [user]
