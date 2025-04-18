@@ -1,4 +1,6 @@
 
+using NexCommDAL;
+
 namespace NexCommWebServices
 {
     public class Program
@@ -12,7 +14,25 @@ namespace NexCommWebServices
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(
+                c =>
+                {
+                    c.CustomSchemaIds(type => type.FullName);
+                }    
+            );
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
+            builder.Services.AddTransient<NexCommRepository>();
 
             var app = builder.Build();
 
@@ -23,7 +43,9 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseAuthorization();
 

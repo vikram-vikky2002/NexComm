@@ -1,11 +1,21 @@
-﻿namespace NexCommWebServices.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NexCommWebServices.Models
 {
     public class Message
     {
-        public string MessageId { get; set; }
-        public string UserId { get; set; }
-        public string text { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int MessageId { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        public int RoomId { get; set; }
+
+        [Required]
+        public string Text { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
 
     }
 }

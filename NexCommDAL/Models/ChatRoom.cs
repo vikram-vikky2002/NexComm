@@ -13,6 +13,8 @@ public partial class ChatRoom
 
     public DateTime? CreatedOn { get; set; }
 
+    public string? GroupName { get; set; }
+
     public virtual User CreatedByNavigation { get; set; } = null!;
 
     public virtual ICollection<File> Files { get; set; } = new List<File>();
