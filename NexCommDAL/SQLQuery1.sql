@@ -68,6 +68,6 @@ GO
 
 SELECT * FROM chatRoomMembers WHERE userId = 101
 
-
-
-SELECT * FROM chatRoomMembers WHERE roomId = 101
+Select * from [user]
+select * from [message]
+select * from [file]
