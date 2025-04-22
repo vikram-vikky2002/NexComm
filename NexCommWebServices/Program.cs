@@ -32,10 +32,10 @@ namespace NexCommWebServices
                     });
             });
             builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-    });
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                });
 
 
             builder.Services.AddTransient<NexCommRepository>();
@@ -49,7 +49,11 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
-
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
