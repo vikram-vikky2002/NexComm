@@ -6,7 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { FeaturesComponent } from './features/features.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HelpCenterComponent } from './help-center/help-center.component';
-
+import { ChatListComponent } from './components/chat-list/chat-list.component'; // Import ChatListComponent
 
 const routes: Routes = [
   { path: '', redirectTo: 'footer', pathMatch: 'full' },

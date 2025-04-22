@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { FeaturesComponent } from './features/features.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HelpCenterComponent } from './help-center/help-center.component'; // Import ChatListComponent
 import { FormsModule } from '@angular/forms';
+import { UserNavBarComponent } from './components/user-nav-bar/user-nav-bar.component';
+import { LoaderComponentComponent } from './components/loader-component/loader-component.component';
+import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.component'; // Import ChatListComponent
 
 
 @NgModule({
@@ -23,6 +27,9 @@ import { FormsModule } from '@angular/forms';
     FeaturesComponent,
     AboutUsComponent,
     HelpCenterComponent, // Declare ChatListComponent
+    UserNavBarComponent,
+    LoaderComponentComponent,
+    AdminNavBarComponent, // Declare ChatListComponent
   ],
   imports: [
     BrowserModule,
