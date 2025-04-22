@@ -12,7 +12,7 @@ export class ChatService {
 
   getChats(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/api/Dashboard/online-users`);
-  }
+  } 
 
   getChatRoomsByUser(userId: string): Observable<{ roomId: number, groupName: string, userNames: string[] }[]> {
     return this.http.get<{ roomId: number, groupName: string, userNames: string[] }[]>(`${this.apiUrl}/api/Dashboard/rooms/${userId}`);

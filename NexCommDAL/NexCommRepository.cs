@@ -26,15 +26,6 @@ public class NexCommRepository
         return users;
     }
 
-    public class ChatRoomDto
-    {
-        public int RoomId { get; set; }
-        public string? GroupName { get; set; }
-        public bool? IsGroup { get; set; } = false;
-        public List<string> UserNames { get; set; } = new();
-        public string ChatTitle { get; set; } = string.Empty; // <-- Add this
-    }
-
     public List<object> GetAllChatRoomsByUser(int userId)
     {
         try
@@ -85,7 +76,7 @@ public class NexCommRepository
 
             if (result != null)
             {
-                Console.WriteLine($"Latest Message: {result.Message.Text}, User: {result.UserName}");
+                //Console.WriteLine($"Latest Message: {result.Message.Text}, User: {result.UserName}");
                 return (result.Message, result.UserName);
             }
             else
