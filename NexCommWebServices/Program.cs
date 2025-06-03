@@ -34,7 +34,8 @@ namespace NexCommWebServices
                     });
             });
             builder.Services.AddControllers()
-    .AddJsonOptions(options =>
+    
+                .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
