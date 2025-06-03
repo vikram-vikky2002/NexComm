@@ -11,6 +11,8 @@ public partial class User
 
     public string Role { get; set; } = null!;
 
+    public string? EmailId { get; set; }
+
     public string? Phone { get; set; }
 
     public bool? NewUser { get; set; }

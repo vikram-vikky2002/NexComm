@@ -27,6 +27,7 @@ public partial class NexCommDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=NexCommDB;Integrated Security=true");
@@ -35,7 +36,7 @@ public partial class NexCommDbContext : DbContext
     {
         modelBuilder.Entity<ChatRoom>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__chatRoom__6C3BF5BE443316F7");
+            entity.HasKey(e => e.RoomId).HasName("PK__chatRoom__6C3BF5BEF408BE2F");
 
             entity.ToTable("chatRoom");
 
@@ -45,6 +46,10 @@ public partial class NexCommDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("createdOn");
+            entity.Property(e => e.GroupName)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("groupName");
             entity.Property(e => e.IsGroup)
                 .HasDefaultValue(false)
                 .HasColumnName("isGroup");
@@ -52,7 +57,7 @@ public partial class NexCommDbContext : DbContext
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.ChatRooms)
                 .HasForeignKey(d => d.CreatedBy)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__chatRoom__create__2E1BDC42");
+                .HasConstraintName("FK__chatRoom__create__2F10007B");
         });
 
         modelBuilder.Entity<ChatRoomMember>(entity =>
@@ -67,17 +72,17 @@ public partial class NexCommDbContext : DbContext
             entity.HasOne(d => d.Room).WithMany()
                 .HasForeignKey(d => d.RoomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__chatRoomM__roomI__31EC6D26");
+                .HasConstraintName("FK__chatRoomM__roomI__32E0915F");
 
             entity.HasOne(d => d.User).WithMany()
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__chatRoomM__userI__30F848ED");
+                .HasConstraintName("FK__chatRoomM__userI__31EC6D26");
         });
 
         modelBuilder.Entity<File>(entity =>
         {
-            entity.HasKey(e => e.FileId).HasName("PK__file__C2C6FFDC5F63BB60");
+            entity.HasKey(e => e.FileId).HasName("PK__file__C2C6FFDC6DDCCCD4");
 
             entity.ToTable("file");
 
@@ -94,17 +99,23 @@ public partial class NexCommDbContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("path");
+            entity.Property(e => e.RoomId).HasColumnName("roomId");
             entity.Property(e => e.UserId).HasColumnName("userId");
+
+            entity.HasOne(d => d.Room).WithMany(p => p.Files)
+                .HasForeignKey(d => d.RoomId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__file__roomId__36B12243");
 
             entity.HasOne(d => d.User).WithMany(p => p.Files)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__file__userId__34C8D9D1");
+                .HasConstraintName("FK__file__userId__35BCFE0A");
         });
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.MessageId).HasName("PK__message__4808B99363125083");
+            entity.HasKey(e => e.MessageId).HasName("PK__message__4808B993FE410B8E");
 
             entity.ToTable("message");
 
@@ -113,21 +124,27 @@ public partial class NexCommDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
+            entity.Property(e => e.RoomId).HasColumnName("roomId");
             entity.Property(e => e.Text)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("text");
             entity.Property(e => e.UserId).HasColumnName("userId");
 
+            entity.HasOne(d => d.Room).WithMany(p => p.Messages)
+                .HasForeignKey(d => d.RoomId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__message__roomId__3B75D760");
+
             entity.HasOne(d => d.User).WithMany(p => p.Messages)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__message__userId__38996AB5");
+                .HasConstraintName("FK__message__userId__3A81B327");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__role__CD98462A0D276FF8");
+            entity.HasKey(e => e.RoleId).HasName("PK__role__CD98462A238C6DDD");
 
             entity.ToTable("role");
 
@@ -143,11 +160,17 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF5B91A57D");
+            entity.HasKey(e => e.UserId).HasName("PK__user__CB9A1CFF4F8124D8");
 
             entity.ToTable("user");
 
+            entity.HasIndex(e => e.EmailId, "UQ__user__87355E73BE6370E8").IsUnique();
+
             entity.Property(e => e.UserId).HasColumnName("userId");
+            entity.Property(e => e.EmailId)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("emailId");
             entity.Property(e => e.IsAdmin)
                 .HasDefaultValue(false)
                 .HasColumnName("isAdmin");
@@ -181,7 +204,7 @@ public partial class NexCommDbContext : DbContext
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
                 .HasForeignKey(d => d.Role)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__user__role__267ABA7A");
+                .HasConstraintName("FK__user__role__276EDEB3");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,11 +1,23 @@
-﻿namespace NexCommWebServices.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NexCommWebServices.Models
 {
     public class File
     {
-        public string FileId { get; set; }
-        public string UserId { get; set; }
+        public int FileId { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+
+        [Required]
+        public int RoomId { get; set; }
+
+        [Required]
         public string Path { get; set; }
+
+        [Required]
         public string FileType { get; set; }
-        public DateTime CreatedAt { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
     }
 }

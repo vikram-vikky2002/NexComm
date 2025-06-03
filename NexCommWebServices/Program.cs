@@ -1,3 +1,4 @@
+using NexCommDAL;
 
 using NexCommBusinessLayer.Interfaces;
 using NexCommBusinessLayer.Services;
@@ -17,7 +18,25 @@ namespace NexCommWebServices
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(
+                c =>
+                {
+                    c.CustomSchemaIds(type => type.FullName);
+                }
+            );
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
+            builder.Services.AddTransient<NexCommRepository>();
 
             builder.Services.AddScoped<IChatRoomService, ChatRoomService>();
 
@@ -40,7 +59,9 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseCors("AllowAll");
 

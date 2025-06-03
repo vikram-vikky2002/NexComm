@@ -22,6 +22,7 @@ CREATE TABLE [user] (
     userName VARCHAR(255) NOT NULL,
     emailId VARCHAR(255) UNIQUE,
     role VARCHAR(255) NOT NULL FOREIGN KEY REFERENCES [role](roleId),
+    emailId VARCHAR(255) UNIQUE,
     phone VARCHAR(255),
     newUser BIT DEFAULT 1,
     password VARCHAR(255),
@@ -34,6 +35,7 @@ GO
 CREATE TABLE [chatRoom] (
     roomId INT NOT NULL PRIMARY KEY IDENTITY(100,1),
     isGroup BIT DEFAULT 0,
+    groupName VARCHAR(100),
     createdBy INT NOT NULL FOREIGN KEY REFERENCES [user](userId),
     createdOn DATETIME DEFAULT GETDATE()
 );
@@ -63,3 +65,10 @@ CREATE TABLE [message] (
     createdAt DATETIME DEFAULT GETDATE()
 );
 GO
+
+
+SELECT * FROM chatRoomMembers WHERE userId = 101
+
+Select * from [user]
+select * from [message]
+select * from [file]
