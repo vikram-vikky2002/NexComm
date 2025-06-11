@@ -10,10 +10,17 @@ import { ChatListComponent } from './chat-list/chat-list.component'; // Import C
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { GroupchatComponent } from './components/group-chat/group-chat.component';
+import { RouterModule,Routes } from '@angular/router'; // Import RouterModule
 import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { FeaturesComponent } from './components/features/features.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { HelpCenterComponent } from './components/help-center/help-center.component'; // Import ChatListComponent
 import { UserNavBarComponent } from './components/user-nav-bar/user-nav-bar.component';
 import { LoaderComponentComponent } from './components/loader-component/loader-component.component';
 import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.component'; // Import ChatListComponent
+
 
 @NgModule({
   declarations: [
@@ -22,6 +29,11 @@ import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.c
     ChatComponent,
     GroupchatComponent // Declare ChatComponent
     ChatListComponent,
+    FooterComponent,
+    ContactUsComponent,
+    FeaturesComponent,
+    AboutUsComponent,
+    HelpCenterComponent, // Declare ChatListComponent
     UserNavBarComponent,
     LoaderComponentComponent,
     AdminNavBarComponent, // Declare ChatListComponent

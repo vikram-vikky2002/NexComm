@@ -7,28 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommDAL", "NexCommDAL\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommWebServices", "NexCommWebServices\NexCommWebServices.csproj", "{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug", "Debug\Debug.csproj", "{6705B357-94F2-48C0-B9D0-E58E45B65C4C}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NexCommApp", "NexCommApp\", "{D58C8CA3-80A4-42CD-B640-AD422E5E4610}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_53221"
-		Debug.AspNetCompiler.PhysicalPath = "NexCommApp\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53221\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_53221"
-		Release.AspNetCompiler.PhysicalPath = "NexCommApp\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53221\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "53221"
-		SlnRelativePath = "NexCommApp\"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommBusinessLayer", "NexCommBusinessLayer\NexCommBusinessLayer.csproj", "{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +23,10 @@ Global
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

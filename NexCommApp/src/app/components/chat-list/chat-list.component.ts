@@ -21,6 +21,8 @@ export class ChatListComponent {
   ngOnInit() {
     this.loadChatRooms();
     this.loadChats();
+
+    this.isAdmin = sessionStorage.getItem('isAdmin') === 'true';
     // this.loadMessages();
   }
 

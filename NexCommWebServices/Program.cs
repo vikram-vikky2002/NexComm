@@ -1,5 +1,9 @@
-
 using NexCommDAL;
+
+using NexCommBusinessLayer.Interfaces;
+using NexCommBusinessLayer.Services;
+using NexCommDAL.Interfaces;
+using NexCommDAL.Repositories;
 
 namespace NexCommWebServices
 {
@@ -18,7 +22,7 @@ namespace NexCommWebServices
                 c =>
                 {
                     c.CustomSchemaIds(type => type.FullName);
-                }    
+                }
             );
 
             builder.Services.AddCors(options =>
@@ -31,15 +35,20 @@ namespace NexCommWebServices
                                .AllowAnyHeader();
                     });
             });
-            builder.Services.AddControllers()
-    
-                .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-    });
-
 
             builder.Services.AddTransient<NexCommRepository>();
+
+            builder.Services.AddScoped<IChatRoomService, ChatRoomService>();
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy => policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
 
             var app = builder.Build();
 
@@ -50,8 +59,11 @@ namespace NexCommWebServices
                 app.UseSwaggerUI();
             }
 
+            //app.UseHttpsRedirection();
 
-            app.UseHttpsRedirection();
+            app.UseCors("AllowAllOrigins");
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
