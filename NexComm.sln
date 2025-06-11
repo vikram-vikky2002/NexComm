@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommDAL", "NexCommDAL\NexCommDAL.csproj", "{409C9E76-39DF-4AF9-AA8D-A2CC19421D25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexCommDAL", "NexCommDAL\NexCommDAL.csproj", "{409C9E76-39DF-4AF9-AA8D-A2CC19421D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommWebServices", "NexCommWebServices\NexCommWebServices.csproj", "{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexCommWebServices", "NexCommWebServices\NexCommWebServices.csproj", "{CEE03FD5-AF54-4316-A8D1-05713DA3B5D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexCommBusinessLayer", "NexCommBusinessLayer\NexCommBusinessLayer.csproj", "{A3702EB0-63BB-492A-AAEB-EAF5B3090B2A}"
 EndProject
@@ -61,5 +61,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F246917-B344-4641-9A4F-5076907FC840}
 	EndGlobalSection
 EndGlobal

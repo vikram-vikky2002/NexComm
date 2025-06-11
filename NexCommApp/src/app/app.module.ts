@@ -19,6 +19,12 @@ import { UserNavBarComponent } from './components/user-nav-bar/user-nav-bar.comp
 import { LoaderComponentComponent } from './components/loader-component/loader-component.component';
 import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.component'; // Import ChatListComponent
 
+import { RouterModule } from '@angular/router'; // Import RouterModule
+import { ChatListComponent } from './chat-list/chat-list.component'; // Import ChatListComponent
+import { ChatComponent } from './chat/chat.component';
+import { LoginComponent } from './Components/login/login.component'; // Import ChatComponent
+import { FormsModule } from '@angular/forms';
+import { TermsComponent } from './Components/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +40,9 @@ import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.c
     AdminNavBarComponent,
     ChatComponent, // Declare ChatComponent
     NewChatComponent
+    ChatListComponent, // Declare ChatListComponent
+    ChatComponent, LoginComponent, TermsComponent // Declare ChatComponent
+    
   ],
   imports: [
     BrowserModule,
