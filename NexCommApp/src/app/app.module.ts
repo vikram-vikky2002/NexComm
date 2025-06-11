@@ -8,6 +8,11 @@ import { NewChatComponent } from './components/new-chat/new-chat.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router'; // Import RouterModule
+import { ChatListComponent } from './chat-list/chat-list.component'; // Import ChatListComponent
+import { ChatComponent } from './chat/chat.component';
+import { FormsModule } from '@angular/forms';
+import { GroupchatComponent } from './components/group-chat/group-chat.component';
 import { RouterModule,Routes } from '@angular/router'; // Import RouterModule
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -23,6 +28,9 @@ import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.c
 @NgModule({
   declarations: [
     AppComponent,
+    ChatListComponent, // Declare ChatListComponent
+    ChatComponent,
+    GroupchatComponent // Declare ChatComponent
     ChatListComponent,
     FooterComponent,
     ContactUsComponent,

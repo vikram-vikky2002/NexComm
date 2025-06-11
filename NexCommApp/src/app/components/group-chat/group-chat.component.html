@@ -1,0 +1,49 @@
+<div class="container">
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="brand">NexComm</div>
+    <div class="nav-links">
+      <a href="#">HOME</a>
+      <a href="#">LOGOUT</a>
+    </div>
+  </nav>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel">
+    <div class="group-name">
+      <span>Group name</span>
+      <button class="dropdown">&#9662;</button>
+    </div>
+
+    <div class="chat-content">
+      <!-- Chat Area -->
+      <div class="chat-area">
+        <div class="chat-bubble">User1: Hello!</div>
+        <div class="chat-bubble">User2: Hi there</div>
+        <div class="chat-bubble">User3: How’s it going?</div>
+      </div>
+      <div class="chat-area">
+        <div *ngFor="let msg of messages" class="chat-bubble">{{ msg }}</div>
+      </div>
+
+
+      <!-- Members List -->
+      <div class="members">
+        <h3>Members</h3>
+        <div class="member">User1</div>
+        <div class="member">User2</div>
+        <div class="member">User3</div>
+      </div>
+    </div>
+
+    <!-- Message Input -->
+    <div class="input-area">
+      <input type="text" placeholder="TEXT" [(ngModel)]="message" />
+      <button (click)="sendMessage()">
+        ▶
+      </button>
+    </div>
+  </div>
+</div>
+
+

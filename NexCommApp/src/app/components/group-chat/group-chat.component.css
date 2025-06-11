@@ -1,0 +1,160 @@
+/* Root container */
+.container {
+  background-color: #121212;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  padding: 20px;
+}
+
+/* Top navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 10px 20px;
+  color: #111;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+  .navbar .nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+  }
+
+    .navbar .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+/* Chat panel */
+.chat-panel {
+  background: #1e1e1e;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+
+  width: 100%;
+  max-height: 600px;
+  overflow-y: hidden;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-in-out;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.2s;
+}
+
+/* Group header */
+.group-name {
+  background: #3f3d56;
+  padding: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Chat and members section */
+.chat-content {
+  display: flex;
+  background: #2a2a2a;
+  padding: 15px;
+  gap: 15px;
+}
+
+/* Chat area */
+.chat-area {
+  flex: 3;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-bubble {
+  background: #4a4a4a;
+  padding: 10px 15px;
+  border-radius: 20px;
+  align-self: flex-start;
+  color: white;
+  font-size: 15px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Members area */
+.members {
+  flex: 1;
+  background: #9fcf6b;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+}
+
+  .members h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+.member {
+  background: #ffffff;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input area */
+.input-area {
+  display: flex;
+  padding: 15px;
+  background: #f0f0f0;
+  border-top: 1px solid #ccc;
+  align-items: center;
+  gap: 10px;
+}
+
+  .input-area input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    background: #ffffff;
+  }
+
+  .input-area button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+    .input-area button:hover {
+      background: #45a049;
+    }
