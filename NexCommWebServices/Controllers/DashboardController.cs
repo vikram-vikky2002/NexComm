@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NexCommDAL;
-using NexCommDAL.Models;
 using NexCommWebServices.Models;
 using static NexCommDAL.NexCommRepository;
 
