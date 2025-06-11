@@ -28,7 +28,8 @@ namespace NexCommWebServices.Controllers
                     {
                         UserId = message.UserId,
                         Text = message.Text,
-                        CreatedAt = message.CreatedAt
+                        CreatedAt = message.CreatedAt,
+                        RoomId = message.RoomId
                     };
 
                     var result = await _repository.SendMessageAsync(msg); // ✅ Await async call

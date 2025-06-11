@@ -1,0 +1,102 @@
+.new-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.new-chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.new-chat-header h2 {
+  color: white;
+  margin: 0;
+}
+
+.new-chat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: rgba(75, 192, 192, 0.5);
+}
+
+.form-group select.is-invalid {
+  border-color: #dc3545;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.create-button, .cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.create-button {
+  background: rgba(75, 192, 192, 0.2);
+  color: white;
+}
+
+.create-button:hover:not(:disabled) {
+  background: rgba(75, 192, 192, 0.3);
+}
+
+.create-button:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+}

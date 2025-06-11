@@ -200,6 +200,43 @@ public class NexCommRepository
         }
     }
 
+    public ChatRoom? GetExistingPrivateRoom(int userId1, int userId2)
+    {
+        return Context.ChatRooms
+            .Where(r => r.IsGroup == false)
+            .Where(r => Context.ChatRoomMembers
+                .Where(cm => cm.RoomId == r.RoomId)
+                .Select(cm => cm.UserId)
+                .OrderBy(id => id)
+                .SequenceEqual(new List<int> { userId1, userId2 }.OrderBy(id => id)))
+            .FirstOrDefault();
+    }
+
+    public async Task<ChatRoom> CreateRoomAsync(CreateRoomRequest request)
+    {
+        var newRoom = new ChatRoom
+        {
+            IsGroup = request.IsGroup,
+            CreatedBy = request.CreatedBy,
+            CreatedOn = DateTime.Now,
+            GroupName = request.IsGroup ? request.GroupName : null
+        };
+
+        Context.ChatRooms.Add(newRoom);
+        await Context.SaveChangesAsync(); // RoomId generated
+
+        foreach (var userId in request.UserIds)
+        {
+            Context.ChatRoomMembers.Add(new ChatRoomMember
+            {
+                RoomId = newRoom.RoomId,
+                UserId = userId
+            });
+        }
+
+        await Context.SaveChangesAsync();
+        return newRoom;
+    }
 
 
 }

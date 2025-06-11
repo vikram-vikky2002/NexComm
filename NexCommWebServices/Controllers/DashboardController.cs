@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NexCommDAL;
 using NexCommDAL.Models;
+using NexCommWebServices.Models;
 using static NexCommDAL.NexCommRepository;
 
 namespace NexCommWebServices.Controllers
@@ -62,5 +63,31 @@ namespace NexCommWebServices.Controllers
                 userName = result.userName
             });
         }
+
+        [HttpPost("create-room")]
+        public async Task<IActionResult> CreateRoomAsync([FromBody] CreateRoomRequest request)
+        {
+            if (request.UserIds.Count < 2)
+                return BadRequest("At least two users are required.");
+
+            try
+            {
+                if (!request.IsGroup && request.UserIds.Count == 2)
+                {
+                    var existingRoom = _repository.GetExistingPrivateRoom(request.UserIds[0], request.UserIds[1]);
+                    if (existingRoom != null)
+                        return Ok(new { message = "Room already exists", roomId = existingRoom.RoomId });
+                }
+
+                var createdRoom = await _repository.CreateRoomAsync(request);
+                return Ok(new { message = "Room created", roomId = createdRoom.RoomId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
     }
 }

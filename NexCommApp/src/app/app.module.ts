@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
+import { NewChatComponent } from './components/new-chat/new-chat.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,17 +28,20 @@ import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.c
     ContactUsComponent,
     FeaturesComponent,
     AboutUsComponent,
-    HelpCenterComponent, // Declare ChatListComponent
+    HelpCenterComponent,
     UserNavBarComponent,
     LoaderComponentComponent,
-    AdminNavBarComponent, // Declare ChatListComponent
+    AdminNavBarComponent,
+    ChatComponent, // Declare ChatComponent
+    NewChatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule, // Add RouterModule to imports
     HttpClientModule, // Add HttpClientModule to imports
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

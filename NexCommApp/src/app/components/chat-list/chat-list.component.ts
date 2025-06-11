@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-list',
@@ -14,9 +15,21 @@ export class ChatListComponent {
   isLoadingChats = true;
   isLoadingUsers = true;
   isAdmin = false;
-  
 
-  constructor(private chatService: ChatService) {}
+  showNewChat: boolean = false;
+  showNewGroupChat: boolean = false;
+
+  newChatSearchTerm: string = '';
+  filteredUsersForNewChat: any[] = [];
+
+  newGroupChatSearchTerm: string = '';
+  filteredUsersForNewGroupChat: any[] = [];
+  selectedGroupUsers: any[] = [];
+
+  constructor(
+    private chatService: ChatService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadChatRooms();
@@ -44,11 +57,21 @@ export class ChatListComponent {
     });
   }
 
+  openChat(chat: any): void {
+    this.router.navigate(['/chat', chat.chatTitle ?? chat.groupName, chat.roomId]);
+  }
+
+  startNewChat(): void {
+    this.router.navigate(['/chat/new']);
+  }
+
   loadChats() {
     this.isLoadingUsers = true;
     this.chatService.getChats().subscribe(data => {
       this.users = data;
       this.isLoadingUsers = false;
+      this.filteredUsersForNewChat = this.users;
+      this.filteredUsersForNewGroupChat = this.users;
     });
   }
 
@@ -71,5 +94,54 @@ export class ChatListComponent {
         userName.includes(term)
       );
     });
+  }
+
+  filterUsersForNewChat() {
+    const term = this.newChatSearchTerm.toLowerCase();
+    this.filteredUsersForNewChat = this.users.filter(user => user.userName.toLowerCase().includes(term));
+  }
+
+  cancelNewChat() {
+    this.showNewChat = false;
+    this.newChatSearchTerm = '';
+  }
+
+  filterUsersForNewGroupChat() {
+    const term = this.newGroupChatSearchTerm.toLowerCase();
+    this.filteredUsersForNewGroupChat = this.users.filter(user => user.userName.toLowerCase().includes(term));
+  }
+
+  toggleGroupUserSelection(user: any) {
+    const index = this.selectedGroupUsers.indexOf(user);
+    if (index > -1) {
+      this.selectedGroupUsers.splice(index, 1);
+    } else {
+      this.selectedGroupUsers.push(user);
+    }
+  }
+
+  createGroupChat() {
+    if (this.selectedGroupUsers.length === 0) {
+      alert('Please select at least one user for the group chat.');
+      return;
+    }
+    const groupName = 'New Group Chat'; // Could be enhanced to ask for group name
+    const newGroupChat = {
+      roomId: Date.now(),
+      groupName: groupName,
+      isGroup: true,
+      userIds: this.selectedGroupUsers.map(u => u.userId)
+    };
+    this.recentChats.unshift(newGroupChat);
+    this.filteredChats = this.recentChats;
+    this.showNewGroupChat = false;
+    this.newGroupChatSearchTerm = '';
+    this.selectedGroupUsers = [];
+  }
+
+  cancelNewGroupChat() {
+    this.showNewGroupChat = false;
+    this.newGroupChatSearchTerm = '';
+    this.selectedGroupUsers = [];
   }
 }

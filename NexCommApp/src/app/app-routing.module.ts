@@ -5,19 +5,22 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { HelpCenterComponent } from './components/help-center/help-center.component';
-import { ChatListComponent } from './components/chat-list/chat-list.component'; // Import ChatListComponent
+import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
+import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
 
 const routes: Routes = [
-  { path: '', redirectTo: 'footer', pathMatch: 'full' },
+  { path: '', redirectTo: '/chats', pathMatch: 'full' },
   { path: 'chats', component: ChatListComponent },
+  { path: 'chat/:chatTitle/:roomId', component: ChatComponent },
+  { path: 'chat/new', component: NewChatComponent },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'features', component: FeaturesComponent },
   { path: 'aboutUs', component: AboutUsComponent },
-  { path: 'helpCenter', component:HelpCenterComponent }
-
+  { path: 'helpCenter', component: HelpCenterComponent },
+  { path: '**', component: ChatListComponent }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

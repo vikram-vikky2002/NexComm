@@ -16,10 +16,29 @@
     align-content: flex-start;
   ">
     <h3>Recent Chats</h3>
-    <div class="InputContainer">
-        <input placeholder="Search.." id="input" [(ngModel)]="searchTerm" (input)="filterChats()" class="input" name="text" type="text" ngModel>
+    <div style="margin-bottom: 10px;">
+      <button class="glass-button" (click)="showNewChat = true; showNewGroupChat = false;" style="margin-right: 10px;">New Chat</button>
+      <button class="glass-button" (click)="showNewGroupChat = true; showNewChat = false;">New Group Chat</button>
     </div>
-    
+
+    <!-- New Chat User Selection -->
+    <div *ngIf="showNewChat" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+      <input placeholder="Search users..." [(ngModel)]="newChatSearchTerm" (input)="filterUsersForNewChat()" />
+      <div *ngFor="let user of filteredUsersForNewChat" style="cursor: pointer; padding: 5px;">{{ user.userName }}</div>
+      <button (click)="cancelNewChat()">Cancel</button>
+    </div>
+
+    <!-- New Group Chat User Selection -->
+    <div *ngIf="showNewGroupChat" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
+      <input placeholder="Search users..." [(ngModel)]="newGroupChatSearchTerm" (input)="filterUsersForNewGroupChat()" />
+      <div *ngFor="let user of filteredUsersForNewGroupChat" style="cursor: pointer; padding: 5px;">
+        <input type="checkbox" [checked]="selectedGroupUsers.includes(user)" (change)="toggleGroupUserSelection(user)" />
+        {{ user.userName }}
+      </div>
+      <button (click)="createGroupChat()">Create Group Chat</button>
+      <button (click)="cancelNewGroupChat()">Cancel</button>
+    </div>
+
     <div class="card-grid" style="margin-top: 30px; width: 100%; position: relative; min-height: 100px;">
   
       <!-- Loader Overlay -->
@@ -37,17 +56,19 @@
     
       <!-- Chats List -->
       <ng-container *ngIf="!isLoadingChats">
-        <div class="chat-card" *ngFor="let chat of filteredChats">
+        <div class="chat-card" *ngFor="let chat of filteredChats" (click)="openChat(chat)" style="cursor: pointer;">
           <div style="display: flex; justify-content: space-between;">
             <h4 *ngIf="!chat.isGroup" style="font-size: 20px;">{{ chat.chatTitle ?? "User Name" }}</h4>
             <h4 *ngIf="chat.isGroup" style="font-size: 20px;">{{ chat.groupName ?? "Group Name" }}</h4>
             <img style="border-radius: 50%;" src="../../assets/profile-placeholder.jpg" alt="profile pic" width="40px">
           </div>
           <p>
-            <span style="font-weight: 600; font-size: 15px;">
+            <span style="font-weight: 600; font-size: 15px; display: inline-block;">
               {{ latestMessage[chat.roomId]?.userName }}
-            </span> :
-            {{ latestMessage[chat.roomId]?.message?.text }}
+            </span>
+            <span style="font-size: 15px;">
+              : {{ latestMessage[chat.roomId]?.message?.text }}
+            </span>
           </p>
         </div>
       </ng-container>
@@ -66,21 +87,18 @@
 
     <!-- <p>This is a smaller side panel on the right for additional content.</p> -->
     <br />
-    <div style="display: flex
-    ;
+    <div style="display: flex;
         flex-direction: column;
         align-items: stretch;
         flex-wrap: nowrap;
         width: 100%;
-        margin-top: 20px;
-        ">
+        margin-top: 20px;">
       <div *ngFor="let user of users" class="row">
         <div class="card">
             <h5>{{ user.userName }}</h5>
         </div>
       </div>
     </div>
-    
   </div>
 </div>
 <br>

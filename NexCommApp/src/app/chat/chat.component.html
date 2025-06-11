@@ -1,0 +1,43 @@
+<div class="chat-container">
+  <div class="app-bar">
+    <div class="back-button" (click)="goBack()">
+      <img src="../../assets/arrow.png" height="35px" alt="Back">
+    </div>
+    <div class="user-info">
+      <h2>{{ userName }}</h2>
+      <div class="status-dot"></div>
+    </div>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="messages-container" #messagesContainer [id]="messagesContainer">
+    <app-loader-component *ngIf="isLoading"></app-loader-component>
+    <div *ngIf="!isLoading" class="messages-list">
+      <div *ngFor="let msg of messages" 
+           [class.user-message]="msg.userId === 101"
+           [class.other-message]="msg.userId !== 101">
+        <div class="message-bubble" style="margin: 10px; min-width: 300px; padding: 10px; color: white;">
+          <div class="message-content" style="text-align: left;">
+            <p>{{ msg.text }}</p>
+          </div>
+          <div class="message-content" style="text-align: right;">
+            <small>{{ formatTimestamp(msg.createdAt) }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Input -->
+  <div class="input-container">
+    <div class="input-wrapper">
+      <input #messageInput
+              type="text"
+              [(ngModel)]="message"
+              (keyup)="handleKeyPress($event)"
+              placeholder="Type your message..."
+              (focus)="messageInput.select()">
+      <button (click)="sendMessage()" [disabled]="!message.trim()">Send</button>
+    </div>
+  </div>
+</div>
