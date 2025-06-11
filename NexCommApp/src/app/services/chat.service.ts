@@ -6,19 +6,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService {
-  private apiUrl = 'https://localhost:7143/api/NexComm/online-users'; // Replace with your API URL
+  private apiUrl = 'https://localhost:7143'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
   getChats(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/api/Dashboard/online-users`);
   }
 
-  getMessages(chatId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${chatId}/messages`);
+  getChatRoomsByUser(userId: string): Observable<{ roomId: number, groupName: string, userNames: string[] }[]> {
+    return this.http.get<{ roomId: number, groupName: string, userNames: string[] }[]>(`${this.apiUrl}/api/Dashboard/rooms/${userId}`);
   }
 
-  sendMessage(chatId: string, message: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${chatId}/messages`, { text: message });
+  getMessages(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/Dashboard/rooms/${userId}`);
+  }
+
+  getLatestMessage(roomId: string): Observable<{ message: any, userName: string }> {
+    return this.http.get<{ message: any, userName: string }>(`${this.apiUrl}/api/Dashboard/latest-message/${roomId}`);
   }
 }

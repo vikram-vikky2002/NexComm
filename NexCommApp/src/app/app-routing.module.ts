@@ -1,18 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatListComponent } from './chat-list/chat-list.component'; // Import ChatListComponent
-import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
-import { LoginComponent } from './Components/login/login.component';
-import { TermsComponent } from './Components/terms/terms.component';
-import { PrivacyPolicyComponent } from './Components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: 'chats', component: ChatListComponent }, // Route for Chat List
-  { path: 'chats/:id', component: ChatComponent }, // Route for Individual Chat
-  { path: 'login', component: LoginComponent },
-  { path: 'terms', component: TermsComponent },
-  {path:'privacypolicy',component:PrivacyPolicyComponent},
-  { path:'',redirectTo:'/login',pathMatch:'full'}
 ];
 
 @NgModule({

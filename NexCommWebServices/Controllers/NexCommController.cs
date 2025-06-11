@@ -9,7 +9,7 @@ namespace NexCommWebServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NexCommController : ControllerBase
+    public class NexCommController : Controller
     {
         private readonly NexCommRepository _repository;
         public NexCommController(NexCommRepository repository)
@@ -72,5 +72,6 @@ namespace NexCommWebServices.Controllers
             }
         }
         #endregion
+        
     }
 }

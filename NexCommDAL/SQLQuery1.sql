@@ -68,3 +68,8 @@ GO
 
 SELECT * FROM chatRoomMembers WHERE userId = 101
 select * from [user]
+SELECT * FROM chatRoomMembers WHERE userId = 101
+
+
+
+SELECT * FROM chatRoomMembers WHERE roomId = 101
