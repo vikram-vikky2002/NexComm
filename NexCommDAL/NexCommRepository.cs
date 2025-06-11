@@ -29,27 +29,88 @@ public class NexCommRepository
         return users;
     }
 
-    public List<ChatRoom> GetAllChatRoomsByUser(int userId)
+    public List<object> GetAllChatRoomsByUser(int userId)
     {
-        List<ChatRoom> rooms = new List<ChatRoom>();
         try
         {
-            var list = (from b in Context.ChatRoomMembers
-                        where b.UserId == userId
-                        select b.RoomId)
-                     .ToList();
+            var rooms = (from cr in Context.ChatRooms
+                         join crm in Context.ChatRoomMembers on cr.RoomId equals crm.RoomId
+                         where crm.UserId == userId
+                         select new
+                         {
+                             cr.RoomId,
+                             cr.IsGroup,
+                             cr.GroupName,
+                             cr.CreatedBy,
+                             cr.CreatedOn,
+                             ChatTitle = cr.IsGroup.HasValue && cr.IsGroup.Value
+                                 ? (cr.GroupName ?? "Unnamed Group")
+                                 : (from m in Context.ChatRoomMembers
+                                    join u in Context.Users on m.UserId equals u.UserId
+                                    where m.RoomId == cr.RoomId && u.UserId != userId
+                                    select u.UserName).FirstOrDefault() ?? "Unknown User"
+                         }).ToList<object>();
 
-            rooms = (from cr in Context.ChatRooms
-                     where list.Contains(cr.RoomId)
-                     select cr).ToList();
-
+            return rooms;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            rooms = new List<ChatRoom>(); // Fixed the issue here by specifying the type argument.  
+            Console.WriteLine("Error in GetAllChatRoomsByUser: " + ex.Message);
+            throw; // Re-throw to trigger 500 for controller to catch
+        }
+    }
+
+
+
+
+    public (Message? message, string? userName) GetLatestMessageByRoomId(int roomId)
+    {
+        try
+        {
+            var result = (from m in Context.Messages
+                          join u in Context.Users on m.UserId equals u.UserId
+                          where m.RoomId == roomId
+                          orderby m.CreatedAt descending
+                          select new
+                          {
+                              Message = m,
+                              UserName = u.UserName
+                          }).FirstOrDefault();
+
+            if (result != null)
+            {
+                //Console.WriteLine($"Latest Message: {result.Message.Text}, User: {result.UserName}");
+                return (result.Message, result.UserName);
+            }
+            else
+            {
+                Console.WriteLine("No message found for the given room ID.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Exception: " + ex.Message);
+            return (null, ex.Message); // or just (null, null)
         }
 
-        return rooms;
+        return (null, null);
+    }
+
+    public bool AddUser(User user)
+    {
+        bool result = false;
+        try
+        {
+            Context.Users.Add(user);
+            Context.SaveChanges();
+            return true;
+        }
+        catch (Exception ex)
+        {
+
+            result = false;
+        }
+        return result;
     }
     public async Task<Message> SendMessageAsync(Message message)
     {
