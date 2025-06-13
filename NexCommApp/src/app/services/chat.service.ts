@@ -49,4 +49,8 @@ export class ChatService {
   createChatRoom(userId: number): Observable<{ roomId: number; groupName: string }> {
     return this.http.post<{ roomId: number; groupName: string }>(`${this.apiUrl}/api/GroupChat/CreateRoom`, { userId });
   }
+
+  getUserRooms(userId: number): Observable<{ roomId: number; groupName: string; userNames: string[] }[]> {
+    return this.http.get<{ roomId: number; groupName: string; userNames: string[] }[]>(`${this.apiUrl}/api/Dashboard/rooms/${userId}`);
+  }
 }

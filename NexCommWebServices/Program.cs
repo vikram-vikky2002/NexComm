@@ -37,7 +37,7 @@ namespace NexCommWebServices
             });
 
             builder.Services.AddTransient<NexCommRepository>();
-
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<IChatRoomService, ChatRoomService>();
 
 

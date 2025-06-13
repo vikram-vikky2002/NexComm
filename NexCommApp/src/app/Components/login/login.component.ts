@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { UserService } from '../../services/user.service';
+import { catchError, of } from 'rxjs';
+import { Iuser } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +31,11 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
     // Add any initialization logic
@@ -43,16 +50,25 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    // Simulate API call (replace with your actual API call)
-    setTimeout(() => {
-      // Mock authentication
-      if (this.username === 'admin' && this.password === 'admin123') {
-        localStorage.setItem('authToken', 'mock-token');
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.errorMessage = 'Invalid username or password';
+    const userObj = {
+      userName: this.username,
+      password: this.password
+    };
+
+    this.userService.validateCredentials(userObj).subscribe({
+      next: (response: any) => {
+        // Store user data and token
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('userId', response.userId);
+        localStorage.setItem('userName', response.userName);
+        
+        // Redirect to chats page
+        this.router.navigate(['/chats']);
+      },
+      error: (error) => {
+        this.errorMessage = error.message || 'Invalid username or password';
         this.isLoading = false;
       }
-    }, 1500);
+    });
   }
 }

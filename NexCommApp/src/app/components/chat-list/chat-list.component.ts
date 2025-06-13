@@ -37,6 +37,31 @@ export class ChatListComponent {
 
     this.isAdmin = sessionStorage.getItem('isAdmin') === 'true';
     // this.loadMessages();
+
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.loadChatRoomsByUser(userId);
+    }
+    
+  }
+
+  loadChatRoomsByUser(userId: string) {
+    this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
+      this.recentChats = response;
+      this.isLoadingChats = false;
+
+      this.filteredChats = this.recentChats;
+  
+      this.recentChats.forEach(room => {
+        this.chatService.getLatestMessage(room.roomId).subscribe(data => {
+          this.latestMessage[room.roomId] = {
+            message: data.message,
+            userName: data.userName
+          };
+        });
+      });
+    });
+
   }
 
   loadChatRooms() {

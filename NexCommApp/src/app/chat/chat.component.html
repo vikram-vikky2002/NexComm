@@ -14,8 +14,8 @@
     <app-loader-component *ngIf="isLoading"></app-loader-component>
     <div *ngIf="!isLoading" class="messages-list">
       <div *ngFor="let msg of messages" 
-           [class.user-message]="msg.userId === 101"
-           [class.other-message]="msg.userId !== 101">
+           [class.user-message]="msg.userId === parseUserId(userId)"
+           [class.other-message]="msg.userId !== parseUserId(userId)">
         <div class="message-bubble" style="margin: 10px; min-width: 300px; padding: 10px; color: white;">
           <div class="message-content" style="text-align: left;">
             <p>{{ msg.text }}</p>

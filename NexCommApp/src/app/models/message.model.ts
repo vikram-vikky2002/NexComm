@@ -4,6 +4,5 @@ export interface Message {
   roomId: number;
   text: string;
   createdAt: string;
-  room: any;
-  user: any;
+  userName?: string;
 }

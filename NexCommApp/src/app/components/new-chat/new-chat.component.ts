@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+interface User {
+  userId: number;
+  userName: string;
+}
+
 @Component({
   selector: 'app-new-chat',
   templateUrl: './new-chat.component.html',
@@ -10,8 +15,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class NewChatComponent implements OnInit {
   newChatForm: FormGroup;
-  users: any[] = [];
-  loading = false;
+  users: User[] = [];
+  selectedUser: User | null = null;
+  loading: boolean = false;
   error: string = '';
 
   constructor(
@@ -45,23 +51,15 @@ export class NewChatComponent implements OnInit {
   }
 
   createChat(): void {
-    if (this.newChatForm.valid) {
-      const selectedUserId = this.newChatForm.value.selectedUser;
-      
-      this.loading = true;
+    const selectedUserId = this.selectedUser?.userId;
+    if (selectedUserId) {
       this.chatService.createChatRoom(selectedUserId).subscribe(
         (response) => {
-          if (response.roomId) {
-            this.router.navigate(['/chat', response.groupName || 'New Chat', response.roomId]);
-          } else {
-            this.error = 'Failed to create chat room';
-          }
-          this.loading = false;
+          // Use the groupName from the response instead of 'New Chat'
+          this.router.navigate(['/chat', response.groupName, response.roomId]);
         },
         (error) => {
           console.error('Error creating chat:', error);
-          this.error = 'Failed to create chat room. Please try again.';
-          this.loading = false;
         }
       );
     }

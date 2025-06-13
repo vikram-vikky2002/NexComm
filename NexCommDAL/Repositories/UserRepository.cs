@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NexCommDAL.Models;
 using System;
 using System.Collections.Generic;
@@ -51,6 +51,13 @@ namespace NexCommDAL.Repositories
                 Context.Users.Remove(user);
                 await Context.SaveChangesAsync();
             }
+        }
+
+        public async Task<User> AuthenticateUserAsync(string userName, string password)
+        {
+            return await Context.Users
+                .Include(u => u.RoleNavigation)
+                .FirstOrDefaultAsync(u => u.UserName == userName && u.Password == password);
         }
     }
 }

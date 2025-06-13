@@ -238,9 +238,4 @@ public class NexCommRepository
         return newRoom;
     }
      
-    public void AddUser(User user)
-    {
-        Context.Users.Add(user);
-        Context.SaveChanges();
-    }
 }

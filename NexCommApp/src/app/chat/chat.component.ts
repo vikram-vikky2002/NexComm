@@ -11,6 +11,8 @@ import { Message } from '../models/message.model';
 export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
+  private messagePollingInterval: NodeJS.Timeout | undefined;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -18,19 +20,40 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef
   ) { }
 
+  userId: string = '';
   userName: string = '';
   message: string = '';
   messages: Message[] = [];
+  isLoading: boolean = true;
   chatId: string = '';
   roomId: string = '';
-  isLoading: boolean = true;
+  latestMessageId: number = 0; // Track the latest message ID
+  isSending: boolean = false; // Track if we're currently sending a message
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.chatId = params['chatTitle'] ?? params['groupName'];
-      this.roomId = params['roomId'];
+    // Get user ID from localStorage and validate
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const parsedUserId = parseInt(userId);
+    if (isNaN(parsedUserId)) {
+      console.error('Invalid user ID');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.userId = parsedUserId.toString();
+    
+    this.route.params.subscribe((params: { [key: string]: string | null }) => {
+      this.chatId = params['chatTitle'] ?? params['groupName'] ?? '';
+      this.roomId = params['roomId'] ?? '';
       this.userName = this.chatId || 'User Name';
-      this.fetchMessages();
+      
+      // Start message polling
+      this.startMessagePolling();
     });
   }
 
@@ -39,25 +62,58 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
+    this.stopMessagePolling();
     this.router.navigate(['/chats']);
   }
 
-  fetchMessages(): void {
-    if (this.roomId) {
-      this.isLoading = true;
-      this.chatService.getMessagesForRoom(this.roomId).subscribe(
-        (messages: Message[]) => {
-          this.messages = messages.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-          console.log(this.messages);
-          this.isLoading = false;
-          this.scrollToBottom();
-        },
-        (error: any) => {
-          console.error('Error fetching messages:', error);
-          this.isLoading = false;
-        }
-      );
+  private startMessagePolling(): void {
+    // Clear any existing interval
+    this.stopMessagePolling();
+
+    // Start new polling interval
+    this.messagePollingInterval = setInterval(() => {
+      if (this.roomId && !this.isSending) {
+        this.fetchMessages();
+      }
+    }, 5000); // Poll every 5 seconds
+  }
+
+  private stopMessagePolling(): void {
+    if (this.messagePollingInterval) {
+      clearInterval(this.messagePollingInterval);
+      this.messagePollingInterval = undefined;
     }
+  }
+
+  fetchMessages(): void {
+    if (!this.roomId) return;
+    const roomId = parseInt(this.roomId);
+    if (isNaN(roomId)) return;
+
+    this.chatService.getMessagesForRoom(this.roomId).subscribe(
+      (newMessages: Message[]) => {
+        // Sort new messages by creation time
+        newMessages.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+        // Add only new messages that have a newer ID than our latest
+        const messagesToAdd = newMessages.filter(msg => msg.messageId > this.latestMessageId);
+        
+        // Update messages array with new messages
+        this.messages = [...this.messages, ...messagesToAdd];
+        
+        // Update latest message ID if we have any messages (new or existing)
+        if (newMessages.length > 0) {
+          this.latestMessageId = Math.max(...newMessages.map(msg => msg.messageId));
+        }
+
+        this.isLoading = false;
+        this.scrollToBottom();
+      },
+      (error: any) => {
+        console.error('Error fetching messages:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   formatTimestamp(timestamp: string): string {
@@ -67,33 +123,51 @@ export class ChatComponent implements OnInit, AfterViewInit {
     });
   }
 
+  parseUserId(userId: string): number {
+    return parseInt(userId);
+  }
+
   sendMessage(): void {
     if (this.message.trim()) {
+      if (!this.roomId) {
+        console.error('Room ID is not set');
+        return;
+      }
+
       const messageData = {
-        userId: 101,  // Assuming 101 is the current user's ID
+        userId: parseInt(this.userId),  // Using user ID from localStorage (already validated)
         roomId: parseInt(this.roomId),
         text: this.message,
         createdAt: new Date().toISOString()
       };
 
+      // Temporarily disable polling while sending
+      this.isSending = true;
       this.chatService.sendMessage(messageData).subscribe(
         (response) => {
           const newMessage: Message = {
             messageId: Date.now(),
-            userId: 101,
+            userId: parseInt(this.userId),  // Using user ID from localStorage (already validated)
             roomId: parseInt(this.roomId),
             text: this.message,
-            createdAt: messageData.createdAt,
-            room: null,
-            user: null
+            createdAt: messageData.createdAt
           };
+          
+          // Add the message directly
           this.messages.push(newMessage);
           this.message = '';
           this.scrollToBottom();
+          
+          // Update latest message ID
+          this.latestMessageId = newMessage.messageId;
+          
+          // Re-enable polling
+          this.isSending = false;
         },
         (error) => {
           console.error('Error sending message:', error);
           alert('Failed to send message. Please try again.');
+          this.isSending = false;
         }
       );
     }
@@ -112,7 +186,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   handleKeyPress(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
       this.sendMessage();
     }
   }
