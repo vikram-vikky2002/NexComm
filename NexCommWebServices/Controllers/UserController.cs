@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NexCommDAL;
+using NexCommDAL.Models;
 
 namespace NexCommWebServices.Controllers
 {
@@ -14,7 +15,7 @@ namespace NexCommWebServices.Controllers
             _repository = repository;
         }
 
-        [HttpPut("room")]
+        [HttpPost("room")]
         public JsonResult AddNewUser(Models.User user)
         {
             bool status = false;
@@ -46,6 +47,23 @@ namespace NexCommWebServices.Controllers
                     Console.WriteLine(ex.InnerException.Message);
                 }
                 status = false;
+            }
+            return Json(status);
+        }
+
+        [HttpPut]
+        public JsonResult UpdateUserDetails(int userId, string userName, string role, string emailId)
+        {
+            bool status = false;
+            try
+            {
+                status = _repository.UpdateUserDetails(userId, userName,role,emailId);
+                
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                Console.WriteLine(ex.Message);
             }
             return Json(status);
         }

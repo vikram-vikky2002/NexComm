@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ChatService {
   private apiUrl = 'https://localhost:7143/api/NexComm/online-users'; // Replace with your API URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getChats(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);

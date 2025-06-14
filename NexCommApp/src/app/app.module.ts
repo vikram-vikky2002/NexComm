@@ -6,13 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router'; // Import RouterModule
 import { ChatListComponent } from './chat-list/chat-list.component'; // Import ChatListComponent
-import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
+import { ChatComponent } from './chat/chat.component';
+import { UsersComponent } from './users/users.component'; // Import ChatComponent
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent // Declare ChatComponent
+    ChatComponent, UsersComponent // Declare ChatComponent
   ],
   imports: [
     BrowserModule,
