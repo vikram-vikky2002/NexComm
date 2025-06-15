@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
+// import { Message } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,15 +33,27 @@ export class ChatService {
     return this.http.get<any[]>(`${this.apiUrl}/api/GroupChat/GetMessagesForRoom?roomId=${roomId}`);
   }
 
-  sendMessage(message: { userId: number; roomId: number; text: string; createdAt: string }): Observable<any> {
+  getFilesForRoom(roomId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/GroupChat/GetFilesForRoom?roomId=${roomId}`);
+  }
+
+  sendMessage(message: { userId: number; roomId: number; text: string; createdAt: string; filePath?: string }): Observable<any> {
     const messageData = {
       userId: message.userId,
       roomId: message.roomId,
       text: message.text,
-      createdAt: message.createdAt
+      createdAt: message.createdAt,
+      filePath: message.filePath
     };
 
     return this.http.post<any>(`${this.apiUrl}/api/GroupChat/SendMessage`, messageData);
+  }
+
+  uploadFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/GroupChat/UploadFile`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   getOnlineUsers(): Observable<any[]> {

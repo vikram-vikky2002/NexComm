@@ -9,6 +9,8 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
 import { LoginComponent } from './components/login/login.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { NetworkErrorComponent } from './network-error/network-error.component';
+import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
 
 const routes: Routes = [
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'helpCenter', component: HelpCenterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'terms', component: TermsComponent },
-  { path: '**', redirectTo: '/login' }
+  { path: 'network-error', component: NetworkErrorComponent },
+  { path: 'path-error', component: PathErrorComponent },
+  { path: '**', redirectTo: '/path-error' }
 ];
 
 @NgModule({

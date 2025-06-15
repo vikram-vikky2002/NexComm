@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChatService } from '../services/chat.service';
-import { Message } from '../models/message.model';
+import { Message } from '../Models/message.model';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
   private messagePollingInterval: NodeJS.Timeout | undefined;
+  
 
   constructor(
     private router: Router,
@@ -29,6 +30,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
   roomId: string = '';
   latestMessageId: number = 0; // Track the latest message ID
   isSending: boolean = false; // Track if we're currently sending a message
+  selectedFile: File | null = null;
+  files: any[] = [];
+  fileUploadProgress: number = 0; // Track file upload progress
 
   ngOnInit(): void {
     // Get user ID from localStorage and validate
@@ -74,8 +78,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.messagePollingInterval = setInterval(() => {
       if (this.roomId && !this.isSending) {
         this.fetchMessages();
+        this.fetchFiles();
       }
-    }, 5000); // Poll every 5 seconds
+    }, 3000); // Poll every 5 seconds
   }
 
   private stopMessagePolling(): void {
@@ -116,6 +121,16 @@ export class ChatComponent implements OnInit, AfterViewInit {
     );
   }
 
+  fetchFiles(): void {
+    this.chatService.getFilesForRoom(this.roomId).subscribe(
+      (newFiles: File[]) => {
+        this.files = [...newFiles];
+      }
+    );
+
+    // console.log(this.files);
+  }
+
   formatTimestamp(timestamp: string): string {
     return new Date(timestamp).toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -137,8 +152,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
       const messageData = {
         userId: parseInt(this.userId),  // Using user ID from localStorage (already validated)
         roomId: parseInt(this.roomId),
-        text: this.message,
-        createdAt: new Date().toISOString()
+        text: this.message.trim(),
+        createdAt: new Date().toISOString(),
+        filePath: this.selectedFile ? `/uploads/${this.selectedFile.name}` : undefined
       };
 
       // Temporarily disable polling while sending
@@ -190,5 +206,23 @@ export class ChatComponent implements OnInit, AfterViewInit {
       event.preventDefault();
       this.sendMessage();
     }
+  }
+
+  handleFileSelect(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files[0]) {
+      this.selectedFile = target.files[0];
+      // Reset the input value to allow selecting the same file again
+      target.value = '';
+    }
+  }
+
+  downloadFile(filePath: string): void {
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = filePath.split('/').pop() || '';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

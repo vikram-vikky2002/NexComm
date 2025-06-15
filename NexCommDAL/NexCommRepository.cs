@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NexCommDAL.Models;
 using System.Collections.Generic;
 using File = NexCommDAL.Models.File;
@@ -184,11 +184,29 @@ public class NexCommRepository
             return await Context.Files
                 .Where(f => f.UserId == userId)
                 .OrderBy(f => f.CreatedAt)
+                .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new List<File>();
+        }
+    }
+
+    public async Task<List<File>> GetFilesByRoomAsync(int roomId)
+    {
+        try
+        {
+            return await Context.Files
+                .Where(f => f.RoomId == roomId)
+                .OrderBy(f => f.CreatedAt)
                 .Select(f => new File
                 {
                     FileId = f.FileId,
                     UserId = f.UserId,
+                    RoomId = f.RoomId,
                     FileType = f.FileType,
+                    Path = f.Path,
                     CreatedAt = f.CreatedAt
                 })
                 .ToListAsync();

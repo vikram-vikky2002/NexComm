@@ -30,8 +30,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NexCommApp", "NexCommApp\",
 		SlnRelativePath = "NexCommApp\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debug", "Debug\Debug.csproj", "{0D6F1197-6FE1-49E1-AFF7-FF9EBDC22997}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +52,6 @@ Global
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{D58C8CA3-80A4-42CD-B640-AD422E5E4610}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{0D6F1197-6FE1-49E1-AFF7-FF9EBDC22997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D6F1197-6FE1-49E1-AFF7-FF9EBDC22997}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D6F1197-6FE1-49E1-AFF7-FF9EBDC22997}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D6F1197-6FE1-49E1-AFF7-FF9EBDC22997}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

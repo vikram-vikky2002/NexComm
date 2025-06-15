@@ -143,6 +143,59 @@
   gap: 0.25rem;
 }
 
+.file-attachment {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #007bff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.file-info:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #0056b3;
+}
+
+.file-info i {
+  font-size: 1.2rem;
+}
+
+.file-action-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  transition: all 0.2s ease;
+}
+
+.file-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #0056b3;
+}
+
+.file-action-btn i {
+  font-size: 1rem;
+}
+
 .message-time {
   font-size: 0.75rem;
   opacity: 0.7;

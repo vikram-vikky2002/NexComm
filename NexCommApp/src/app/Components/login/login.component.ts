@@ -58,10 +58,16 @@ export class LoginComponent implements OnInit {
     this.userService.validateCredentials(userObj).subscribe({
       next: (response: any) => {
         // Store user data and token
+        console.log(response);
         localStorage.setItem('authToken', response.token);
         localStorage.setItem('userId', response.userId);
         localStorage.setItem('userName', response.userName);
-        
+        if(response.role == 'admin'){
+          localStorage.setItem('admin', 'true');
+        }
+        else{
+          localStorage.setItem('admin', 'false');
+        }
         // Redirect to chats page
         this.router.navigate(['/chats']);
       },
