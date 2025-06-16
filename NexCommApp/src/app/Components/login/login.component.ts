@@ -5,6 +5,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { UserService } from '../../services/user.service';
 import { catchError, of } from 'rxjs';
 import { Iuser } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +35,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    // Add any initialization logic
+    // Check if user is already logged in
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/chats']);
+    }
   }
 
   onSubmit(): void {
@@ -48,6 +53,16 @@ export class LoginComponent implements OnInit {
     }
 
     this.isLoading = true;
+    this.authService.login(this.username, this.password).subscribe(
+      (response) => {
+        const redirectUrl = this.authService.redirectUrl || '/chats';
+        this.router.navigate([redirectUrl]);
+      },
+      (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.error?.message || 'Login failed. Please try again.';
+      }
+    );
     this.errorMessage = '';
 
     const userObj = {
@@ -55,11 +70,10 @@ export class LoginComponent implements OnInit {
       password: this.password
     };
 
-    this.userService.validateCredentials(userObj).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
         // Store user data and token
         console.log(response);
-        localStorage.setItem('authToken', response.token);
         localStorage.setItem('userId', response.userId);
         localStorage.setItem('userName', response.userName);
         if(response.role == 'admin'){
@@ -68,11 +82,12 @@ export class LoginComponent implements OnInit {
         else{
           localStorage.setItem('admin', 'false');
         }
-        // Redirect to chats page
-        this.router.navigate(['/chats']);
+        // Redirect to the saved URL or default to chats page
+        const redirectUrl = this.authService.redirectUrl || '/chats';
+        this.router.navigate([redirectUrl]);
       },
       error: (error) => {
-        this.errorMessage = error.message || 'Invalid username or password';
+        this.errorMessage = error.error?.message || 'Invalid username or password';
         this.isLoading = false;
       }
     });

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FeaturesComponent } from './components/features/features.component';
@@ -15,9 +16,9 @@ import { NewChatComponent } from './components/new-chat/new-chat.component'; // 
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'chats', component: ChatListComponent },
-  { path: 'chat/:chatTitle/:roomId', component: ChatComponent },
-  { path: 'chat/new', component: NewChatComponent },
+  { path: 'chats', component: ChatListComponent, canActivate: [AuthGuard] },
+  { path: 'chat/:chatTitle/:roomId', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'chat/new', component: NewChatComponent, canActivate: [AuthGuard] },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'features', component: FeaturesComponent },

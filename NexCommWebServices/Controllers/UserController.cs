@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NexCommBusinessLayer.Services;
 using NexCommDAL.Models;
+using NexComm.Models;
+using NexComm.Services;
 using System.Threading.Tasks;
 
 namespace NexCommWebServices.Controllers
@@ -10,10 +12,12 @@ namespace NexCommWebServices.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly JwtTokenService _jwtTokenService;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, JwtTokenService jwtTokenService)
         {
             _userService = userService;
+            _jwtTokenService = jwtTokenService;
         }
 
         [HttpPost("login")]
@@ -31,8 +35,16 @@ namespace NexCommWebServices.Controllers
                 return Unauthorized("Invalid username or password");
             }
 
+            // Generate JWT token
+            var token = _jwtTokenService.GenerateToken(
+                user.UserId.ToString(),
+                user.UserName,
+                user.Role
+            );
+
             return Ok(new
             {
+                token,
                 userId = user.UserId,
                 userName = user.UserName,
                 role = user.Role,
