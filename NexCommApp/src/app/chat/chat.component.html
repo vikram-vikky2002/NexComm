@@ -41,7 +41,10 @@
             </div>
           </div>
           <div class="message-content" style="text-align: right;">
-            <small>{{ formatTimestamp(msg.createdAt) }}</small>
+            <small style="align-items: center;
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 10px; color: white;">{{ msg.userName }} | {{ formatTimestamp(msg.createdAt) }}</small> 
           </div>
         </div>
       </div>

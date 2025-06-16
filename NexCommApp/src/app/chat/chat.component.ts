@@ -70,6 +70,14 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/chats']);
   }
 
+  private isUserNearBottom(): boolean {
+    if (!this.messagesContainer?.nativeElement) return true;
+    const threshold = 150; // px from bottom
+    const position = this.messagesContainer.nativeElement.scrollTop + this.messagesContainer.nativeElement.clientHeight;
+    const height = this.messagesContainer.nativeElement.scrollHeight;
+    return height - position < threshold;
+  }
+
   private startMessagePolling(): void {
     // Clear any existing interval
     this.stopMessagePolling();
@@ -95,6 +103,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
     const roomId = parseInt(this.roomId);
     if (isNaN(roomId)) return;
 
+    const shouldAutoScroll = this.isUserNearBottom();
+
     this.chatService.getMessagesForRoom(this.roomId).subscribe(
       (newMessages: Message[]) => {
         // Sort new messages by creation time
@@ -112,7 +122,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
         }
 
         this.isLoading = false;
-        this.scrollToBottom();
+        if (shouldAutoScroll) {
+          this.scrollToBottom(); // ✅ Only scroll if user was near bottom
+        }
       },
       (error: any) => {
         console.error('Error fetching messages:', error);
@@ -132,10 +144,19 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   formatTimestamp(timestamp: string): string {
-    return new Date(timestamp).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    const messageDate = new Date(timestamp);
+    const currentDate = new Date();
+    
+    // Check if the message is from today
+    const isToday = messageDate.toDateString() === currentDate.toDateString();
+    
+    if (isToday) {
+      // Show time for today's messages
+      return messageDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+    
+    // Show date for older messages
+    return messageDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   }
 
   parseUserId(userId: string): number {

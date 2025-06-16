@@ -51,44 +51,23 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Please enter both username and password';
       return;
     }
-
+  
     this.isLoading = true;
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        const redirectUrl = this.authService.redirectUrl || '/chats';
-        this.router.navigate([redirectUrl]);
-      },
-      (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.message || 'Login failed. Please try again.';
-      }
-    );
-    this.errorMessage = '';
-
-    const userObj = {
-      userName: this.username,
-      password: this.password
-    };
-
+    this.errorMessage = ''; // Clear any previous errors
+  
     this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
-        // Store user data and token
         console.log(response);
         localStorage.setItem('userId', response.userId);
         localStorage.setItem('userName', response.userName);
-        if(response.role == 'admin'){
-          localStorage.setItem('admin', 'true');
-        }
-        else{
-          localStorage.setItem('admin', 'false');
-        }
-        // Redirect to the saved URL or default to chats page
+        localStorage.setItem('admin', response.role === 'admin' ? 'true' : 'false');
+  
         const redirectUrl = this.authService.redirectUrl || '/chats';
         this.router.navigate([redirectUrl]);
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Invalid username or password';
         this.isLoading = false;
+        this.errorMessage = error.error?.message || 'Invalid username or password';
       }
     });
   }

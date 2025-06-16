@@ -45,6 +45,10 @@ export class ChatListComponent {
     
   }
 
+  newChat() {
+    this.router.navigate(['/chat/new']);
+  }
+
   loadChatRoomsByUser(userId: string) {
     this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
       this.recentChats = response;

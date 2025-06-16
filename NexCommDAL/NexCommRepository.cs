@@ -147,14 +147,40 @@ public class NexCommRepository
         
     }
 
-    public List<Message> GetMessagesForRoomAsync(int roomId)
+    public class MessageDto
+    {
+        public int MessageId { get; set; }
+        public int RoomId { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+    }
+
+
+    public List<MessageDto> GetMessagesForRoomAsync(int roomId)
     {
         try
         {
-            return Context.Messages
-            .Where(m => m.RoomId == roomId)
-            .OrderBy(m => m.CreatedAt)
-            .ToList();
+            var messages = (from m in Context.Messages
+                            join u in Context.Users on m.UserId equals u.UserId
+                            where m.RoomId == roomId
+                            orderby m.CreatedAt
+                            select new MessageDto
+                            {
+                                MessageId = m.UserId,
+                                RoomId = m.RoomId,
+                                UserId = m.UserId,
+                                UserName = u.UserName,
+                                Text = m.Text,
+                                CreatedAt = (DateTime)m.CreatedAt
+                            }).ToList();
+            return messages;
+
+            //return Context.Messages
+            //.Where(m => m.RoomId == roomId)
+            //.OrderBy(m => m.CreatedAt)
+            //.ToList();
         }
         catch (Exception ex)
         {
