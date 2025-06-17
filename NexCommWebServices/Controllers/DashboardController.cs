@@ -31,6 +31,20 @@ namespace NexCommWebServices.Controllers
             }
         }
 
+        // GET: api/chat/online-users
+        [HttpGet("testing")]
+        public ActionResult Testing()
+        {
+            try
+            {
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while fetching online users.");
+            }
+        }
+
         // GET: api/chat/rooms/{userId}
         [HttpGet("rooms/{userId}")]
         public ActionResult<List<object>> GetChatRoomsByUser(int userId)

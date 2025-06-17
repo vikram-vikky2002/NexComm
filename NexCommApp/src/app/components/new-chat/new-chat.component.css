@@ -1,14 +1,31 @@
-.new-chat-container {
-  display: flex;
-  flex-direction: column;
+/* Background */
+.background {
   height: 100vh;
+  width: 100%;
+  background: url('src/assets/background2.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
   padding: 20px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  box-sizing: border-box;
 }
 
+/* Glass container */
+.new-chat-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+/* Header */
 .new-chat-header {
   display: flex;
   justify-content: space-between;
@@ -17,86 +34,99 @@
 }
 
 .new-chat-header h2 {
-  color: white;
   margin: 0;
+  font-size: 24px;
 }
 
-.new-chat-content {
-  flex: 1;
+/* Toggle Chat Type */
+.toggle-container {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: white;
 }
 
+.toggle-container input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Form Styling */
 .form-group {
   margin-bottom: 20px;
 }
 
-.form-group label {
+label {
   display: block;
-  margin-bottom: 5px;
-  color: white;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-.form-group select {
+select {
   width: 100%;
   padding: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  outline: none;
+  font-size: 15px;
+}
+
+select[multiple] {
+  height: 120px;
+  overflow-y: auto;
+}
+
+select option {
+  background-color: #222;
   color: white;
 }
 
-.form-group select:focus {
-  outline: none;
-  border-color: rgba(75, 192, 192, 0.5);
+.is-invalid {
+  border: 2px solid #ff6b6b;
 }
 
-.form-group select.is-invalid {
-  border-color: #dc3545;
+.error-message {
+  color: #ff6b6b;
+  margin-top: 6px;
+  font-size: 13px;
 }
 
+/* Buttons */
 .button-group {
   display: flex;
+  justify-content: space-between;
   gap: 10px;
 }
 
-.create-button, .cancel-button {
+.create-button,
+.cancel-button {
+  flex: 1;
   padding: 10px 20px;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  transition: 0.3s ease;
 }
 
 .create-button {
-  background: rgba(75, 192, 192, 0.2);
+  background-color: #4caf50;
   color: white;
 }
 
-.create-button:hover:not(:disabled) {
-  background: rgba(75, 192, 192, 0.3);
-}
-
-.create-button:disabled {
-  background: rgba(255, 255, 255, 0.1);
-  cursor: not-allowed;
+.create-button:hover {
+  background-color: #43a047;
 }
 
 .cancel-button {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #f44336;
   color: white;
 }
 
 .cancel-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.error-message {
-  color: #dc3545;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #d32f2f;
 }

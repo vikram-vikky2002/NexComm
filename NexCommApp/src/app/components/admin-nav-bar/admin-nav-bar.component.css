@@ -18,13 +18,18 @@
     min-height: 100vh;
     background-size: cover;
     background-position: center;
+    transition: filter 0.3s ease;
+  }
+
+  body.menu-open {
+    filter: blur(5px);
   }
   .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: space-between;
@@ -52,26 +57,38 @@
     left: 100%;
   }
   .logo {
+    display: flex;
+    align-items: center;
     color: #fff;
     font-size: 25px;
     text-decoration: none;
     font-weight: 600;
     cursor: default;
   }
+  
   .navbar a {
-    color: #fff;
-    font-size: 18px;
+    color: white;
     text-decoration: none;
-    margin-left: 35px;
-    transition: 0.3s;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
   }
   .navbar a:hover {
-    color: #f00;
+    color: #72ecff;
+    background: rgba(0, 123, 255, 0.1);
+    backdrop-filter: blur(5px);
   }
   #menu-icon {
-    font-size: 36px;
-    color: #fff;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
     display: none;
+    transition: all 0.3s ease;
+  }
+  #menu-icon.bx-x {
+    transform: rotate(45deg);
   }
   /* BREAKPOINTS */
   @media (max-width: 992px) {
@@ -79,38 +96,94 @@
       padding: 1.25rem 4%;
     }
   }
+
   @media (max-width: 768px) {
+    .header {
+      padding: 20px 20px;
+    }
+
     #menu-icon {
       display: block;
     }
+
     .navbar {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      top: 90px;
       left: 0;
-      width: 100%;
-      padding: 0.5rem 4%;
+      right: 0;
+      background: rgba(0, 7, 58, 0.805); /* Light transparent background */
+      backdrop-filter: blur(20px); /* This applies the blur */
+      -webkit-backdrop-filter: blur(20px); /* For Safari support */
       display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
     }
+
     .navbar.active {
-      display: block;
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
     }
+
+    .navbar:not(.active) {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
     .navbar a {
       display: block;
-      margin: 1.5rem 0;
-    }
-    .nav-bg {
-      position: absolute;
-      top: 79px;
-      left: 0;
-      width: 100%;
-      height: 295px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      padding: 1.2rem;
+      margin: 8px 0;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.1);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
-      z-index: 99;
-      display: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
+
+    .navbar a:hover {
+      background: rgba(0, 123, 255, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
+    }
+
+    .nav-bg {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
     .nav-bg.active {
       display: block;
+      opacity: 1;
+    }
+
+    .nav-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 123, 255, 0.1),
+        rgba(0, 123, 255, 0.05),
+        rgba(0, 123, 255, 0.1)
+      );
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-bg.active::after {
+      opacity: 1;
     }
   }

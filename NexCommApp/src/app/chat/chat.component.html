@@ -3,9 +3,20 @@
     <div class="back-button" (click)="goBack()">
       <img src="../../assets/arrow.png" height="35px" alt="Back">
     </div>
-    <div class="user-info">
-      <h2>{{ userName }}</h2>
-      <div class="status-dot"></div>
+    <div style="    
+    width: -webkit-fill-available;
+    margin: 0px 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: wrap;">
+      <div class="user-info">
+        <h2>{{ userName }}</h2>
+        <div class="status-dot"></div>
+      </div>
+      <div>View Files</div>
     </div>
   </div>
 
@@ -19,9 +30,21 @@
         <div class="message-bubble" style="margin: 10px; min-width: 300px; padding: 10px; color: white;">
           <div class="message-content" style="text-align: left;">
             <p>{{ msg.text }}</p>
+            <div *ngIf="msg.filePath" class="file-attachment">
+              <div class="file-info">
+                <i class="fas fa-file"></i>
+                <span>{{ msg.text.split(': ')[1] }}</span>
+              </div>
+              <button class="file-action-btn" (click)="downloadFile(msg.filePath)">
+                <i class="fas fa-download"></i>
+              </button>
+            </div>
           </div>
           <div class="message-content" style="text-align: right;">
-            <small>{{ formatTimestamp(msg.createdAt) }}</small>
+            <small style="align-items: center;
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 10px; color: white;">{{ msg.userName }} | {{ formatTimestamp(msg.createdAt) }}</small> 
           </div>
         </div>
       </div>
@@ -37,7 +60,14 @@
               (keyup)="handleKeyPress($event)"
               placeholder="Type your message..."
               (focus)="messageInput.select()">
-      <button (click)="sendMessage()" [disabled]="!message.trim()">Send</button>
+      <button type="button" class="attachments-btn" (click)="fileInput.click()">
+        <i class="fas fa-paperclip"></i>
+      </button>
+      <input type="file" #fileInput (change)="handleFileSelect($event)" hidden accept="image/*,.pdf,.doc,.docx,.txt,.xlsx,.xls">
+      <div *ngIf="fileUploadProgress > 0" class="upload-progress">
+        <div class="progress-bar" [style.width.%]="fileUploadProgress"></div>
+      </div>
+      <button (click)="sendMessage()" [disabled]="!(message.trim() || selectedFile)">Send</button>
     </div>
   </div>
 </div>

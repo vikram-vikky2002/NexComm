@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FeaturesComponent } from './components/features/features.component';
@@ -9,6 +10,8 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
 import { LoginComponent } from './components/login/login.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { NetworkErrorComponent } from './network-error/network-error.component';
+import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { FormsModule } from '@angular/forms';
@@ -16,9 +19,9 @@ import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'chats', component: ChatListComponent },
-  { path: 'chat/:chatTitle/:roomId', component: ChatComponent },
-  { path: 'chat/new', component: NewChatComponent },
+  { path: 'chats', component: ChatListComponent, canActivate: [AuthGuard] },
+  { path: 'chat/:chatTitle/:roomId', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'chat/new', component: NewChatComponent, canActivate: [AuthGuard] },
   { path: 'contactUs', component: ContactUsComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'features', component: FeaturesComponent },
@@ -26,6 +29,9 @@ const routes: Routes = [
   { path: 'helpCenter', component: HelpCenterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'terms', component: TermsComponent },
+  { path: 'network-error', component: NetworkErrorComponent },
+  { path: 'path-error', component: PathErrorComponent },
+  { path: '**', redirectTo: '/path-error' }
   { path: 'forgotpassword', component: forgotpwdComponent },
   { path: '**', redirectTo: '/login' }
 ];

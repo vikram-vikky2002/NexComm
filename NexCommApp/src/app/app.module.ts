@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewChatComponent } from './components/new-chat/new-chat.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +24,8 @@ import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './components/login/login.component'; // Import ChatComponent
 import { FormsModule } from '@angular/forms';
 import { TermsComponent } from './components/terms/terms.component';
+import { NetworkErrorComponent } from './network-error/network-error.component';
+import { PathErrorComponent } from './path-error/path-error.component';
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 
 @NgModule({
@@ -39,6 +43,7 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
     ChatComponent, // Declare ChatComponent
     NewChatComponent,
     ChatListComponent, // Declare ChatListComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent // Declare ChatComponent
     ChatComponent, LoginComponent, TermsComponent, forgotpwdComponent // Declare ChatComponent
     
   ],
@@ -50,7 +55,10 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

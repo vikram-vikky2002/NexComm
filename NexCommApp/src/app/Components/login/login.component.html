@@ -28,6 +28,10 @@
                class="glass-input">
       </div>
 
+      <div *ngIf="errorMessage" @fadeIn class="error-message">
+        {{ errorMessage }}
+      </div>
+
       <div class="form-actions">
         <a href="/forgotpassword" class="forgot-password">Forgot Password?</a>
         <button type="submit" class="glass-button" [disabled]="isLoading">
