@@ -2,28 +2,27 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewChatComponent } from './components/new-chat/new-chat.component';
+import { NewChatComponent } from './Components/new-chat/new-chat.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { Routes } from '@angular/router'; // Import RouterModule
-import { FooterComponent } from './components/footer/footer.component';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
-import { FeaturesComponent } from './components/features/features.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { HelpCenterComponent } from './components/help-center/help-center.component'; // Import ChatListComponent
-import { UserNavBarComponent } from './components/user-nav-bar/user-nav-bar.component';
-import { LoaderComponentComponent } from './components/loader-component/loader-component.component';
-import { AdminNavBarComponent } from './components/admin-nav-bar/admin-nav-bar.component'; // Import ChatListComponent
-
+import { FooterComponent } from './Components/footer/footer.component';
+import { ContactUsComponent } from './Components/contact-us/contact-us.component';
+import { FeaturesComponent } from './Components/features/features.component';
+import { AboutUsComponent } from './Components/about-us/about-us.component';
+import { HelpCenterComponent } from './Components/help-center/help-center.component'; // Import ChatListComponent
+import { UserNavBarComponent } from './Components/user-nav-bar/user-nav-bar.component';
+import { LoaderComponentComponent } from './Components/loader-component/loader-component.component';
+import { AdminNavBarComponent } from './Components/admin-nav-bar/admin-nav-bar.component'; // Import ChatListComponent
+import { UsersComponent } from './Components/users/users.component'; // Import ChatComponent
 import { RouterModule } from '@angular/router'; // Import RouterModule
-import { ChatListComponent } from './components/chat-list/chat-list.component'; // Import ChatListComponent
+import { ChatListComponent } from './Components/chat-list/chat-list.component'; // Import ChatListComponent
 import { ChatComponent } from './chat/chat.component';
-import { LoginComponent } from './components/login/login.component'; // Import ChatComponent
+import { LoginComponent } from './Components/login/login.component'; // Import ChatComponent
 import { FormsModule } from '@angular/forms';
-import { TermsComponent } from './components/terms/terms.component';
+import { TermsComponent } from './Components/terms/terms.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
@@ -31,7 +30,6 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ChatListComponent,
     FooterComponent,
     ContactUsComponent,
     FeaturesComponent,
@@ -42,9 +40,9 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
     AdminNavBarComponent,
     ChatComponent, // Declare ChatComponent
     NewChatComponent,
+    UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent // Declare ChatComponent
-    ChatComponent, LoginComponent, TermsComponent, forgotpwdComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent // Declare ChatComponent
     
   ],
   imports: [

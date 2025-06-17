@@ -6,8 +6,8 @@
     <i class='bx bx-menu' id="menu-icon" (click)="toggleMenu()" [class.bx-x]="isMenuOpen"></i>
 
     <nav class="navbar" [ngClass]="{ 'active': isMenuOpen }">
-        <a routerLink="/admin/add-user">Add User</a>
-        <a routerLink="/admin/edit-user">Edit User</a>
+        <a router-link="/">Home</a>
+        <a routerLink="/users">User Management</a>
         <a (click)="onLogout()" class="logout-link">Logout</a>
     </nav>
 </div>
