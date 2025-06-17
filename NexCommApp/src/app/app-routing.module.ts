@@ -10,6 +10,7 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
 import { LoginComponent } from './components/login/login.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { UsersComponent } from './Components/users/users.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
@@ -28,12 +29,11 @@ const routes: Routes = [
   { path: 'terms', component: TermsComponent },
   { path: 'network-error', component: NetworkErrorComponent },
   { path: 'path-error', component: PathErrorComponent },
-  { path: '**', redirectTo: '/path-error' }
+  { path: '**', redirectTo: '/path-error' },
   //{ path: 'users', component: LoginComponent },
   { path: 'users', component: UsersComponent },
   { path: 'terms', component: TermsComponent }
 
-  s
 ];
 
 @NgModule({
