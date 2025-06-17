@@ -1,34 +1,55 @@
-<div class="new-chat-container">
-  <div class="new-chat-header">
-    <h2>Create New Chat</h2>
-    <button class="cancel-button" (click)="cancel()">Cancel</button>
-  </div>
+<div class="background">
+    <app-user-nav-bar *ngIf="!isAdmin"></app-user-nav-bar>
+  <app-admin-nav-bar *ngIf="isAdmin"></app-admin-nav-bar>
+  <div class="new-chat-container">
+    <div class="new-chat-header">
+      <h2>Create New Chat</h2>
+      <!-- <button class="cancel-button" (click)="cancel()">Cancel</button> -->
+    </div>
 
-  <div class="new-chat-content">
-    <form [formGroup]="newChatForm" (ngSubmit)="createChat()">
-      <div class="form-group">
-        <label for="selectedUser">Select User:</label>
-        <select id="selectedUser" formControlName="selectedUser" [ngClass]="{ 'is-invalid': newChatForm.get('selectedUser')?.invalid && newChatForm.get('selectedUser')?.touched }">
-          <option value="">Select a user...</option>
-          <option *ngFor="let user of users" [value]="user.userId">
-            {{ user.userName }}
-          </option>
-        </select>
-        <div *ngIf="newChatForm.get('selectedUser')?.invalid && newChatForm.get('selectedUser')?.touched" class="error-message">
-          Please select a user
+    <div class="new-chat-content">
+      <form [formGroup]="newChatForm" (ngSubmit)="createChat()">
+        <div class="form-group">
+          <label for="selectedUser">Select User:</label>
+          <select
+            id="selectedUser"
+            formControlName="selectedUser"
+            [ngClass]="{
+              'is-invalid': newChatForm.get('selectedUser')?.invalid &&
+                newChatForm.get('selectedUser')?.touched
+            }"
+          >
+            <option value="">Select a user...</option>
+            <option *ngFor="let user of users" [value]="user.userId">
+              {{ user.userName }}
+            </option>
+          </select>
+          <div
+            *ngIf="newChatForm.get('selectedUser')?.invalid &&
+              newChatForm.get('selectedUser')?.touched"
+            class="error-message"
+          >
+            Please select a user
+          </div>
         </div>
-      </div>
 
-      <div class="button-group">
-        <button type="submit" [disabled]="newChatForm.invalid || loading" class="create-button">
-          {{ loading ? 'Creating...' : 'Create Chat' }}
-        </button>
-        <button type="button" (click)="cancel()" class="cancel-button">Cancel</button>
-      </div>
-    </form>
+        <div class="button-group">
+          <button
+            type="submit"
+            [disabled]="newChatForm.invalid || loading"
+            class="create-button"
+          >
+            {{ loading ? 'Creating...' : 'Create Chat' }}
+          </button>
+          <button type="button" (click)="cancel()" class="cancel-button">
+            Cancel
+          </button>
+        </div>
+      </form>
 
-    <div *ngIf="error" class="error-message">
-      {{ error }}
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
     </div>
   </div>
 </div>

@@ -3,19 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-network-error',
+  templateUrl: './network-error.component.html',
+  styleUrls: ['./network-error.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'NexCommApp';
-
+export class NetworkErrorComponent {
   constructor(private http: HttpClient, private router: Router) {}
-
   ngOnInit(): void {
     this.checkNetworkConnection();
   }
-
+  
   checkNetworkConnection(): void {
     this.http.get<boolean>('http://localhost:3000/api/Dashboard/testing').subscribe({
       next: (response: boolean) => {

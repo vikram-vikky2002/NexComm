@@ -57,7 +57,7 @@ namespace NexCommDAL.Repositories
         {
             return await Context.Users
                 .Include(u => u.RoleNavigation)
-                .FirstOrDefaultAsync(u => u.UserName == userName && u.Password == password);
+                .FirstOrDefaultAsync(u => u.EmailId == userName && u.Password == password);
         }
     }
 }

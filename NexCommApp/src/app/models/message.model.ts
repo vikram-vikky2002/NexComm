@@ -5,4 +5,5 @@ export interface Message {
   text: string;
   createdAt: string;
   userName?: string;
+  filePath?: string;
 }

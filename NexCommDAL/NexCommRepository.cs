@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NexCommDAL.Models;
 using System.Collections.Generic;
 using File = NexCommDAL.Models.File;
@@ -147,14 +147,40 @@ public class NexCommRepository
         
     }
 
-    public List<Message> GetMessagesForRoomAsync(int roomId)
+    public class MessageDto
+    {
+        public int MessageId { get; set; }
+        public int RoomId { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+    }
+
+
+    public List<MessageDto> GetMessagesForRoomAsync(int roomId)
     {
         try
         {
-            return Context.Messages
-            .Where(m => m.RoomId == roomId)
-            .OrderBy(m => m.CreatedAt)
-            .ToList();
+            var messages = (from m in Context.Messages
+                            join u in Context.Users on m.UserId equals u.UserId
+                            where m.RoomId == roomId
+                            orderby m.CreatedAt
+                            select new MessageDto
+                            {
+                                MessageId = m.UserId,
+                                RoomId = m.RoomId,
+                                UserId = m.UserId,
+                                UserName = u.UserName,
+                                Text = m.Text,
+                                CreatedAt = (DateTime)m.CreatedAt
+                            }).ToList();
+            return messages;
+
+            //return Context.Messages
+            //.Where(m => m.RoomId == roomId)
+            //.OrderBy(m => m.CreatedAt)
+            //.ToList();
         }
         catch (Exception ex)
         {
@@ -184,11 +210,29 @@ public class NexCommRepository
             return await Context.Files
                 .Where(f => f.UserId == userId)
                 .OrderBy(f => f.CreatedAt)
+                .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new List<File>();
+        }
+    }
+
+    public async Task<List<File>> GetFilesByRoomAsync(int roomId)
+    {
+        try
+        {
+            return await Context.Files
+                .Where(f => f.RoomId == roomId)
+                .OrderBy(f => f.CreatedAt)
                 .Select(f => new File
                 {
                     FileId = f.FileId,
                     UserId = f.UserId,
+                    RoomId = f.RoomId,
                     FileType = f.FileType,
+                    Path = f.Path,
                     CreatedAt = f.CreatedAt
                 })
                 .ToListAsync();

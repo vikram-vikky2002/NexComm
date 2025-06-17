@@ -5,6 +5,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { UserService } from '../../services/user.service';
 import { catchError, of } from 'rxjs';
 import { Iuser } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +35,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    // Add any initialization logic
+    // Check if user is already logged in
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/chats']);
+    }
   }
 
   onSubmit(): void {
@@ -46,33 +51,23 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Please enter both username and password';
       return;
     }
-
+  
     this.isLoading = true;
-    this.errorMessage = '';
-
-    const userObj = {
-      userName: this.username,
-      password: this.password
-    };
-
-    this.userService.validateCredentials(userObj).subscribe({
+    this.errorMessage = ''; // Clear any previous errors
+  
+    this.authService.login(this.username, this.password).subscribe({
       next: (response: any) => {
-        // Store user data and token
-        localStorage.setItem('authToken', response.token);
+        console.log(response);
         localStorage.setItem('userId', response.userId);
         localStorage.setItem('userName', response.userName);
-        if(response.role == 'admin') {
-            localStorage.setItem('admin', "true");
-        } else {
-            localStorage.setItem('admin', "false");
-        }
-        console.log(response)
-        // Redirect to chats page
-        this.router.navigate(['/chats']);
+        localStorage.setItem('admin', response.role === 'admin' ? 'true' : 'false');
+  
+        const redirectUrl = this.authService.redirectUrl || '/chats';
+        this.router.navigate([redirectUrl]);
       },
       error: (error) => {
-        this.errorMessage = error.message || 'Invalid username or password';
         this.isLoading = false;
+        this.errorMessage = error.error?.message || 'Invalid username or password';
       }
     });
   }

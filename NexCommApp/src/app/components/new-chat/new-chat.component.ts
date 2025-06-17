@@ -16,9 +16,10 @@ interface User {
 export class NewChatComponent implements OnInit {
   newChatForm: FormGroup;
   users: User[] = [];
-  selectedUser: User | null = null;
   loading: boolean = false;
   error: string = '';
+  isAdmin: boolean = false;
+  isGroupChat: boolean = false; // Can be toggled dynamically
 
   constructor(
     private router: Router,
@@ -26,17 +27,19 @@ export class NewChatComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.newChatForm = this.fb.group({
-      selectedUser: ['', Validators.required]
+      selectedUser: [''],  // for single chat
+      selectedUsers: [[], Validators.required]  // for group chat
     });
   }
 
   ngOnInit(): void {
     this.loadUsers();
+    this.isAdmin = localStorage.getItem('admin') === 'true';
+    this.setValidators();
   }
 
   loadUsers(): void {
     this.loading = true;
-    // Replace with actual API call to get users
     this.chatService.getOnlineUsers().subscribe(
       (users) => {
         this.users = users;
@@ -50,22 +53,53 @@ export class NewChatComponent implements OnInit {
     );
   }
 
+  setValidators(): void {
+    if (this.isGroupChat) {
+      this.newChatForm.get('selectedUsers')?.setValidators([Validators.required]);
+      this.newChatForm.get('selectedUser')?.clearValidators();
+    } else {
+      this.newChatForm.get('selectedUser')?.setValidators([Validators.required]);
+      this.newChatForm.get('selectedUsers')?.clearValidators();
+    }
+
+    this.newChatForm.get('selectedUser')?.updateValueAndValidity();
+    this.newChatForm.get('selectedUsers')?.updateValueAndValidity();
+  }
+
   createChat(): void {
-    const selectedUserId = this.selectedUser?.userId;
-    if (selectedUserId) {
-      this.chatService.createChatRoom(selectedUserId).subscribe(
-        (response) => {
-          // Use the groupName from the response instead of 'New Chat'
-          this.router.navigate(['/chat', response.groupName, response.roomId]);
-        },
-        (error) => {
-          console.error('Error creating chat:', error);
-        }
-      );
+    if (this.isGroupChat) {
+      const selectedUserIds = this.newChatForm.value.selectedUsers;
+      if (selectedUserIds && selectedUserIds.length > 0) {
+        this.chatService.createChatRoom(selectedUserIds).subscribe(
+          (response) => {
+            this.router.navigate(['/chat', response.groupName, response.roomId]);
+          },
+          (error) => {
+            console.error('Error creating group chat:', error);
+          }
+        );
+      }
+    } else {
+      const selectedUserId = this.newChatForm.value.selectedUser;
+      if (selectedUserId) {
+        this.chatService.createChatRoom(selectedUserId).subscribe(
+          (response) => {
+            this.router.navigate(['/chat', response.groupName, response.roomId]);
+          },
+          (error) => {
+            console.error('Error creating chat:', error);
+          }
+        );
+      }
     }
   }
 
   cancel(): void {
     this.router.navigate(['/chats']);
+  }
+
+  toggleChatType(): void {
+    this.isGroupChat = !this.isGroupChat;
+    this.setValidators();
   }
 }

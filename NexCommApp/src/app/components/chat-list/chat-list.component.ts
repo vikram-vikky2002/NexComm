@@ -32,10 +32,10 @@ export class ChatListComponent {
   ) {}
 
   ngOnInit() {
-    this.loadChatRooms();
+    // this.loadChatRooms();
     this.loadChats();
 
-    this.isAdmin = Boolean(localStorage.getItem('admin') ?? false);
+    this.isAdmin = localStorage.getItem('admin') === 'true';
     // this.loadMessages();
 
     const userId = localStorage.getItem('userId');
@@ -43,6 +43,10 @@ export class ChatListComponent {
       this.loadChatRoomsByUser(userId);
     }
     
+  }
+
+  newChat() {
+    this.router.navigate(['/chat/new']);
   }
 
   loadChatRoomsByUser(userId: string) {
