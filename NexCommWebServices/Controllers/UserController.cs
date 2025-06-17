@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NexCommBusinessLayer.Services;
+using NexCommDAL;
 using NexCommDAL.Models;
 using NexComm.Models;
 using NexComm.Services;
@@ -9,15 +10,17 @@ namespace NexCommWebServices.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private readonly UserService _userService;
         private readonly JwtTokenService _jwtTokenService;
+        private readonly NexCommRepository _repository;
 
-        public UserController(UserService userService, JwtTokenService jwtTokenService)
+        public UserController(UserService userService, JwtTokenService jwtTokenService, NexCommRepository repository)
         {
             _userService = userService;
             _jwtTokenService = jwtTokenService;
+            _repository = repository;
         }
 
         [HttpPost("login")]
@@ -59,5 +62,101 @@ namespace NexCommWebServices.Controllers
             public string UserName { get; set; }
             public string Password { get; set; }
         }
+
+        [HttpPost("room")]
+        public JsonResult AddNewUser(Models.User user)
+        {
+            bool status = false;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    NexCommDAL.Models.User UserObj = new NexCommDAL.Models.User();
+                    UserObj.UserId = user.UserId;
+                    UserObj.UserName = user.UserName;
+                    UserObj.EmailId = user.EmailId;
+                    UserObj.Phone = user.Phone;
+                    UserObj.Role = user.Role;
+                    UserObj.NewUser = user.NewUser;
+                    UserObj.Password = user.Password;
+                    UserObj.LastLogin = user.LastLogin;
+                    UserObj.Live = user.Live;
+                    UserObj.IsAdmin = user.IsAdmin;
+
+                    status = _repository.AddUser(UserObj);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine(ex.InnerException.Message);
+                }
+                status = false;
+            }
+            return Json(status);
+        }
+        [HttpGet("all")]
+        public IActionResult GetAllUsers()
+        {
+            try
+            {
+                var users = _repository.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error retrieving users: " + ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public JsonResult UpdateUserDetails(NexCommWebServices.Models.User user)
+        {
+            bool status = false;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    NexCommDAL.Models.User UserObj = new NexCommDAL.Models.User();
+                    UserObj.UserId = user.UserId;
+                    UserObj.UserName = user.UserName;
+                    UserObj.Role = user.Role;
+                    UserObj.EmailId = user.EmailId;
+                    status = _repository.UpdateUserDetails(UserObj.UserId, UserObj.UserName, UserObj.Role, UserObj.EmailId);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                status = false;
+                Console.WriteLine(ex.Message);
+            }
+            return Json(status);
+        }
+
+    
+    [HttpDelete("{userId}")]
+        public JsonResult DeleteUser(int userId)
+        {
+            bool status = false;
+            try
+            {
+                status = _repository.DeleteUser(userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine(ex.InnerException.Message);
+                }
+                status = false;
+            }
+            return Json(status);
+        }
+
     }
 }

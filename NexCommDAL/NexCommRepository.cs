@@ -281,5 +281,77 @@ public class NexCommRepository
         await Context.SaveChangesAsync();
         return newRoom;
     }
-     
+
+    public object GetUserByUsername(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SaveOtp(int userId, object otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetOtpByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void MarkOtpAsUsedByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetLatestVerifiedOtp(string email)
+    {
+        throw new NotImplementedException();
+    }
+    public bool UpdateUserDetails(int userId, string userName, string role, string emailId)
+    {
+        bool status = false;
+        try
+        {
+            User user1 = Context.Users.Find(userId);
+            if (user1 != null)
+            {
+                user1.UserName = userName;
+                user1.Role = role;
+                user1.EmailId = emailId;
+                Context.SaveChanges();
+                status = true;
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            status = false;
+        }
+        return status;
+    }
+    public List<User> GetAllUsers()
+    {
+        return Context.Users.ToList();
+    }
+
+    public bool DeleteUser(int userId)
+    {
+        try
+        {
+            var user = Context.Users.Find(userId);
+            if (user != null)
+            {
+                Context.Users.Remove(user);
+                Context.SaveChanges();
+                return true;
+            }
+            return false; // User not found
+        }
+        catch (Exception ex)
+        {
+            // Optionally log the error
+            // e.g., _logger.LogError(ex, $"Error deleting user with ID {userId}");
+            return false;
+        }
+    }
 }

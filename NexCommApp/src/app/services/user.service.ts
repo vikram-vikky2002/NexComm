@@ -7,7 +7,8 @@ import { Iuser } from '../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/api';
+  //private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'http://172.20.10.4:3000/api'; // Replace with your API URL
 
   constructor(private _http: HttpClient) { }
 

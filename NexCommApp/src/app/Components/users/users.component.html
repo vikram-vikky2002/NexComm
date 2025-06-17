@@ -1,0 +1,76 @@
+<div class="page-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>User Management Portal</h1>
+    <div class="header-details">
+      <span>{{ currentDate | date: 'fullDate' }}</span>
+      <span>Managed by: NexComm Admin</span>
+    </div>
+  </div>
+
+  <!-- Add User Button and Form -->
+  <div class="user-form">
+
+    <form *ngIf="showAddUserForm" (ngSubmit)="saveUser()" #userForm="ngForm">
+      <label>User Name:</label>
+      <input [(ngModel)]="user.userName" name="userName" required />
+
+      <label>Email:</label>
+      <input [(ngModel)]="user.emailId" name="emailId" type="email" required />
+
+      <label>Phone:</label>
+      <input [(ngModel)]="user.phone" name="phone" />
+
+      <label>Role:</label>
+      <select [(ngModel)]="user.role" name="role" required>
+        <option value="" disabled selected>Select role</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+      <label>Password:</label>
+      <input [(ngModel)]="user.password" name="password" type="password" [required]="!isEditMode" />
+
+      <label>
+        <input type="checkbox" [(ngModel)]="user.isAdmin" name="isAdmin" />
+        Is Admin
+      </label>
+
+      <button type="submit" [disabled]="userForm.invalid">
+        {{ isEditMode ? 'Update' : 'Add' }} User
+      </button>
+      <button type="button" (click)="cancel()">Cancel</button>
+
+    </form>
+    <button (click)="toggleAddUser()">
+      {{ showAddUserForm ? 'Close' : 'Add User' }}
+    </button>
+
+
+    <p *ngIf="message">{{ message }}</p>
+  </div>
+
+  <!-- User List Table -->
+  <div class="user-list">
+    <h3>User List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of userList">
+          <td>{{ u.userName }}</td>
+          <td>{{ u.emailId }}</td>
+          <td>{{ u.role }}</td>
+          <td>
+            <button (click)="editUser(u)">Edit</button>
+            <button (click)="deleteUser(u.userId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
