@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { TermsComponent } from './Components/terms/terms.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
+import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { PathErrorComponent } from './path-error/path-error.component';
     NewChatComponent,
     UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent // Declare ChatComponent
     
   ],
   imports: [

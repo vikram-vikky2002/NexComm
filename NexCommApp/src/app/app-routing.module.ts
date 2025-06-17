@@ -13,7 +13,10 @@ import { TermsComponent } from './Components/terms/terms.component';
 import { UsersComponent } from './Components/users/users.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
-import { NewChatComponent } from './Components/new-chat/new-chat.component'; // Import NewChatComponent
+import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
+import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
+import { FormsModule } from '@angular/forms';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,11 +33,12 @@ const routes: Routes = [
   { path: 'path-error', component: PathErrorComponent },
   { path: 'users', component: UsersComponent },
   { path: '**', redirectTo: '/path-error' }
-
+  { path: 'forgotpassword', component: forgotpwdComponent },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@NgModule({  
+ imports: [RouterModule.forRoot(routes), FormsModule],  
+ exports: [RouterModule]  
 })
+
 export class AppRoutingModule { }
