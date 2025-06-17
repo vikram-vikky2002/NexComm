@@ -22,7 +22,7 @@ namespace NexCommWebServices.Models
 
         public string? Password { get; set; }
 
-
+        public DateTime? LastLogin { get; set; }
 
         public bool? Live { get; set; }
 
