@@ -10,6 +10,9 @@ import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
 import { LoginComponent } from './components/login/login.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
+import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
+import { FormsModule } from '@angular/forms';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,11 +26,13 @@ const routes: Routes = [
   { path: 'helpCenter', component: HelpCenterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'terms', component: TermsComponent },
+  { path: 'forgotpassword', component: forgotpwdComponent },
   { path: '**', redirectTo: '/login' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+@NgModule({  
+ imports: [RouterModule.forRoot(routes), FormsModule],  
+ exports: [RouterModule]  
 })
+
 export class AppRoutingModule { }

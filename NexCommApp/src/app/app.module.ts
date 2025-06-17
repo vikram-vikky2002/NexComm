@@ -22,6 +22,7 @@ import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './components/login/login.component'; // Import ChatComponent
 import { FormsModule } from '@angular/forms';
 import { TermsComponent } from './components/terms/terms.component';
+import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { TermsComponent } from './components/terms/terms.component';
     ChatComponent, // Declare ChatComponent
     NewChatComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, forgotpwdComponent // Declare ChatComponent
     
   ],
   imports: [

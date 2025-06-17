@@ -1,0 +1,19 @@
+<!--<p>forgotpwd works!</p>-->
+<div class="modal" *ngIf="showForgotPassword">
+  <div class="modal-content glass-card">
+    <h2>Reset Password</h2>
+
+    <input type="email" [(ngModel)]="resetEmail" placeholder="Enter Email" class="glass-input" />
+    <button (click)="requestOtp()" class="glass-button">Send OTP</button>
+
+    <div *ngIf="otpSent">
+      <input type="text" [(ngModel)]="otp" placeholder="Enter OTP" class="glass-input" />
+      <input type="password" [(ngModel)]="newPassword" placeholder="New Password" class="glass-input" />
+      <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password" class="glass-input" />
+      <button (click)="resetPassword()" class="glass-button">Reset Password</button>
+    </div>
+
+    <p class="status-message">{{ statusMessage }}</p>
+    <button (click)="showForgotPassword = false" class="close-button">Close</button>
+  </div>
+</div>

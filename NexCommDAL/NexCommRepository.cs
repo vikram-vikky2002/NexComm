@@ -237,5 +237,29 @@ public class NexCommRepository
         await Context.SaveChangesAsync();
         return newRoom;
     }
-     
+
+    public object GetUserByUsername(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SaveOtp(int userId, object otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetOtpByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void MarkOtpAsUsedByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetLatestVerifiedOtp(string email)
+    {
+        throw new NotImplementedException();
+    }
 }
