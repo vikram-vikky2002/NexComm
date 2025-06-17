@@ -14,8 +14,10 @@ import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
 
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
   { path: 'chats', component: ChatListComponent, canActivate: [AuthGuard] },
   { path: 'chat/:chatTitle/:roomId', component: ChatComponent, canActivate: [AuthGuard] },
   { path: 'chat/new', component: NewChatComponent, canActivate: [AuthGuard] },
@@ -28,6 +30,7 @@ const routes: Routes = [
   { path: 'terms', component: TermsComponent },
   { path: 'network-error', component: NetworkErrorComponent },
   { path: 'path-error', component: PathErrorComponent },
+  { path: 'landing', component: LandingPageComponent },
   { path: '**', redirectTo: '/path-error' }
 ];
 
