@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
    showAddUserForm = false;
   userList: Iuser[] = [];
   currentDate: Date = new Date();
-  roles: string[] = ['Admin', 'User', 'Mod'];
+  roles: string[] = ['admin', 'user', 'mod'];
 
   message: string = '';
   isEditMode: boolean = false;

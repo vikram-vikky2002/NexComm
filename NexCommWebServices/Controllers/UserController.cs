@@ -14,11 +14,13 @@ namespace NexCommWebServices.Controllers
     {
         private readonly UserService _userService;
         private readonly JwtTokenService _jwtTokenService;
+        private readonly NexCommRepository _repository;
 
-        public UserController(UserService userService, JwtTokenService jwtTokenService)
+        public UserController(UserService userService, JwtTokenService jwtTokenService, NexCommRepository repository)
         {
             _userService = userService;
             _jwtTokenService = jwtTokenService;
+            _repository = repository;
         }
 
         [HttpPost("login")]

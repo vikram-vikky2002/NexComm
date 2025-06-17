@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewChatComponent } from './components/new-chat/new-chat.component';
+import { NewChatComponent } from './Components/new-chat/new-chat.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -22,14 +22,13 @@ import { ChatListComponent } from './Components/chat-list/chat-list.component'; 
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './Components/login/login.component'; // Import ChatComponent
 import { FormsModule } from '@angular/forms';
-import { TermsComponent } from './components/terms/terms.component';
+import { TermsComponent } from './Components/terms/terms.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatListComponent,
     FooterComponent,
     ContactUsComponent,
     FeaturesComponent,
@@ -42,7 +41,7 @@ import { PathErrorComponent } from './path-error/path-error.component';
     NewChatComponent,
     UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent // Declare ChatComponent
+    LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent // Declare ChatComponent
     
   ],
   imports: [

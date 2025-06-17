@@ -22,6 +22,7 @@ export class UserManagementService {
   updateUser(user: Iuser): Observable<boolean> {
     return this.http.put<boolean>(this.apiUrl, user);
   }
+
   getAllUsers(): Observable<Iuser[]> {
   return this.http.get<Iuser[]>(`${this.apiUrl}/all`); // Add this endpoint in .NET API
 }
