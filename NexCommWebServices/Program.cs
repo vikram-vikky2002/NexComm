@@ -9,6 +9,7 @@ using NexComm.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NexCommWebServices.Controllers;
 
 namespace NexCommWebServices
 {
