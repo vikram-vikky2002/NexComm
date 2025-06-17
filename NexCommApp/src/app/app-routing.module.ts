@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { FeaturesComponent } from './components/features/features.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { HelpCenterComponent } from './components/help-center/help-center.component';
-import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { ContactUsComponent } from './Components/contact-us/contact-us.component';
+import { FooterComponent } from './Components/footer/footer.component';
+import { FeaturesComponent } from './Components/features/features.component';
+import { AboutUsComponent } from './Components/about-us/about-us.component';
+import { HelpCenterComponent } from './Components/help-center/help-center.component';
+import { ChatListComponent } from './Components/chat-list/chat-list.component';
 import { ChatComponent } from './chat/chat.component'; // Import ChatComponent
-import { LoginComponent } from './components/login/login.component';
-import { TermsComponent } from './components/terms/terms.component';
-import { NewChatComponent } from './components/new-chat/new-chat.component'; // Import NewChatComponent
+import { LoginComponent } from './Components/login/login.component';
+import { TermsComponent } from './Components/terms/terms.component';
+import { NewChatComponent } from './Components/new-chat/new-chat.component'; // Import NewChatComponent
+import { UsersComponent } from './Components/users/users.component'; // Import ChatComponent
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,8 +23,11 @@ const routes: Routes = [
   { path: 'aboutUs', component: AboutUsComponent },
   { path: 'helpCenter', component: HelpCenterComponent },
   { path: 'login', component: LoginComponent },
+  //{ path: 'users', component: LoginComponent },
+  { path: 'users', component: UsersComponent },
   { path: 'terms', component: TermsComponent },
-  { path: '**', redirectTo: '/login' }
+
+
 ];
 
 @NgModule({

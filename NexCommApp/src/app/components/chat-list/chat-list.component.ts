@@ -35,7 +35,7 @@ export class ChatListComponent {
     this.loadChatRooms();
     this.loadChats();
 
-    this.isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+    this.isAdmin = Boolean(localStorage.getItem('admin') ?? false);
     // this.loadMessages();
 
     const userId = localStorage.getItem('userId');

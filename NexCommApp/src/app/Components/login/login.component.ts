@@ -61,7 +61,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('authToken', response.token);
         localStorage.setItem('userId', response.userId);
         localStorage.setItem('userName', response.userName);
-        
+        if(response.role == 'admin') {
+            localStorage.setItem('admin', "true");
+        } else {
+            localStorage.setItem('admin', "false");
+        }
+        console.log(response)
         // Redirect to chats page
         this.router.navigate(['/chats']);
       },
