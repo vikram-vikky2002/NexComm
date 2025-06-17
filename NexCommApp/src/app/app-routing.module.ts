@@ -33,7 +33,6 @@ const routes: Routes = [
   { path: 'terms', component: TermsComponent },
   { path: 'network-error', component: NetworkErrorComponent },
   { path: 'path-error', component: PathErrorComponent },
-  { path: 'landing', component: LandingPageComponent },
   { path: 'users', component: UsersComponent },
   { path: 'forgotpassword', component: forgotpwdComponent },
   { path: '**', redirectTo: '/path-error' }
