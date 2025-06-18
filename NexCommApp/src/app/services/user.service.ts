@@ -8,7 +8,7 @@ import { Iuser } from '../models/user.model';
 })
 export class UserService {
   private apiUrl = 'http://localhost:3000/api';
-  //private apiUrl = 'http://172.20.10.4:3000/api'; // Replace with your API URL
+  // private apiUrl = 'http://172.20.10.4:3000/api'; // Replace with your API URL
 
   constructor(private _http: HttpClient) { }
 
@@ -18,6 +18,7 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+  
 
   private handleError(error: HttpErrorResponse) {
     console.error('API Error:', {

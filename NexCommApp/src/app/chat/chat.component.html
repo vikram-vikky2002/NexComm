@@ -3,7 +3,7 @@
     <div class="back-button" (click)="goBack()">
       <img src="../../assets/arrow.png" height="35px" alt="Back">
     </div>
-    <div style="    
+    <div style="
     width: -webkit-fill-available;
     margin: 0px 50px;
     display: flex;
@@ -13,8 +13,11 @@
     align-content: center;
     flex-wrap: wrap;">
       <div class="user-info">
-        <h2>{{ userName }}</h2>
-        <div class="status-dot"></div>
+        <h2 *ngIf="!isEditing">{{ userName }}</h2>
+        <input *ngIf="isEditing" [(ngModel)]="userName" />
+        <button (click)="toggleEdit()">
+          {{ isEditing ? 'Save' : 'Edit' }}
+        </button>
       </div>
       <div>
         <button [routerLink]="['/view-files', roomId]">View Files</button>

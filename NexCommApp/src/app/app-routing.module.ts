@@ -16,10 +16,12 @@ import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './Components/new-chat/new-chat.component'; // Import NewChatComponent
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { FormsModule } from '@angular/forms';
-
-
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
+<<<<<<< landing-vivek
 import { ViewFilesComponent } from './Components/view-files/view-files.component';
+=======
+import { NewPasswordComponent } from './Components/newpassword/newpassword.component';
+>>>>>>> master
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -37,8 +39,12 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'home', component: LandingPageComponent },
   { path: 'forgotpassword', component: forgotpwdComponent },
+<<<<<<< landing-vivek
   {path: 'view-files/:roomId',component: ViewFilesComponent},
 
+=======
+  { path: 'newpassword', component: NewPasswordComponent },
+>>>>>>> master
   { path: '**', redirectTo: '/path-error' }
 ];
 

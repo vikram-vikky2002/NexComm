@@ -1,10 +1,16 @@
 ﻿USE NexCommDB;
 GO
 
+DELETE FROM [role];
+GO
+
 INSERT INTO [role] (roleId, roleName) VALUES 
 ('admin', 'Administrator'),
 ('mod', 'Moderator'),
 ('user', 'Standard User');
+GO
+
+DELETE FROM [user];
 GO
 
 INSERT INTO [user] (userName, role, emailId, phone, newUser, password, live, isAdmin) VALUES
@@ -15,6 +21,9 @@ INSERT INTO [user] (userName, role, emailId, phone, newUser, password, live, isA
 ('Eve', 'user', 'eve@example.com', '567-890-1234', 0, 'passEve', 1, 0),
 ('Frank', 'user', 'frank@example.com', '678-901-2345', 0, 'passFrank', 1, 0),
 ('Grace', 'mod', 'grace@example.com', '789-012-3456', 0, 'passGrace', 1, 0);
+GO
+
+DELETE FROM [chatRoom];
 GO
 
 -- Private chats and group chats
@@ -29,11 +38,18 @@ GO
 -- Private Room 101: Bob (101) + Charlie (102)
 -- Group Room 102: Alice (100), Bob (101), Charlie (102), David (103)
 -- Group Room 103: Charlie (102), Eve (104), Frank (105), Grace (106)
+
+DELETE FROM [chatRoomMembers];
+GO
+
 INSERT INTO [chatRoomMembers] (userId, roomId) VALUES
 (100, 100), (101, 100),
 (101, 101), (102, 101),
 (100, 102), (101, 102), (102, 102), (103, 102),
 (102, 103), (104, 103), (105, 103), (106, 103);
+GO
+
+DELETE FROM [file];
 GO
 
 INSERT INTO [file] (userId, roomId, path, fileType) VALUES
@@ -42,6 +58,9 @@ INSERT INTO [file] (userId, roomId, path, fileType) VALUES
 (102, 103, '/files/team_agenda.docx', 'document'),
 (104, 103, '/files/meeting_notes.txt', 'text'),
 (105, 103, '/files/demo_video.mp4', 'video');
+GO
+
+DELETE FROM [message];
 GO
 
 INSERT INTO [message] (userId, roomId, text) VALUES
@@ -60,3 +79,16 @@ INSERT INTO [message] (userId, roomId, text) VALUES
 GO
 
 select * from [user]
+GO
+
+SELECT * FROM [chatRoom]
+GO
+
+SELECT * FROM [chatRoomMembers] ORDER BY userId
+GO
+
+SELECT * FROM [role]
+GO
+
+SELECT * FROM [user]
+GO

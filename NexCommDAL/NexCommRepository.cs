@@ -28,7 +28,15 @@ public class NexCommRepository
 
         return users;
     }
+    public async Task<bool> UpdateGroupNameAsync(int roomId, string newName)
+    {
+        var room = await Context.ChatRooms.FindAsync(roomId);
+        if (room == null) return false;
 
+        room.GroupName = newName;
+        await Context.SaveChangesAsync();
+        return true;
+    }
     public List<object> GetAllChatRoomsByUser(int userId)
     {
         try
@@ -262,8 +270,7 @@ public class NexCommRepository
         {
             IsGroup = request.IsGroup,
             CreatedBy = request.CreatedBy,
-            CreatedOn = DateTime.Now,
-            GroupName = request.IsGroup ? request.GroupName : null
+            CreatedOn = DateTime.Now
         };
 
         Context.ChatRooms.Add(newRoom);
@@ -354,4 +361,25 @@ public class NexCommRepository
             return false;
         }
     }
+
+    public bool SetNewPassword(string newPassword, int userId)
+    {
+        try
+        {
+            var user = Context.Users.Find(userId);
+            if (user != null)
+            {
+                user.Password = newPassword;
+                Context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
 }

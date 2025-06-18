@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url('src/assets/background2.png') no-repeat center center/cover;
+  background: url('src/assets/background2.png') repeat center center/cover;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
   position: relative;
