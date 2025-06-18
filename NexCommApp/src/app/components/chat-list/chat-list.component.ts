@@ -49,6 +49,17 @@ export class ChatListComponent {
     this.router.navigate(['/chat/new']);
   }
 
+  getDisplayName(room: any): string {
+    // ▸ group room
+    if (room.isGroup) {
+      // prefer explicit name → fallback to chatTitle → fallback to default caption
+      return room.groupName?.trim() ?? room.chatTitle?.trim() ?? 'Unnamed Group';
+    }
+  
+    // ▸ one‑to‑one room
+    return room.chatTitle?.trim() ?? 'Unknown User';
+  }
+
   loadChatRoomsByUser(userId: string) {
     this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
       this.recentChats = response;
@@ -68,23 +79,23 @@ export class ChatListComponent {
 
   }
 
-  loadChatRooms() {
-    this.chatService.getChatRoomsByUser("101").subscribe((response) => {
-      this.recentChats = response;
-      this.isLoadingChats = false;
+  // loadChatRooms(userId: string) {
+  //   this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
+  //     this.recentChats = response;
+  //     this.isLoadingChats = false;
 
-      this.filteredChats = this.recentChats;
+  //     this.filteredChats = this.recentChats;
   
-      this.recentChats.forEach(room => {
-        this.chatService.getLatestMessage(room.roomId).subscribe(data => {
-          this.latestMessage[room.roomId] = {
-            message: data.message,
-            userName: data.userName
-          };
-        });
-      });
-    });
-  }
+  //     this.recentChats.forEach(room => {
+  //       this.chatService.getLatestMessage(room.roomId).subscribe(data => {
+  //         this.latestMessage[room.roomId] = {
+  //           message: data.message,
+  //           userName: data.userName
+  //         };
+  //       });
+  //     });
+  //   });
+  // }
 
   openChat(chat: any): void {
     this.router.navigate(['/chat', chat.chatTitle ?? chat.groupName, chat.roomId]);

@@ -37,11 +37,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
   selectedFile: File | null = null;
   files: any[] = [];
   fileUploadProgress: number = 0; // Track file upload progress
+  currUser: string = '';
 
   ngOnInit(): void {
     // Get user ID from localStorage and validate
 
     const userId = localStorage.getItem('userId');
+    this.currUser = localStorage.getItem('userName') || '';
     if (!userId) {
       this.router.navigate(['/login']);
       return;
@@ -180,10 +182,17 @@ export class ChatComponent implements OnInit, AfterViewInit {
         return;
       }
 
+      if(this.selectedFile){
+        this.message =  `/uploads/${this.selectedFile.name}`;
+      }
+      else {
+        this.message = this.message.trim();
+      }
+
       const messageData = {
         userId: parseInt(this.userId),  // Using user ID from localStorage (already validated)
         roomId: parseInt(this.roomId),
-        text: this.message.trim(),
+        text: this.message,
         createdAt: new Date().toISOString(),
         filePath: this.selectedFile ? `/uploads/${this.selectedFile.name}` : undefined
       };
@@ -197,7 +206,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
             userId: parseInt(this.userId),  // Using user ID from localStorage (already validated)
             roomId: parseInt(this.roomId),
             text: this.message,
-            createdAt: messageData.createdAt
+            createdAt: messageData.createdAt,
+            userName: this.currUser
           };
 
           // Add the message directly

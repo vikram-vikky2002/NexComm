@@ -33,8 +33,9 @@ namespace NexCommWebServices.Controllers
             var chatRoom = new ChatRoom
             {
                 CreatedBy = model.CreatedBy,
-                IsGroup = true,
-                CreatedOn = DateTime.UtcNow
+                IsGroup = model.IsGroup,
+                CreatedOn = DateTime.UtcNow,
+                GroupName = model.GroupName
             };
 
             var created = await _chatRoomService.CreateChatRoomAsync(chatRoom);
@@ -42,7 +43,6 @@ namespace NexCommWebServices.Controllers
             // Add members including creator
             var allUserIds = model.UserIds.Distinct().ToList();
             allUserIds.Add(model.CreatedBy);
-
             foreach (var userId in allUserIds.Distinct())
             {
                 await _chatRoomService.AddUserToRoomAsync(created.RoomId, userId);

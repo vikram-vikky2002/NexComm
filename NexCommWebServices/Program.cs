@@ -9,19 +9,22 @@ using NexComm.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NexCommWebServices.Controllers;
 
 namespace NexCommWebServices
 {
     public class Program
     {
+        
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the container.  
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle  
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(
                 c =>
@@ -68,7 +71,7 @@ namespace NexCommWebServices
             builder.Services.AddTransient<NexCommRepository>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<IChatRoomService, ChatRoomService>();
-
+            builder.Services.AddScoped<ForgotpwdService>();
 
             builder.Services.AddCors(options =>
             {
@@ -81,14 +84,14 @@ namespace NexCommWebServices
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline.  
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            //app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();  
 
             app.UseCors("AllowAllOrigins");
 
@@ -96,7 +99,6 @@ namespace NexCommWebServices
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

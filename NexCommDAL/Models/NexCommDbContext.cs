@@ -6,6 +6,8 @@ namespace NexCommDAL.Models;
 
 public partial class NexCommDbContext : DbContext
 {
+    internal readonly object userPasswordResetTokens;
+
     public NexCommDbContext()
     {
     }
@@ -26,7 +28,7 @@ public partial class NexCommDbContext : DbContext
     public virtual DbSet<Role> Roles { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
+    public object UserPasswordResetToken { get; internal set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -62,9 +64,8 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<ChatRoomMember>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("chatRoomMembers");
+            entity.HasKey(e => new { e.UserId, e.RoomId });
+            entity.ToTable("chatRoomMembers");
 
             entity.Property(e => e.RoomId).HasColumnName("roomId");
             entity.Property(e => e.UserId).HasColumnName("userId");

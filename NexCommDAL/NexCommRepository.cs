@@ -270,8 +270,7 @@ public class NexCommRepository
         {
             IsGroup = request.IsGroup,
             CreatedBy = request.CreatedBy,
-            CreatedOn = DateTime.Now,
-            GroupName = request.IsGroup ? request.GroupName : null
+            CreatedOn = DateTime.Now
         };
 
         Context.ChatRooms.Add(newRoom);
@@ -290,6 +289,30 @@ public class NexCommRepository
         return newRoom;
     }
 
+    public object GetUserByUsername(string email)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SaveOtp(int userId, object otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetOtpByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void MarkOtpAsUsedByEmail(string email, string otp)
+    {
+        throw new NotImplementedException();
+    }
+
+    public object GetLatestVerifiedOtp(string email)
+    {
+        throw new NotImplementedException();
+    }
     public bool UpdateUserDetails(int userId, string userName, string role, string emailId)
     {
         bool status = false;
@@ -338,5 +361,4 @@ public class NexCommRepository
             return false;
         }
     }
-
 }

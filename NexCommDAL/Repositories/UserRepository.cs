@@ -59,5 +59,15 @@ namespace NexCommDAL.Repositories
                 .Include(u => u.RoleNavigation)
                 .FirstOrDefaultAsync(u => u.EmailId == userName && u.Password == password);
         }
+        public User GetUserByUsername(string username)
+        {
+            var user = Context.Users.FirstOrDefault(u => u.UserName == username);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            // Return or process the user as needed
+            return user;
+        }
     }
 }

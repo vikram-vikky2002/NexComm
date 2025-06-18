@@ -65,7 +65,14 @@ CREATE TABLE [message] (
     createdAt DATETIME DEFAULT GETDATE()
 );
 GO
-
+CREATE TABLE UserPasswordResetTokens (
+    userId INT NOT NULL,
+    Token NVARCHAR(255) UNIQUE NOT NULL,
+    Expiry DATETIME NOT NULL,
+    IsUsed BIT DEFAULT 0,
+    RequestedAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserId) REFERENCES [User](userId)
+);
 
 SELECT * FROM chatRoomMembers WHERE userId = 101
 

@@ -1,295 +1,177 @@
-# NexComm - Real-time Chat Application
 
-## Overview
+# NexComm 💬
 
-NexComm is a modern, real-time chat application built using Angular for the frontend and ASP.NET Core for the backend. It provides a secure and feature-rich messaging platform with support for both one-on-one chats and group chats.
+**NexComm** is a modern, real-time chat application built for secure messaging over a **LAN network** without requiring internet access. It offers both one-on-one and group communication with real-time updates, JWT-based authentication, and a clean, responsive UI.
 
-## Features
+---
 
-### Core Features
-- Real-time messaging with WebSocket support
-- Secure authentication using JWT
-- User management and role-based access control
+## 📌 Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Authentication Flow](#authentication-flow)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## ✨ Features
+
+### 🔁 Real-time Chat
+- One-on-one direct messaging
 - Group chat functionality
-- File sharing capabilities
-- Responsive design for all devices
-- Modern glassmorphism UI design
-- Message polling and auto-scrolling
+- Real-time updates using **WebSocket**
 
-### Security
+### 🔐 Security
 - JWT-based authentication
 - Role-based access control (Admin/User)
-- Secure password handling
-- Token expiration and refresh
-- Protected routes
+- Secure password handling and token validation
+- Refresh token mechanism
 
-### User Interface
-- Modern glassmorphism design
-- Responsive navigation bars (User and Admin)
-- Smooth animations and transitions
-- Blur effects and overlays
-- Custom error handling
-- Loading states
+### 🎨 User Interface
+- Modern **Glassmorphism** UI
+- Responsive layout (desktop-first)
+- Smooth transitions and animations
+- Admin/User navigation panels
+- File sharing support (coming soon)
 
-## Tech Stack
+---
 
-### Frontend
-- Angular 17+
-- TypeScript
-- Bootstrap 5
-- Font Awesome icons
-- Angular Material
-- Angular Router
-- RxJS
+## 🧱 Tech Stack
 
-### Backend
-- ASP.NET Core 8+
-- Entity Framework Core
-- SQL Server
-- WebSocket Protocol
-- JWT Authentication
-- CORS Policy
+| Layer       | Technology |
+|-------------|------------|
+| Frontend    | Angular 17+, TypeScript, Bootstrap 5, Angular Material |
+| Backend     | ASP.NET Core 8+, Entity Framework Core |
+| Database    | SQL Server |
+| Auth        | JWT (JSON Web Tokens) |
+| Realtime    | WebSocket Protocol |
 
-## Project Structure
+---
+
+## 🏗️ Architecture
+
+The project follows a modular, layered architecture with a clear separation of concerns:
 
 ```
 NexComm/
-├── NexCommApp/              # Frontend Angular Application
-│   ├── app/                # Angular components and services
-│   │   ├── Components/     # UI components
-│   │   │   ├── chat/      # Chat components
-│   │   │   ├── login/     # Login components
-│   │   │   ├── user-nav-bar/ # User navigation
-│   │   │   └── admin-nav-bar/ # Admin navigation
-│   │   ├── Models/        # Data models
-│   │   └── services/      # Service classes
-│   ├── assets/            # Static assets
-│   ├── environments/      # Environment configurations
-│   └── styles/            # Global styles
 │
-└── NexCommWebServices/    # Backend .NET Services
-    ├── Controllers/      # API controllers
-    ├── Models/          # Data models
-    ├── Services/        # Business logic
-    └── Data/            # Database context and migrations
+├── NexCommApp/               # Angular Frontend
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── auth/         # Login/Register components
+│   │   │   ├── chat/         # Chat UI
+│   │   │   ├── services/     # API and auth services
+│   │   │   └── admin/        # Admin dashboard and features
+│   │   └── assets/
+│
+├── NexCommWebServices/       # ASP.NET Core Backend
+│   ├── Controllers/          # API controllers
+│   ├── Models/               # Data models
+│   ├── Services/             # Business logic
+│   ├── DAL/                  # Entity Framework DB context and repository
+│   └── Program.cs
+│
+└── Database/                 # SQL Server DB via EF Core
 ```
 
-## Getting Started
+---
 
-### Prerequisites
+## ⚙️ Installation
 
-- Node.js (v18 or higher)
-- npm (v9 or higher)
-- .NET 8 SDK
-- SQL Server
-- Angular CLI
+### 🧾 Prerequisites
+- Node.js (v18+)
+- npm (v9+)
+- .NET SDK (v8+)
+- Angular CLI (`npm install -g @angular/cli`)
+- SQL Server (Express or higher)
 
-### Installation
+### 🚀 Setup Steps
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/NexComm.git
-```
-
-2. Install frontend dependencies:
+#### 🖥️ Frontend (Angular)
 ```bash
 cd NexCommApp
 npm install
-```
-
-3. Install backend dependencies:
-```bash
-cd NexCommWebServices
-```
-
-4. Create database:
-```bash
-dotnet ef database update
-```
-
-5. Start the backend:
-```bash
-dotnet run
-```
-
-6. Start the frontend:
-```bash
 ng serve
 ```
 
-The application will be available at `http://localhost:4200`
+#### 🧠 Backend (ASP.NET Core)
+```bash
+cd NexCommWebServices
+dotnet restore
+dotnet run
+```
 
-## Usage
+Ensure your **SQL Server** connection string is correctly set in `appsettings.json`.
 
-1. **Login**
-   - Access the login page at `/login`
-   - Enter your credentials
-   - Admin users will be redirected to admin dashboard
-   - Regular users will be redirected to chats page
+---
 
-2. **Chat Features**
-   - Create new chats (one-on-one or group)
-   - Send and receive messages in real-time
-   - Share files
-   - View message timestamps
-   - Auto-scrolling for new messages
+## 🛠️ Usage
 
-3. **Navigation**
-   - Responsive navigation bar
-   - Menu toggle for mobile devices
-   - Blur effects for overlays
-   - Smooth transitions
+- Visit `http://localhost:4200` for the Angular frontend
+- Register or login as a User or Admin
+- Chat in real-time with other users
+- Admins can:
+  - View all users
+  - Monitor chat rooms
+  - Manage application roles
 
-## Security Implementation
+---
 
-### Authentication
-- JWT tokens with expiration
-- Token storage in localStorage
-- Protected routes using AuthGuard
-- Role-based access control
-- Secure password hashing
+## 🔐 Authentication Flow
 
-### Data Protection
-- HTTPS support
-- Input validation
-- XSS protection
-- CSRF protection
-- SQL injection prevention
+1. User logs in and receives a **JWT token**
+2. Token is stored in local storage
+3. Protected routes verify token validity
+4. If expired, the user is logged out (refresh token support planned)
 
-## Contributing
+---
+
+## 📸 Screenshots *(Optional)*
+
+> You can add screenshots here later using:
+```md
+![Login Page](screenshots/login.png)
+![Chat Interface](screenshots/chat.png)
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how to get started:
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create a new branch (`git checkout -b feature-name`)
+3. Make your changes
+4. Commit and push (`git commit -m 'Add feature'`)
+5. Open a Pull Request
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details
+## 📜 License
 
-## Contact
+This project is licensed under the [MIT License](LICENSE).
 
-For support or questions, please contact:
-- Email: support@nexcomm.com
-- GitHub: @NexComm
+---
 
-## Acknowledgments
+## 💡 Future Enhancements
 
-- Angular team for the amazing framework
-- .NET Core team for the robust backend platform
-- All contributors to this project
+- ✅ File sharing
+- ✅ Admin controls for monitoring chat
+- 📅 Video/voice call (WebRTC)
+- 📦 Dockerization for deployment
+- 📊 Chat analytics
 
-## Version History
+---
 
-- 1.0.0 - Initial release with core chat functionality
-- 1.1.0 - Added group chat support
-- 1.2.0 - Implemented JWT authentication
-- 1.3.0 - Added file sharing
-- 1.4.0 - Improved UI/UX with glassmorphism design
-- 1.5.0 - Added real-time message updates
+## 🙌 Credits
 
-## API Documentation
+Developed by **[Vikram K R](https://github.com/vikram-vikky2002)**, **[C Rajesh]()**, **[K Kavin]()**, **[Sharath]()** and **[Vivek]()**.
 
-The API documentation is available at `/api-docs` when the backend is running.
-
-### Endpoints
-
-- `POST /api/auth/login` - User login
-- `GET /api/chat/rooms` - Get chat rooms
-- `POST /api/chat/rooms` - Create chat room
-- `GET /api/chat/messages` - Get messages
-- `POST /api/chat/messages` - Send message
-- `POST /api/chat/files` - Upload file
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Connection Issues**
-   - Ensure backend is running
-   - Check WebSocket connection
-   - Verify CORS settings
-
-2. **Authentication Issues**
-   - Clear browser cache
-   - Check token expiration
-   - Verify credentials
-
-3. **Performance Issues**
-   - Monitor WebSocket connections
-   - Check browser console
-   - Review backend logs
-
-## Best Practices
-
-### Development
-- Use environment variables for configuration
-- Implement proper error handling
-- Write unit tests
-- Follow coding standards
-- Use meaningful commit messages
-
-### Security
-- Never commit sensitive data
-- Use environment-specific configurations
-- Implement proper validation
-- Follow OWASP guidelines
-- Regular security audits
-
-## Future Improvements
-
-1. **Feature Enhancements**
-   - Video calling
-   - Voice messages
-   - Emoji support
-   - Message reactions
-   - Typing indicators
-
-2. **Performance**
-   - WebSocket optimization
-   - Message caching
-   - Image compression
-   - Lazy loading
-
-3. **Security**
-   - Two-factor authentication
-   - Rate limiting
-   - Enhanced encryption
-   - Audit logging
-
-4. **UI/UX**
-   - Dark mode
-   - Custom themes
-   - Better mobile optimization
-   - Improved accessibility
-
-## Contributing Guidelines
-
-1. Follow the coding style
-2. Write meaningful commit messages
-3. Add tests for new features
-4. Update documentation
-5. Create feature branches
-6. Follow the pull request template
-
-## Code of Conduct
-
-Please note that this project is released with a Contributor Code of Conduct. By participating in this project, you agree to abide by its terms.
-
-## Support
-
-For support, please:
-1. Check the documentation
-2. Search existing issues
-3. Create a new issue if needed
-4. Contact the support team
-
-## Credits
-
-Special thanks to all contributors and open-source projects used in this project:
-- Angular
-- .NET Core
-- Bootstrap
-- Font Awesome
-- And many more...
+---

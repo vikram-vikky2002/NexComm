@@ -18,36 +18,6 @@
     <h3>Recent Chats</h3>
     <div style="margin-bottom: 10px;">
       <button class="glass-button" (click)="newChat()" style="margin-right: 10px;">New Chat</button>
-      <button class="glass-button" (click)="showNewGroupChat = true; showNewChat = false;">New Group Chat</button>
-    </div>
-
-    <!-- New Chat User Selection -->
-    <div *ngIf="showNewChat" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-      <input placeholder="Search users..." [(ngModel)]="newChatSearchTerm" (input)="filterUsersForNewChat()" />
-      <div *ngFor="let user of filteredUsersForNewChat" style="cursor: pointer; padding: 5px;">{{ user.userName }}</div>
-      <button (click)="cancelNewChat()">Cancel</button>
-    </div>
-
-    <!-- New Group Chat User Selection -->
-    <div *ngIf="showNewGroupChat" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-      <input placeholder="Enter group name..."
-             [(ngModel)]="groupChatName"
-             style="margin-bottom: 10px; display: block; width: 100%;" />
-
-      <input placeholder="Search users..."
-             [(ngModel)]="newGroupChatSearchTerm"
-             (input)="filterUsersForNewGroupChat()"
-             style="margin-bottom: 10px; display: block; width: 100%;" />
-
-      <div *ngFor="let user of filteredUsersForNewGroupChat" style="cursor: pointer; padding: 5px;">
-        <input type="checkbox"
-               [checked]="selectedGroupUsers.includes(user)"
-               (change)="toggleGroupUserSelection(user)" />
-        {{ user.userName }}
-      </div>
-
-      <button (click)="createGroupChat()">Create Group Chat</button>
-      <button (click)="cancelNewGroupChat()">Cancel</button>
     </div>
 
 
@@ -69,8 +39,8 @@
       <ng-container *ngIf="!isLoadingChats">
         <div class="chat-card" *ngFor="let chat of filteredChats" (click)="openChat(chat)" style="cursor: pointer;">
           <div style="display: flex; justify-content: space-between;">
-            <h4 *ngIf="!chat.isGroup" style="font-size: 20px;">{{ chat.chatTitle ?? "User Name" }}</h4>
-            <h4 *ngIf="chat.isGroup" style="font-size: 20px;">{{ chat.groupName ?? "Group Name" }}</h4>
+            <h4 *ngIf="!chat.isGroup" style="font-size: 20px;">{{ getDisplayName(chat) }}</h4>
+            <h4 *ngIf="chat.isGroup" style="font-size: 20px;">{{ getDisplayName(chat) }}</h4>
             <img style="border-radius: 50%;" src="../../assets/profile-placeholder.jpg" alt="profile pic" width="40px">
           </div>
           <p>

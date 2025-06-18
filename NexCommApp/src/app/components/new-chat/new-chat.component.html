@@ -1,55 +1,81 @@
 <div class="background">
     <app-user-nav-bar *ngIf="!isAdmin"></app-user-nav-bar>
   <app-admin-nav-bar *ngIf="isAdmin"></app-admin-nav-bar>
-  <div class="new-chat-container">
+  <div class="new-chat-container" style="margin-top: 100px;">
     <div class="new-chat-header">
       <h2>Create New Chat</h2>
       <!-- <button class="cancel-button" (click)="cancel()">Cancel</button> -->
     </div>
 
+    <button class="glass-button" (click)="toggleChatType()">
+      Switch to {{ isGroupChat ? 'Single' : 'Group' }} Chat
+    </button>
+    
+
     <div class="new-chat-content">
       <form [formGroup]="newChatForm" (ngSubmit)="createChat()">
-        <div class="form-group">
-          <label for="selectedUser">Select User:</label>
+        <!-- Group Chat User Selection Form -->
+        <div *ngIf="isGroupChat" [formGroup]="newChatForm" class="glass" style="margin: 20px 0; width: 100%;">
+          <h3>Create Group Chat</h3>
+          <!-- Group Name Input -->
+          <div class="form-group">
+            <label for="groupName">Group Name:</label>
+            <input
+              type="text"
+              id="groupName"
+              formControlName="groupName"
+              placeholder="Enter group name"
+              style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 8px; border: none;"
+            />
+          </div>
+          <label for="selectedUsers">Select users for group chat:</label>
           <select
-            id="selectedUser"
-            formControlName="selectedUser"
-            [ngClass]="{
-              'is-invalid': newChatForm.get('selectedUser')?.invalid &&
-                newChatForm.get('selectedUser')?.touched
-            }"
+            id="selectedUsers"
+            (change)="onUserSelect($event)"
+            multiple
+            size="5"
+            style="width: 100%; padding: 8px; margin-bottom: 10px;"
           >
-            <option value="">Select a user...</option>
-            <option *ngFor="let user of users" [value]="user.userId">
-              {{ user.userName }}
-            </option>
+            <option *ngFor="let user of users" [value]="user.userId">{{ user.userName }}</option>
           </select>
-          <div
-            *ngIf="newChatForm.get('selectedUser')?.invalid &&
-              newChatForm.get('selectedUser')?.touched"
-            class="error-message"
-          >
-            Please select a user
+
+          <!-- Show selected users with remove buttons -->
+          <div class="selected-user-chips">
+            <div class="chip" *ngFor="let userId of newChatForm.get('selectedUsers')?.value">
+              {{ getUserName(userId) }}
+              <button type="button" (click)="removeUser(userId)">×</button>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="glass-button">Create Group Chat</button>
+            <button type="button" class="glass-button" (click)="cancel()">Cancel</button>
           </div>
         </div>
 
-        <div class="button-group">
-          <button
-            type="submit"
-            [disabled]="newChatForm.invalid || loading"
-            class="create-button"
-          >
-            {{ loading ? 'Creating...' : 'Create Chat' }}
-          </button>
-          <button type="button" (click)="cancel()" class="cancel-button">
-            Cancel
-          </button>
-        </div>
-      </form>
+         <!-- Single Chat User Selection Form -->
+      <div *ngIf="!isGroupChat" [formGroup]="newChatForm" class="glass" style="margin: 20px 0; width: 100%;">
+        <h3>Create Single Chat</h3>
+        <label for="selectedUser">Select user:</label>
+        <select
+          id="selectedUser"
+          formControlName="selectedUser"
+          style="width: 100%; padding: 8px; margin-bottom: 10px;"
+        >
+          <option *ngFor="let user of users" [value]="user.userId">{{ user.userName }}</option>
+        </select>
 
+        <div class="button-row">
+          <button type="submit" class="glass-button">Create Chat</button>
+          <button type="button" class="glass-button" (click)="cancel()">Cancel</button>
+        </div>
+      </div>
+
+      </form>
       <div *ngIf="error" class="error-message">
         {{ error }}
       </div>
+
     </div>
   </div>
 </div>

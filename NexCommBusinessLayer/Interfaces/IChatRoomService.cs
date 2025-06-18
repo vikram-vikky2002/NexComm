@@ -16,4 +16,7 @@ namespace NexCommBusinessLayer.Interfaces
         Task RemoveUserFromRoomAsync(int roomId, int userId);
         Task DeleteChatRoomAsync(int roomId);
     }
+    public interface IEmailService {
+    }
+    public interface IAuthService { }
 }

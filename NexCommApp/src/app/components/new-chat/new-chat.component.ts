@@ -20,6 +20,7 @@ export class NewChatComponent implements OnInit {
   error: string = '';
   isAdmin: boolean = false;
   isGroupChat: boolean = false; // Can be toggled dynamically
+  selectedUsers: number[] = [];
 
   constructor(
     private router: Router,
@@ -27,15 +28,28 @@ export class NewChatComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.newChatForm = this.fb.group({
-      selectedUser: [''],  // for single chat
-      selectedUsers: [[], Validators.required]  // for group chat
+      groupName: ['', Validators.required],
+      selectedUsers: [[], Validators.required],
+      selectedUser: ['', Validators.required]
     });
+  }
+
+  onUserSelect(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const selectedOptions = Array.from(select.selectedOptions).map(opt => parseInt(opt.value, 10));
+    this.selectedUsers.push(...selectedOptions);
+    // make it unique
+    this.selectedUsers = [...new Set(this.selectedUsers)];
+    this.newChatForm.get('selectedUsers')?.setValue(this.selectedUsers);
   }
 
   ngOnInit(): void {
     this.loadUsers();
     this.isAdmin = localStorage.getItem('admin') === 'true';
     this.setValidators();
+    this.newChatForm.get('selectedUsers')?.valueChanges.subscribe(val => {
+      console.log('Selected group users:', val);
+    });
   }
 
   loadUsers(): void {
@@ -67,27 +81,50 @@ export class NewChatComponent implements OnInit {
   }
 
   createChat(): void {
+    const userId = parseInt(localStorage.getItem('userId') || '0');
+    this.selectedUsers.push(userId);
     if (this.isGroupChat) {
-      const selectedUserIds = this.newChatForm.value.selectedUsers;
-      if (selectedUserIds && selectedUserIds.length > 0) {
-        this.chatService.createChatRoom(selectedUserIds).subscribe(
+      if (this.selectedUsers && this.selectedUsers.length > 0) {
+        this.loading = true;
+        this.chatService.createChatRoom(
+          userId,
+          this.isGroupChat,
+          this.newChatForm.value.groupName,
+          this.selectedUsers
+        ).subscribe(
           (response) => {
+            this.loading = false;
             this.router.navigate(['/chat', response.groupName, response.roomId]);
           },
           (error) => {
+            this.loading = false;
             console.error('Error creating group chat:', error);
+            this.error = 'Failed to create group chat. Please try again.';
           }
         );
       }
     } else {
-      const selectedUserId = this.newChatForm.value.selectedUser;
-      if (selectedUserId) {
-        this.chatService.createChatRoom(selectedUserId).subscribe(
+      this.selectedUsers = [];
+      const userId = parseInt(localStorage.getItem('userId') || '0');
+      this.selectedUsers.push(userId);
+      this.selectedUsers.push(parseInt(this.newChatForm.value.selectedUser));
+      console.log(this.selectedUsers);
+      if (this.selectedUsers && this.selectedUsers.length > 0) {
+        this.loading = true;
+        this.chatService.createChatRoom(
+          userId,
+          false,
+          '',
+          this.selectedUsers
+        ).subscribe(
           (response) => {
+            this.loading = false;
             this.router.navigate(['/chat', response.groupName, response.roomId]);
           },
           (error) => {
+            this.loading = false;
             console.error('Error creating chat:', error);
+            this.error = 'Failed to create chat. Please try again.';
           }
         );
       }
@@ -102,4 +139,16 @@ export class NewChatComponent implements OnInit {
     this.isGroupChat = !this.isGroupChat;
     this.setValidators();
   }
+
+  getUserName(userId: string): string {
+    const user = this.users.find(u => u.userId === +userId); // Adjusted for number comparison
+    return user ? user.userName : 'Unknown';
+  }
+  
+  removeUser(userId: string): void {
+    const selected = this.newChatForm.get('selectedUsers')?.value || [];
+    const updated = selected.filter((id: string) => +id !== +userId); // ensure type match
+    this.newChatForm.get('selectedUsers')?.setValue(updated);
+  }
+  
 }
