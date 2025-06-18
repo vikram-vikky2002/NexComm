@@ -74,5 +74,42 @@ namespace NexCommWebServices.Controllers
             await _chatRoomService.DeleteChatRoomAsync(roomId);
             return NoContent();
         }
+
+        // GET api/chatroom/download?fileUrl=/uploads/filename.png
+        [HttpGet("download")]
+        public IActionResult DownloadFile([FromQuery] string fileUrl)
+        {
+            if (string.IsNullOrEmpty(fileUrl))
+                return BadRequest("File URL is required.");
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileUrl.TrimStart('/'));
+
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("File not found.");
+
+            var contentType = "application/octet-stream"; // fallback
+            var extension = Path.GetExtension(filePath).ToLowerInvariant();
+
+            // Optional: Set specific content types for common formats
+            var contentTypes = new Dictionary<string, string>
+            {
+                { ".png", "image/png" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".pdf", "application/pdf" },
+                { ".txt", "text/plain" }
+                // Add more as needed
+            };
+
+            if (contentTypes.TryGetValue(extension, out var detectedType))
+            {
+                contentType = detectedType;
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var fileName = Path.GetFileName(filePath);
+
+            return File(fileBytes, contentType, fileName);
+        }
     }
 }

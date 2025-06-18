@@ -140,7 +140,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       }
     );
 
-    // console.log(this.files);
+     console.log(this.files);
   }
 
   formatTimestamp(timestamp: string): string {

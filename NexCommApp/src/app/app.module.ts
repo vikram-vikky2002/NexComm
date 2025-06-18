@@ -28,6 +28,7 @@ import { PathErrorComponent } from './path-error/path-error.component';
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { LandingHeaderComponent } from './Components/landing-header/landing-header.component';
+import { ViewFilesComponent } from './Components/view-files/view-files.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { LandingHeaderComponent } from './Components/landing-header/landing-head
     LandingPageComponent, // ✅ ADD THIS
     UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, LandingHeaderComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, LandingHeaderComponent, ViewFilesComponent // Declare ChatComponent
     
   ],
   imports: [

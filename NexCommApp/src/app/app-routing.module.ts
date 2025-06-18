@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 
 
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
+import { ViewFilesComponent } from './Components/view-files/view-files.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,6 +37,8 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'home', component: LandingPageComponent },
   { path: 'forgotpassword', component: forgotpwdComponent },
+  {path: 'view-files/:roomId',component: ViewFilesComponent},
+
   { path: '**', redirectTo: '/path-error' }
 ];
 

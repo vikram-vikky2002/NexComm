@@ -16,7 +16,9 @@
         <h2>{{ userName }}</h2>
         <div class="status-dot"></div>
       </div>
-      <div>View Files</div>
+      <div>
+        <button [routerLink]="['/view-files', roomId]">View Files</button>
+      </div>
     </div>
   </div>
 
