@@ -17,6 +17,15 @@ namespace NexCommWebServices.Controllers
         {
             _repository = repository;
         }
+        [HttpPut("update-group-name")]
+        public async Task<IActionResult> UpdateGroupName([FromBody] GroupNameUpdateDto dto)
+        {
+            var result = await _repository.UpdateGroupNameAsync(dto.RoomId, dto.NewName);
+            if (result)
+                return Ok(true);
+            return BadRequest("Failed to update group name");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> SendMessageAsync([FromBody] Models.Message message)

@@ -20,21 +20,21 @@
       <button class="glass-button" (click)="newChat()" style="margin-right: 10px;">New Chat</button>
     </div>
 
+
     <div class="card-grid" style="margin-top: 30px; width: 100%; position: relative; min-height: 100px;">
-  
+
       <!-- Loader Overlay -->
-      <app-loader-component 
-        *ngIf="isLoadingChats"
-        style="
+      <app-loader-component *ngIf="isLoadingChats"
+                            style="
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 10;
-          
+
         ">
       </app-loader-component>
-    
+
       <!-- Chats List -->
       <ng-container *ngIf="!isLoadingChats">
         <div class="chat-card" *ngFor="let chat of filteredChats" (click)="openChat(chat)" style="cursor: pointer;">
