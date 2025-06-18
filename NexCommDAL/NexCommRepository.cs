@@ -28,7 +28,15 @@ public class NexCommRepository
 
         return users;
     }
+    public async Task<bool> UpdateGroupNameAsync(int roomId, string newName)
+    {
+        var room = await Context.ChatRooms.FindAsync(roomId);
+        if (room == null) return false;
 
+        room.GroupName = newName;
+        await Context.SaveChangesAsync();
+        return true;
+    }
     public List<object> GetAllChatRoomsByUser(int userId)
     {
         try

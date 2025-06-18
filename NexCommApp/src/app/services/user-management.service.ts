@@ -31,5 +31,15 @@ export class UserManagementService {
   deleteUser(userId: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrl}/${userId}`);
   }
+  getUser(id: string): Observable<Iuser> {
+    return this.http.get<Iuser>(`${this.apiUrl}/${id}`);
+  }
+
+  updateGroupName(roomId: number, newName: string): Observable<boolean> {
+    return this.http.put<boolean>('https://localhost:7143/api/GroupChat/UpdateGroupName/update-group-name', {
+      roomId,
+      newName
+    });
+  }
 
 }

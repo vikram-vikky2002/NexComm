@@ -30,30 +30,41 @@
 
     <!-- New Group Chat User Selection -->
     <div *ngIf="showNewGroupChat" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px;">
-      <input placeholder="Search users..." [(ngModel)]="newGroupChatSearchTerm" (input)="filterUsersForNewGroupChat()" />
+      <input placeholder="Enter group name..."
+             [(ngModel)]="groupChatName"
+             style="margin-bottom: 10px; display: block; width: 100%;" />
+
+      <input placeholder="Search users..."
+             [(ngModel)]="newGroupChatSearchTerm"
+             (input)="filterUsersForNewGroupChat()"
+             style="margin-bottom: 10px; display: block; width: 100%;" />
+
       <div *ngFor="let user of filteredUsersForNewGroupChat" style="cursor: pointer; padding: 5px;">
-        <input type="checkbox" [checked]="selectedGroupUsers.includes(user)" (change)="toggleGroupUserSelection(user)" />
+        <input type="checkbox"
+               [checked]="selectedGroupUsers.includes(user)"
+               (change)="toggleGroupUserSelection(user)" />
         {{ user.userName }}
       </div>
+
       <button (click)="createGroupChat()">Create Group Chat</button>
       <button (click)="cancelNewGroupChat()">Cancel</button>
     </div>
 
+
     <div class="card-grid" style="margin-top: 30px; width: 100%; position: relative; min-height: 100px;">
-  
+
       <!-- Loader Overlay -->
-      <app-loader-component 
-        *ngIf="isLoadingChats"
-        style="
+      <app-loader-component *ngIf="isLoadingChats"
+                            style="
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 10;
-          
+
         ">
       </app-loader-component>
-    
+
       <!-- Chats List -->
       <ng-container *ngIf="!isLoadingChats">
         <div class="chat-card" *ngFor="let chat of filteredChats" (click)="openChat(chat)" style="cursor: pointer;">
