@@ -29,6 +29,7 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { NewPasswordComponent } from './Components/newpassword/newpassword.component';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { LandingHeaderComponent } from './Components/landing-header/landing-header.component';
+import { ViewFilesComponent } from './Components/view-files/view-files.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +46,14 @@ import { LandingHeaderComponent } from './Components/landing-header/landing-head
     NewChatComponent,
     LandingPageComponent, // ✅ ADD THIS
     UsersComponent,
+<<<<<<< landing-vivek
+    ChatListComponent, // Declare ChatListComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, LandingHeaderComponent, ViewFilesComponent // Declare ChatComponent
+    
+=======
     ChatListComponent,
     ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, NewPasswordComponent, LandingHeaderComponent // Declare ChatComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,

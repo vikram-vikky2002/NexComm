@@ -152,7 +152,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       }
     );
 
-    // console.log(this.files);
+     console.log(this.files);
   }
 
   formatTimestamp(timestamp: string): string {
@@ -266,6 +266,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
     link.click();
     document.body.removeChild(link);
   }
+<<<<<<< landing-vivek
+}
+=======
   isEditing = false;
   private originalName = '';
 
@@ -316,3 +319,4 @@ export class ChatComponent implements OnInit, AfterViewInit {
 }
 
 
+>>>>>>> master
