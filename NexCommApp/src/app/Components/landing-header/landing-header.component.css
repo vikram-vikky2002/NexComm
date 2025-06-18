@@ -1,0 +1,82 @@
+/* Fixed navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #00ABE4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Logo container */
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo image */
+.logo {
+  height: 32px;
+  margin-right: 10px;
+}
+
+
+/* Navigation links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+  /* Individual link style */
+  .nav-links li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+    /* Hover effect for links */
+    .nav-links li a:hover {
+      color: #25d366;
+    }
+
+/* Login button container */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* Login button styling */
+.login-btn {
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 999px;
+  padding: 0.5rem 1.4rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+}
+
+  /* Hover effect for login button */
+  .login-btn:hover {
+    background-color: #25d366;
+    color: #fff;
+    border-color: #25d366;
+  }
+
+/* Add space below header so content isn't hidden */
+body {
+  padding-top: 80px;
+}
