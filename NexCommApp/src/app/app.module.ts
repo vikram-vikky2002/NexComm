@@ -26,6 +26,9 @@ import { TermsComponent } from './Components/terms/terms.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
+import { LandingPageComponent } from './Components/landing-page/landing-page.component';
+import { LandingHeaderComponent } from './Components/landing-header/landing-header.component';
+
 
 @NgModule({
   declarations: [
@@ -40,9 +43,10 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
     AdminNavBarComponent,
     ChatComponent, // Declare ChatComponent
     NewChatComponent,
+    LandingPageComponent, // ✅ ADD THIS
     UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, LandingHeaderComponent // Declare ChatComponent
     
   ],
   imports: [
