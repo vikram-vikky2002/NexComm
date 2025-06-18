@@ -14,6 +14,12 @@ public class NexCommRepository
         Context = new NexCommDbContext();
     }
 
+    // Overload for test injection
+    public NexCommRepository(NexCommDbContext context)
+    {
+        Context = context;
+    }
+
     public List<User> GetAllOnlineUsers()
     {
         List<User> users = new List<User>();

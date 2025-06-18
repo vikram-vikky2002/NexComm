@@ -2,7 +2,7 @@
 GO
 
 IF (EXISTS (SELECT name FROM master.dbo.sysdatabases 
-WHERE ('[' + name + ']' = N'NexCommDB' OR name = N'NexCommDB')))
+WHERE ('[' + name + ']' = N'NexCommTestDB' OR name = N'NexCommTestDB')))
 DROP DATABASE NexCommDB
 
 CREATE DATABASE NexCommDB;
