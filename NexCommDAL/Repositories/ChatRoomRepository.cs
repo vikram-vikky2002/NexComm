@@ -57,20 +57,14 @@ namespace NexCommDAL.Repositories
 
         public async Task AddUserToChatRoomAsync(int roomId, int userId)
         {
-            var existing = await Context.ChatRoomMembers
-                .FirstOrDefaultAsync(m => m.RoomId == roomId && m.UserId == userId);
-
-            if (existing == null)
+            var membership = new ChatRoomMember
             {
-                var membership = new ChatRoomMember
-                {
-                    RoomId = roomId,
-                    UserId = userId
-                };
+                RoomId = roomId,
+                UserId = userId
+            };
 
-                await Context.ChatRoomMembers.AddAsync(membership);
-                await Context.SaveChangesAsync();
-            }
+            await Context.ChatRoomMembers.AddAsync(membership);
+            await Context.SaveChangesAsync();
         }
 
 

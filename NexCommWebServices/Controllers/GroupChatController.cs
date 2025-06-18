@@ -250,26 +250,6 @@ namespace NexCommWebServices.Controllers
             }
         }
 
-        //             var fileEntity = new NexCommDAL.Models.File
-        //             {
-        //                 UserId = file.UserId,
-        //                 FileType = file.FileType,
-        //                 CreatedAt = file.CreatedAt
-        //             };
-
-        //             var result = await _repository.UploadFileAsync(fileEntity);
-
-        //             return Ok(result);
-        //         }
-
-        //         return BadRequest("Invalid model state.");
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, $"Internal server error: {ex.Message}");
-        //     }
-        // }
-
 
         [HttpGet]
         public async Task<IActionResult> GetFilesByUserAsync(int userId)

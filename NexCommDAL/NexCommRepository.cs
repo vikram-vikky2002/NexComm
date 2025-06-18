@@ -262,8 +262,7 @@ public class NexCommRepository
         {
             IsGroup = request.IsGroup,
             CreatedBy = request.CreatedBy,
-            CreatedOn = DateTime.Now,
-            GroupName = request.IsGroup ? request.GroupName : null
+            CreatedOn = DateTime.Now
         };
 
         Context.ChatRooms.Add(newRoom);

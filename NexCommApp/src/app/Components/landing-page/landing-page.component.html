@@ -1,50 +1,63 @@
-<section class="hero d-flex align-items-center text-center">
-  <div class="container">
-    <h1 class="display-4">NexComm</h1>
-    <p class="lead">A real-time, AI-powered communication hub.</p>
-    <a class="btn btn-primary btn-lg" routerLink="/login">Get Started</a>
+<div class="landing">
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
   </div>
-</section>
-
-<section class="features container mt-5">
-  <h2 class="mb-4 text-center">Key Features</h2>
-  <div class="row text-center">
-    <div class="col-md-4 mb-4">
-      <h5>Real-time Chat</h5>
-      <p>Instant messaging with WebSocket technology.</p>
-    </div>
-    <div class="col-md-4 mb-4">
-      <h5>AI Assistance</h5>
-      <p>Smart replies and chat summarisation.</p>
-    </div>
-    <div class="col-md-4 mb-4">
-      <h5>Secure & Scalable</h5>
-      <p>Enterprise-grade security and horizontal scaling.</p>
-    </div>
+  <div class="hero glass" data-aos="fade-up">
+    <h1 class="title">NexComm 💬</h1>
+    <p class="subtitle">Modern LAN-based Chat App with Real-Time Communication</p>
+    <a href="#features" class="cta-btn">Explore Features</a>
   </div>
-</section>
 
-<section class="team bg-light py-5 mt-5">
-  <div class="container">
-    <h2 class="text-center mb-4">Meet the Developers</h2>
-    <div class="row">
-      <!-- Repeat this card for each dev -->
-      <div class="col-md-4 mb-4 text-center">
-        <img src="assets/dev-placeholder.jpg"
-             class="rounded-circle mb-3" width="120" height="120"
-             alt="Developer photo">
-        <h5>Vikram Singh</h5>
-        <p class="text-muted">Full-stack Engineer</p>
-        <p>
-          <a href="https://github.com/vikram" target="_blank">GitHub</a> ·
-          <a href="https://linkedin.com/in/vikram" target="_blank">LinkedIn</a>
-        </p>
-      </div>
-      <!-- /developer card -->
+  <section id="features" class="section" data-aos="fade-up">
+    <h2>✨ Features</h2>
+    <ul>
+      <li>🔁 Real-Time Chat (1-on-1 & Group)</li>
+      <li>🔐 JWT-based Authentication</li>
+      <li>🎨 Glassmorphism UI</li>
+      <li>💡 Admin/User Panels</li>
+      <li>📎 File Sharing (soon)</li>
+    </ul>
+  </section>
+
+  <section class="section" data-aos="fade-left">
+    <h2>🧱 Tech Stack</h2>
+    <div class="tech-stack">
+      <span>Angular 17+</span>
+      <span>ASP.NET Core 8</span>
+      <span>SQL Server</span>
+      <span>JWT Auth</span>
+      <span>WebSocket</span>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer class="text-center py-4">
-  © {{ currentYear }} NexComm · All rights reserved
-</footer>
+  <section class="section" data-aos="fade-right">
+    <h2>🏗️ Architecture</h2>
+    <pre class="code">
+NexComm/
+├── NexCommApp (Frontend)
+├── NexCommWebServices (Backend)
+└── Database (SQL Server)
+    </pre>
+  </section>
+
+  <section class="section" data-aos="zoom-in">
+    <h2>🚀 Ready to Explore?</h2>
+    <p>Visit <strong>http://localhost:4200</strong> after running the services.</p>
+    <a href="#contribute" class="cta-btn">Contribute Now</a>
+  </section>
+
+  <footer id="contribute" class="footer glass" data-aos="fade-up">
+    <p>Developed by Team NexComm 👨‍💻</p>
+    <p>
+      <a href="https://github.com/vikram-vikky2002" target="_blank">Vikram K R</a> •
+      C Rajesh • K Kavin • Sharath • Vivek
+    </p>
+    <p>MIT Licensed • 2025</p>
+  </footer>
+</div>
