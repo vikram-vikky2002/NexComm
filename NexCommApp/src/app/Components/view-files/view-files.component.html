@@ -1,0 +1,15 @@
+<div class="file-container">
+  <h2>Files for Room {{ roomId }}</h2>
+
+  <div *ngIf="loading" class="status-message">Loading files...</div>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <ul *ngIf="files.length" class="file-list">
+    <li *ngFor="let file of files" class="file-item">
+      <span>{{ file.path.split('/').pop() }}</span>
+      <button class="download-button" (click)="downloadFile(file.path)">Download</button>
+    </li>
+  </ul>
+
+  <div *ngIf="!files.length && !loading" class="status-message">No files found.</div>
+</div>

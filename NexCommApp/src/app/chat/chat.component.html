@@ -19,8 +19,9 @@
           {{ isEditing ? 'Save' : 'Edit' }}
         </button>
       </div>
-
-
+      <div>
+        <button [routerLink]="['/view-files', roomId]">View Files</button>
+      </div>
     </div>
   </div>
 
