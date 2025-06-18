@@ -266,9 +266,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     link.click();
     document.body.removeChild(link);
   }
-<<<<<<< landing-vivek
-}
-=======
+
   isEditing = false;
   private originalName = '';
 
@@ -318,5 +316,3 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
 }
 
-
->>>>>>> master

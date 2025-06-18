@@ -46,14 +46,9 @@ import { ViewFilesComponent } from './Components/view-files/view-files.component
     NewChatComponent,
     LandingPageComponent, // ✅ ADD THIS
     UsersComponent,
-<<<<<<< landing-vivek
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, LandingHeaderComponent, ViewFilesComponent // Declare ChatComponent
-    
-=======
-    ChatListComponent,
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, NewPasswordComponent, LandingHeaderComponent // Declare ChatComponent
->>>>>>> master
+    LandingHeaderComponent, ViewFilesComponent, // Declare ChatComponent
+    LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, NewPasswordComponent // Declare ChatComponent
   ],
   imports: [
     BrowserModule,
