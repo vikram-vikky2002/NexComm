@@ -159,29 +159,41 @@ export class ChatListComponent {
       this.selectedGroupUsers.push(user);
     }
   }
+  groupChatName: string = '';
+
 
   createGroupChat() {
     if (this.selectedGroupUsers.length === 0) {
       alert('Please select at least one user for the group chat.');
       return;
     }
-    const groupName = 'New Group Chat'; // Could be enhanced to ask for group name
+
+    if (!this.groupChatName.trim()) {
+      alert('Please enter a group name.');
+      return;
+    }
+
     const newGroupChat = {
       roomId: Date.now(),
-      groupName: groupName,
+      groupName: this.groupChatName.trim(),
       isGroup: true,
       userIds: this.selectedGroupUsers.map(u => u.userId)
     };
+
     this.recentChats.unshift(newGroupChat);
     this.filteredChats = this.recentChats;
     this.showNewGroupChat = false;
     this.newGroupChatSearchTerm = '';
     this.selectedGroupUsers = [];
+    this.groupChatName = ''; // clear field
   }
+
 
   cancelNewGroupChat() {
     this.showNewGroupChat = false;
     this.newGroupChatSearchTerm = '';
+    this.groupChatName = '';
     this.selectedGroupUsers = [];
   }
+
 }

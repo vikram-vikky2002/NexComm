@@ -5,6 +5,7 @@ export interface Iuser {
   "emailId": string,
   "phone": string,
   "newUser": boolean,
+  lastLogin?: string,
   "password": string,
   "live": boolean,
   "isAdmin": boolean
