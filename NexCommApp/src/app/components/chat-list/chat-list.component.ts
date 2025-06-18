@@ -49,6 +49,17 @@ export class ChatListComponent {
     this.router.navigate(['/chat/new']);
   }
 
+  getDisplayName(room: any): string {
+    // ▸ group room
+    if (room.isGroup) {
+      // prefer explicit name → fallback to chatTitle → fallback to default caption
+      return room.groupName?.trim() ?? room.chatTitle?.trim() ?? 'Unnamed Group';
+    }
+  
+    // ▸ one‑to‑one room
+    return room.chatTitle?.trim() ?? 'Unknown User';
+  }
+
   loadChatRoomsByUser(userId: string) {
     this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
       this.recentChats = response;
@@ -68,23 +79,23 @@ export class ChatListComponent {
 
   }
 
-  loadChatRooms() {
-    this.chatService.getChatRoomsByUser("101").subscribe((response) => {
-      this.recentChats = response;
-      this.isLoadingChats = false;
+  // loadChatRooms(userId: string) {
+  //   this.chatService.getChatRoomsByUser(userId).subscribe((response) => {
+  //     this.recentChats = response;
+  //     this.isLoadingChats = false;
 
-      this.filteredChats = this.recentChats;
+  //     this.filteredChats = this.recentChats;
   
-      this.recentChats.forEach(room => {
-        this.chatService.getLatestMessage(room.roomId).subscribe(data => {
-          this.latestMessage[room.roomId] = {
-            message: data.message,
-            userName: data.userName
-          };
-        });
-      });
-    });
-  }
+  //     this.recentChats.forEach(room => {
+  //       this.chatService.getLatestMessage(room.roomId).subscribe(data => {
+  //         this.latestMessage[room.roomId] = {
+  //           message: data.message,
+  //           userName: data.userName
+  //         };
+  //       });
+  //     });
+  //   });
+  // }
 
   openChat(chat: any): void {
     this.router.navigate(['/chat', chat.chatTitle ?? chat.groupName, chat.roomId]);
@@ -148,29 +159,41 @@ export class ChatListComponent {
       this.selectedGroupUsers.push(user);
     }
   }
+  groupChatName: string = '';
+
 
   createGroupChat() {
     if (this.selectedGroupUsers.length === 0) {
       alert('Please select at least one user for the group chat.');
       return;
     }
-    const groupName = 'New Group Chat'; // Could be enhanced to ask for group name
+
+    if (!this.groupChatName.trim()) {
+      alert('Please enter a group name.');
+      return;
+    }
+
     const newGroupChat = {
       roomId: Date.now(),
-      groupName: groupName,
+      groupName: this.groupChatName.trim(),
       isGroup: true,
       userIds: this.selectedGroupUsers.map(u => u.userId)
     };
+
     this.recentChats.unshift(newGroupChat);
     this.filteredChats = this.recentChats;
     this.showNewGroupChat = false;
     this.newGroupChatSearchTerm = '';
     this.selectedGroupUsers = [];
+    this.groupChatName = ''; // clear field
   }
+
 
   cancelNewGroupChat() {
     this.showNewGroupChat = false;
     this.newGroupChatSearchTerm = '';
+    this.groupChatName = '';
     this.selectedGroupUsers = [];
   }
+
 }

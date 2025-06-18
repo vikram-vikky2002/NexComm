@@ -34,6 +34,10 @@ export class AdminNavBarComponent {
     }
   }
 
+  gotoChat() {
+    this.router.navigate(['/chats']);
+  }
+
   onLogout(): void {
     // Clear the token and user data
     this.authService.logout();

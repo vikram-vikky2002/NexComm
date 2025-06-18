@@ -64,9 +64,8 @@ public partial class NexCommDbContext : DbContext
 
         modelBuilder.Entity<ChatRoomMember>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("chatRoomMembers");
+            entity.HasKey(e => new { e.UserId, e.RoomId });
+            entity.ToTable("chatRoomMembers");
 
             entity.Property(e => e.RoomId).HasColumnName("roomId");
             entity.Property(e => e.UserId).HasColumnName("userId");

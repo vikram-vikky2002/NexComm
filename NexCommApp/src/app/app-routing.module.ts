@@ -16,8 +16,6 @@ import { PathErrorComponent } from './path-error/path-error.component';
 import { NewChatComponent } from './Components/new-chat/new-chat.component'; // Import NewChatComponent
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { FormsModule } from '@angular/forms';
-
-
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { NewPasswordComponent } from './Components/newpassword/newpassword.component';
 
