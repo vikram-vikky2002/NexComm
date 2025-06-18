@@ -361,4 +361,25 @@ public class NexCommRepository
             return false;
         }
     }
+
+    public bool SetNewPassword(string newPassword, int userId)
+    {
+        try
+        {
+            var user = Context.Users.Find(userId);
+            if (user != null)
+            {
+                user.Password = newPassword;
+                Context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
 }
