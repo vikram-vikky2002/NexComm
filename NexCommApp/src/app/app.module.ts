@@ -26,6 +26,7 @@ import { TermsComponent } from './Components/terms/terms.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
 import { PathErrorComponent } from './path-error/path-error.component';
 import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
+import { NewPasswordComponent } from './Components/newpassword/newpassword.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { forgotpwdComponent } from './forgotpwd/forgotpwd.component';
     NewChatComponent,
     UsersComponent,
     ChatListComponent, // Declare ChatListComponent
-    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent // Declare ChatComponent
+    ChatComponent, LoginComponent, TermsComponent, NetworkErrorComponent, PathErrorComponent, forgotpwdComponent, NewPasswordComponent // Declare ChatComponent
     
   ],
   imports: [
