@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { LandingPageComponent } from './Components/landing-page/landing-page.component';
 import { ViewFilesComponent } from './Components/view-files/view-files.component';
 import { NewPasswordComponent } from './Components/newpassword/newpassword.component';
+import { PrivacyPolicyComponent } from './Components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,12 +32,13 @@ const routes: Routes = [
   { path: 'helpCenter', component: HelpCenterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'terms', component: TermsComponent },
+  { path: 'privacyPolicy', component: PrivacyPolicyComponent },
   { path: 'network-error', component: NetworkErrorComponent },
   { path: 'path-error', component: PathErrorComponent },
   { path: 'users', component: UsersComponent },
   { path: 'home', component: LandingPageComponent },
   { path: 'forgotpassword', component: forgotpwdComponent },
-  {path: 'view-files/:roomId',component: ViewFilesComponent},
+  { path: 'view-files/:roomId',component: ViewFilesComponent },
   { path: 'newpassword', component: NewPasswordComponent },
   { path: '**', redirectTo: '/path-error' }
 ]
