@@ -9,8 +9,9 @@ import { Observable } from 'rxjs';
 export class UserManagementService {
 
  
-  private apiUrl = 'http://localhost:3000/api/User'; // Adjust based on your backend URL
-
+  // private apiUrl = 'http://localhost:3000/api/User'; // Adjust based on your backend URL
+  private apiUrl = 'http://172.20.10.4:3000/api/User';
+  
   constructor(private http: HttpClient) {}
 
   // ADD User

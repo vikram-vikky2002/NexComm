@@ -37,9 +37,9 @@ const routes: Routes = [
   { path: 'path-error', component: PathErrorComponent },
   { path: 'users', component: UsersComponent },
   { path: 'home', component: LandingPageComponent },
-  { path: 'forgotpassword', component: forgotpwdComponent },
+  { path: 'forgotpassword', component: NewPasswordComponent },
   { path: 'view-files/:roomId',component: ViewFilesComponent },
-  { path: 'newpassword', component: NewPasswordComponent },
+  // { path: 'newpassword', component: NewPasswordComponent },
   { path: '**', redirectTo: '/path-error' }
 ]
 

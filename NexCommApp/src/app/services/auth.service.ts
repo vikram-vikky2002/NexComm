@@ -9,6 +9,10 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
+
+  private apiUrl = 'http://172.20.10.4:3000'; // Replace with your API URL
+  // private apiUrl = 'http://localhost:3000';
+
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   private tokenKey = 'auth_token';
@@ -27,8 +31,13 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  setNewPassword(newPassword: string, userEmail: string) {
+    // endpoint : https://localhost:7143/api/Account/new_password?newPassword=passVikramKR&userId=1106
+    return this.http.post<any>(`${this.apiUrl}/api/Account/new_password`, { newPassword, userEmail });
+  }
+
   login(username: string, password: string) {
-    return this.http.post<any>(`http://localhost:3000/api/user/login`, { username, password })
+    return this.http.post<any>(`${this.apiUrl}/api/user/login`, { username, password })
       .pipe(
         map(user => {
           if (user && user.token) {
@@ -91,4 +100,7 @@ export class AuthService {
       return null;
     }
   }
+
+
+  
 }

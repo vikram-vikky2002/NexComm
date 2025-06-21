@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { OtpService } from '../../services/otp.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-new-password',
@@ -31,13 +33,16 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class NewPasswordComponent implements OnInit {
-  currentPassword: string = '';
+  otp: string = '';
+  generatedOTP: string = '';
   newPassword: string = '';
+  email: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
   isLoading: boolean = false;
   isFormValid: boolean = false;
   showConfirmError: boolean = false;
+  isOTPVerified: boolean = false;
 
   // Password validation properties
   showPasswordHints: boolean = false;
@@ -52,7 +57,7 @@ export class NewPasswordComponent implements OnInit {
   strengthClass: string = '';
   private strengthTimeout: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private otpService: OtpService, private authService: AuthService) { }
 
   ngOnInit(): void { }
 
@@ -115,7 +120,6 @@ export class NewPasswordComponent implements OnInit {
 
   checkFormValidity(): void {
     this.isFormValid =
-      this.currentPassword.length > 0 &&
       this.newPassword.length >= 8 &&
       this.hasUppercase &&
       this.hasNumber &&
@@ -123,27 +127,82 @@ export class NewPasswordComponent implements OnInit {
       this.newPassword === this.confirmPassword;
   }
 
-  onSubmit(): void {
-    if (!this.isFormValid) return;
+  // onSubmit(): void {
+  //   if (!this.isFormValid) {
+  //     this.errorMessage = 'Please fill all required fields';
+  //     return;
+  //   }
+  
+  //   if (!this.generatedOTP) {
+  //     // Generate and send OTP if not already generated
+  //     this.generateAndSendOTP();
+  //     return;
+  //   }
+  
+  //   if (!this.isOTPVerified) {
+  //     // Verify OTP if already generated
+  //     this.verifyOTP();
+  //     return;
+  //   }
+  
+  //   // If OTP is verified, proceed with password update
+  //   this.updatePassword();
+  // }
 
+  generateAndSendOTP(): void {
     this.isLoading = true;
     this.errorMessage = '';
+  
+    // Generate a 6-digit OTP
+    this.generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Simulate API call
+    this.otpService.sendOtp(this.email, this.generatedOTP)
+      .then(() => alert('OTP sent to your email!'))
+      .catch(() => alert('Failed to send OTP.'));
+    
+    // Store OTP in session storage
+    sessionStorage.setItem('resetPasswordOTP', this.generatedOTP);
+    sessionStorage.setItem('resetPasswordEmail', this.email);
+  
+    // Simulate sending email
     setTimeout(() => {
-      // In a real app, you would call your C# backend here
-      console.log('Password change submitted:', {
-        currentPassword: this.currentPassword,
-        newPassword: this.newPassword
-      });
-
-      // Simulate success
       this.isLoading = false;
-      this.router.navigate(['/dashboard']);
-    }, 1500);
+      this.errorMessage = 'OTP has been sent to your email. Please check your inbox.';
+    }, 2000);
+  }
+  
+  verifyOTP(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+  
+    const storedOTP = sessionStorage.getItem('resetPasswordOTP');
+    const storedEmail = sessionStorage.getItem('resetPasswordEmail');
+  
+    if (storedOTP && storedEmail && storedEmail === this.email && this.otp === storedOTP) {
+      this.isOTPVerified = true;
+      this.errorMessage = 'OTP verified successfully!';
+    } else {
+      this.errorMessage = 'Invalid OTP. Please try again.';
+    }
+  
+    this.isLoading = false;
+  }
+  
+  updatePassword(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    alert('Password updated successfully! Please login with your new password.');
+      this.authService.setNewPassword(this.newPassword, this.email)
+      .subscribe(
+        () => {
+          this.isLoading = false;
+          this.router.navigate(['/login']);
+          alert('Password updated successfully! Please login with your new password.');
+        }
+      );
   }
 
   onCancel(): void {
-    this.router.navigate(['/profile']); // Or wherever you want to redirect
+    this.router.navigate(['/login']);
   }
 }

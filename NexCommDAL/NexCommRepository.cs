@@ -368,23 +368,42 @@ public class NexCommRepository
         }
     }
 
-    public bool SetNewPassword(string newPassword, int userId)
+    public async Task<int> GetUserIdByEmailAsync(string email)
     {
         try
         {
+            var user = await Context.Users
+                .Where(u => u.EmailId == email)
+                .FirstOrDefaultAsync();
+
+            return user?.UserId ?? 0;
+        }
+        catch (Exception)
+        {
+            return -99;
+        }
+    }
+
+    public async Task<int> SetNewPassword(string newPassword, string emailId)
+    {
+        int result = 0;
+        try
+        {
+            var userId = await GetUserIdByEmailAsync(emailId);
+
             var user = Context.Users.Find(userId);
             if (user != null)
             {
                 user.Password = newPassword;
                 Context.SaveChanges();
-                return true;
+                return 1;
             }
 
-            return false;
+            return -1;
         }
         catch (Exception ex)
         {
-            return false;
+            return -2;
         }
     }
 
