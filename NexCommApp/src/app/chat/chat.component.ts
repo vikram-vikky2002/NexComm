@@ -58,13 +58,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this.userId = parsedUserId.toString();
 
+    // Start message polling
+    this.startMessagePolling();
+
     this.route.params.subscribe((params: { [key: string]: string | null }) => {
       this.chatId = params['chatTitle'] ?? params['groupName'] ?? '';
       this.roomId = params['roomId'] ?? '';
       this.userName = this.chatId || 'User Name';
 
-      // Start message polling
-      this.startMessagePolling();
+      
     });
     this.userSvc.getUser(this.userId).subscribe(u => {
       this.userName = u.userName;
@@ -78,7 +80,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
-    this.stopMessagePolling();
     this.router.navigate(['/chats']);
   }
 
@@ -92,13 +93,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   private startMessagePolling(): void {
     // Clear any existing interval
-    this.stopMessagePolling();
+    // this.stopMessagePolling();
 
     // Start new polling interval
     this.messagePollingInterval = setInterval(() => {
       if (this.roomId && !this.isSending) {
         this.fetchMessages();
-        this.fetchFiles();
+        // this.fetchFiles();
       }
     }, 3000); // Poll every 5 seconds
   }
