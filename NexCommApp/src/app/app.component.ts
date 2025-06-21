@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   checkNetworkConnection(): void {
-    this.http.get<boolean>('http://localhost:3000/api/Dashboard/testing').subscribe({
+    this.http.get<boolean>('http://172.20.10.4:3000/api/Dashboard/testing').subscribe({
       next: (response: boolean) => {
         if (!response) {
           this.router.navigate(['/network-error']);
